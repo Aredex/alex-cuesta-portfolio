@@ -45,12 +45,12 @@ import { servicesForm } from '../data/config';
   <div class="contact-form__row">
     <label class="contact-form__field">
       Name
-      <input type="text" name="name" required aria-describedby="name-error" />
+      <input type="text" name="name" required autocomplete="name" aria-describedby="name-error" />
       <span id="name-error" class="contact-form__field-error"></span>
     </label>
     <label class="contact-form__field">
       Work email
-      <input type="email" name="email" required aria-describedby="email-error" />
+      <input type="email" name="email" required autocomplete="email" aria-describedby="email-error" />
       <span id="email-error" class="contact-form__field-error"></span>
     </label>
   </div>

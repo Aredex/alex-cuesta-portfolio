@@ -85,6 +85,11 @@ const navItems: NavItem[] = [
   }
 
   .site-header__wordmark {
+    /* Same 44px touch target as the nav links and the two header controls;
+       visually a no-op, since it is already centred in the 70px header row. */
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     font-weight: 600;
     font-size: 17px;
     letter-spacing: -0.01em;

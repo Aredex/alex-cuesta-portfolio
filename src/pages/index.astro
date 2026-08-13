@@ -53,7 +53,15 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
         </div>
       </div>
       <div class="hero__portrait" data-reveal data-reveal-delay="120">
-        <Image src={portraitImage} alt={hero.portraitAlt} width={900} class="hero__portrait-img" />
+        <Image
+          src={portraitImage}
+          alt={hero.portraitAlt}
+          widths={[400, 800]}
+          sizes="(min-width: 1000px) 400px, 100vw"
+          class="hero__portrait-img"
+          loading="eager"
+          fetchpriority="high"
+        />
       </div>
     </div>
   </section>
@@ -125,7 +133,7 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
 
       <article class="work__project work__project--briefline" data-reveal data-reveal-delay="80">
         <figure class="work__figure">
-          <a href="/work/briefline">
+          <a href="/work/briefline" aria-label="Read the Briefline case study">
             <Image
               src={brieflineBoardImage}
               alt={brieflineWork.boardImageAlt}
@@ -391,6 +399,16 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
     margin: 28px auto 0;
     max-width: 84ch;
     text-align: center;
+  }
+
+  /* WCAG 1.4.1 (Use of Color): this is the site's only link inside a block of
+     running text, and --accent against --muted is a ~1:1 luminance contrast in
+     both themes — hue is the only cue. An underline gives a non-colour one.
+     The site-wide "underline on hover only" rule still applies everywhere
+     else, where links are standalone and not embedded in a sentence. */
+  .evidence__footnote a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   /* About */

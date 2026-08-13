@@ -83,7 +83,15 @@ function resolveEvidenceHref(configKey: EvidenceConfigKey): string {
       </div>
 
       <figure class="hero-figure" data-reveal data-reveal-delay="160">
-        <Image src={boardImage} alt={boardImageAlt} class="hero-figure__img" />
+        <Image
+          src={boardImage}
+          alt={boardImageAlt}
+          widths={[640, 1280, 1920]}
+          sizes="(min-width: 1504px) 1216px, 100vw"
+          class="hero-figure__img"
+          loading="eager"
+          fetchpriority="high"
+        />
         <figcaption class="caption font-mono">Board view — the primary working surface, with live counts per status.</figcaption>
       </figure>
     </div>
@@ -91,7 +99,7 @@ function resolveEvidenceHref(configKey: EvidenceConfigKey): string {
 
   <section aria-labelledby="context-heading" class="section section--surface">
     <div class="container two-col">
-      <div data-reveal class="col">
+      <div data-reveal class="col col--context">
         <h2 id="context-heading" class="h2">{brieflineContext.heading}</h2>
         {brieflineContext.paragraphs.map((p) => <p class="body-muted">{p}</p>)}
       </div>
@@ -142,7 +150,7 @@ function resolveEvidenceHref(configKey: EvidenceConfigKey): string {
 
   <section aria-labelledby="states-heading" class="section section--surface">
     <div class="container states-row">
-      <div data-reveal class="col">
+      <div data-reveal class="col col--states">
         <h2 id="states-heading" class="h2">{brieflineStates.heading}</h2>
         {brieflineStates.paragraphs.map((p) => <p class="body-muted">{p}</p>)}
       </div>
@@ -371,6 +379,18 @@ function resolveEvidenceHref(configKey: EvidenceConfigKey): string {
   .col {
     flex: 1 1 420px;
     min-width: 0;
+  }
+
+  /* The prototype sets the measure per section rather than globally: 60ch in
+     "Context and audience" (line 88) vs the 56ch `.body-muted` default used
+     in the decision blocks, and a 380px basis for the "states" text column
+     (line 145) next to its 420px figure. */
+  .col--context .body-muted {
+    max-width: 60ch;
+  }
+
+  .col--states {
+    flex: 1 1 380px;
   }
 
   .h2 {

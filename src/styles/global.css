@@ -17,6 +17,19 @@ html {
   html {
     scroll-behavior: auto;
   }
+
+  /* initReveal() already opts out entirely under reduced motion; this covers
+     the motion it does not own — the carousel's 520ms transform paging and
+     the theme-switch colour fade — so no motion remains for users who asked
+     for none. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Keep the sticky header (min-height:70px) from covering anchor targets. */
@@ -39,6 +52,13 @@ body {
 img {
   display: block;
   max-width: 100%;
+  /* astro:assets emits intrinsic width/height attributes on every <img>, and
+     those map to presentational-hint width/height. Without this reset the
+     `height` hint wins over a fluid `width: 100%` (and over any author
+     `aspect-ratio`), so images render at their intrinsic pixel height and get
+     stretched. `height: auto` restores ratio-preserving scaling while keeping
+     the attributes' CLS-reserving aspect-ratio hint. */
+  height: auto;
 }
 
 a {

@@ -71,6 +71,10 @@ const { capabilities } = Astro.props;
 <style>
   .capabilities {
     border-top: 1px solid var(--line);
+    /* Same vertical section rhythm as every other Home band (About,
+       Experience, Work, Principles, Contact) — the prototype puts it on the
+       inner container (Home v2 prototype, line 240). */
+    padding-block: clamp(72px, 9vw, 120px);
   }
 
   .capabilities__heading {
