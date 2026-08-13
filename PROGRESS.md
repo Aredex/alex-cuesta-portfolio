@@ -50,15 +50,15 @@ Todos centralizados en `src/data/config.ts` salvo el dominio (en `astro.config.m
 9. **Modelo de datos** — `config.briefline.evidence.dataModel`
 10. **Estrategia de testing** — `config.briefline.evidence.testingStrategy`
 11. **Notas de accesibilidad** — `config.briefline.evidence.accessibilityNotes`
-12. **Endpoint de Formspree** — `config.servicesForm.formspreeEndpoint` (crear el formulario en Formspree y pegar la URL `https://formspree.io/f/{form_id}`)
-13. **Foto real para About** (sustituye el placeholder rayado, `aspect-ratio 5/4`) — `src/pages/index.astro`, sección `#about`
-14. **Dominio real de producción** — `astro.config.mjs` (`SITE_URL`, hoy `https://alexcuesta.dev` como placeholder; necesario para `sitemap.xml`/`canonical`/`og:url` cuando se implementen)
-15. **`og:image` 1200×630, favicon definitivo, `sitemap.xml`, `robots.txt`, JSON-LD `Person`** — sin implementar, dependen del punto 14
+12. **Endpoint de Formspree** — `config.servicesForm.formspreeEndpoint` (crear el formulario en Formspree y pegar la URL `https://formspree.io/f/{form_id}` — en curso, ver guía que te di en el chat)
+13. **`og:image` 1200×630, favicon definitivo, `sitemap.xml`, `robots.txt`, JSON-LD `Person`** — sin implementar. El dominio ya está confirmado (`alexcuesta.dev`), así que solo falta decidir/generar estos assets.
 
-Encontré además `/Users/ac/develop_projects/portfolio/landing/profile.png` (1.9 MB) en la raíz del proyecto, sin usar — sigue sin confirmar si es la foto real del punto 13.
+Resuelto desde la primera versión de este documento:
+- ✅ **Foto real de About** — resultó ser la misma imagen que ya usaba el hero (`profile.png` era byte-idéntica a `portrait.png` del handoff). Se usa con un recorte distinto (5/4) para no verse como una copia exacta del hero.
+- ✅ **Dominio de producción** — confirmado como `alexcuesta.dev`, ya no es un placeholder inventado.
 
 ## Si quieres retomar
 
 - Para aplicar el parche de contraste de `--control-line`: pídemelo y lo hago en un commit aparte (no lo toqué porque cambia un token del handoff).
-- Para publicar: dame los 15 valores de arriba (o dime cuáles vas a omitir — el sitio está diseñado para no mostrar un enlace en vez de mostrar uno falso) y los aplico.
+- Para publicar: dame los valores restantes de arriba (o dime cuáles vas a omitir — el sitio está diseñado para no mostrar un enlace en vez de mostrar uno falso) y los aplico.
 - Para desplegar: el build es estático (`npm run build` → `dist/`), listo para Vercel/Netlify/Cloudflare Pages sin configuración adicional más allá del dominio.
