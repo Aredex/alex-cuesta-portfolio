@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { servicesMeta } from '../data/site';
 import { engagements, processSteps } from '../data/services';
+import { buildCanonicalUrl } from '../lib/seo';
 
 /**
  * Hero and contact copy short enough, and used only on this page, that it
@@ -10,19 +11,49 @@ import { engagements, processSteps } from '../data/services';
  * Services" and the Services prototype, lines 47-55 and 159-166).
  */
 const servicesHero = {
-  eyebrow: 'Services',
-  heading: 'Focused help for software that needs to work.',
-  lead: 'Three engagements with explicit scope, practical tests and a concise handover. Each one ends with something you can run and verify without me in the room.',
+  eyebrow: 'Servicios',
+  heading: 'Ayuda de ingeniería enfocada para software que necesita funcionar.',
+  lead: 'Cuatro tipos de encargo con alcance explícito, tests prácticos y un traspaso conciso. Cada uno termina con algo que puedes ejecutar y verificar sin que yo esté en la sala.',
 };
 
 const contactCopy = {
-  heading: 'Send the context, not a brief.',
-  body: 'Tell me what is happening, what should happen instead and what you have already tried. I will reply with the most useful next step.',
-  notice: 'Share only what is safe to discuss. Do not include credentials or sensitive customer data.',
+  heading: 'Envía el contexto, no un brief.',
+  body: 'Cuéntame qué está pasando, qué debería pasar en su lugar y qué has probado ya. Te responderé con el siguiente paso más útil.',
+  notice: 'Comparte solo lo que sea seguro discutir. No incluyas credenciales ni datos sensibles de clientes.',
 };
 
 /** Matches the prototype's 0/80/160/240ms stagger on the four process steps. */
 const revealDelays = [0, 80, 160, 240];
+
+const canonicalUrl = buildCanonicalUrl(Astro.site, Astro.url.pathname);
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: buildCanonicalUrl(Astro.site, '/') },
+    { '@type': 'ListItem', position: 2, name: 'Servicios', item: canonicalUrl },
+  ],
+};
+
+const offerCatalogJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'OfferCatalog',
+  name: 'Servicios de desarrollo freelance — Alex Cuesta',
+  itemListElement: engagements.map((engagement) => ({
+    '@type': 'Service',
+    name: engagement.title,
+    description: engagement.description,
+    areaServed: {
+      '@type': 'Place',
+      name: 'Sevilla, España',
+    },
+    provider: {
+      '@type': 'Person',
+      name: 'Alex Cuesta',
+    },
+  })),
+};
 ---
 
 <BaseLayout
@@ -34,6 +65,8 @@ const revealDelays = [0, 80, 160, 240];
   isServices={true}
   footerBackground="canvas"
   footerShowNav={true}
+  ogType="website"
+  jsonLd={[breadcrumbJsonLd, offerCatalogJsonLd]}
 >
   <section class="services-hero" id="services">
     <div class="services-hero__inner container">
@@ -47,7 +80,7 @@ const revealDelays = [0, 80, 160, 240];
     </div>
   </section>
 
-  <section class="engagements" aria-label="Engagements">
+  <section class="engagements" aria-label="Encargos">
     <div class="container engagements__inner">
       {
         engagements.map((engagement) => (
@@ -60,7 +93,7 @@ const revealDelays = [0, 80, 160, 240];
             </div>
             <div class="engagement__details">
               <div>
-                <h3 class="mono-label">You receive</h3>
+                <h3 class="mono-label">Recibes</h3>
                 <ul class="engagement__receive-list">
                   {engagement.youReceive.map((item) => (
                     <li>{item}</li>
@@ -68,7 +101,7 @@ const revealDelays = [0, 80, 160, 240];
                 </ul>
               </div>
               <div>
-                <h3 class="mono-label">Out of scope</h3>
+                <h3 class="mono-label">Fuera de alcance</h3>
                 <p class="engagement__out-of-scope">{engagement.outOfScope}</p>
               </div>
             </div>
@@ -81,7 +114,7 @@ const revealDelays = [0, 80, 160, 240];
   <section class="process" aria-labelledby="process-heading">
     <div class="container process__inner">
       <h2 id="process-heading" class="process__heading" data-reveal>
-        How an engagement runs.
+        Cómo se desarrolla un encargo.
       </h2>
       <ol class="process__list">
         {

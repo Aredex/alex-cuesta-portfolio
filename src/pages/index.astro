@@ -19,7 +19,7 @@ import { brieflineWork, chiperWork } from '../data/work';
 import { principles } from '../data/principles';
 import { capabilities } from '../data/capabilities';
 import { now } from '../data/now';
-import { contact as contactConfig, resume, briefline } from '../data/config';
+import { contact as contactConfig, briefline, isResolved } from '../data/config';
 
 /**
  * Home (`/`). Implements hero variant A (`portrait-editorial`) only — see
@@ -31,6 +31,51 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
  * left undefined on purpose: the prototype never highlights a nav item on
  * Home, only on the internal pages the sections belong to.
  */
+
+import { buildAbsoluteUrl, buildCanonicalUrl } from '../lib/seo';
+
+const canonicalUrl = buildCanonicalUrl(Astro.site, Astro.url.pathname);
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Alex Cuesta',
+  url: canonicalUrl,
+  image: buildAbsoluteUrl(Astro.site, portraitImage.src),
+  jobTitle: 'Desarrollador full-stack freelance',
+  homeLocation: {
+    '@type': 'Place',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Sevilla',
+      addressCountry: 'ES',
+    },
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Sevilla',
+    addressCountry: 'ES',
+  },
+  sameAs: [contactConfig.linkedin, contactConfig.github],
+  knowsAbout: [
+    'Node.js',
+    'TypeScript',
+    'React',
+    'NestJS',
+    'PostgreSQL',
+    'Diseño e integración de APIs',
+    'Automatización de workflows',
+    'IA aplicada a producción',
+  ],
+};
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Alex Cuesta',
+  url: canonicalUrl,
+  inLanguage: 'es-ES',
+};
 ---
 
 <BaseLayout
@@ -40,6 +85,8 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
   footerBackground="surface"
   footerShowNav={true}
   showServicesNav={false}
+  ogType="website"
+  jsonLd={[personJsonLd, websiteJsonLd]}
 >
   <section class="hero">
     <div class="container hero__inner">
@@ -49,8 +96,7 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
         <p class="hero__statement">{hero.statement}</p>
         <p class="hero__lead">{hero.lead}</p>
         <div class="hero__actions">
-          <a href="#contact" class="btn btn--primary">Start a conversation</a>
-          <a href={resume.pdfUrl} class="btn btn--secondary">Download résumé</a>
+          <a href="#contact" class="btn btn--primary">Empezar una conversación</a>
         </div>
       </div>
       <div class="hero__portrait" data-reveal data-reveal-delay="120">
@@ -69,7 +115,7 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
 
   <section aria-labelledby="evidence-heading" class="evidence">
     <div class="container">
-      <h2 id="evidence-heading" class="visually-hidden">Professional evidence</h2>
+      <h2 id="evidence-heading" class="visually-hidden">Evidencia profesional</h2>
       <div class="evidence__grid">
         {
           evidenceMetrics.map((metric, i) => (
@@ -81,7 +127,7 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
         }
       </div>
       <p class="evidence__footnote">
-        {evidenceFootnote} <a href="#experience">The context for each one is in Experience</a>.
+        {evidenceFootnote} <a href="#experience">El contexto de cada cifra está en Experiencia</a>.
       </p>
     </div>
   </section>
@@ -132,7 +178,7 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
 
       <article class="work__project work__project--briefline" data-reveal data-reveal-delay="80">
         <figure class="work__figure">
-          <a href="/work/briefline" aria-label="Read the Briefline case study">
+          <a href="/work/briefline" aria-label="Leer el caso de estudio de Briefline">
             <Image
               src={brieflineBoardImage}
               alt={brieflineWork.boardImageAlt}
@@ -146,8 +192,10 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
           <p class="work__description">{brieflineWork.description}</p>
           <p class="work__stack font-mono">{brieflineWork.stack}</p>
           <div class="work__actions">
-            <a href="/work/briefline" class="btn btn--primary">Read case study</a>
-            <a href={briefline.demoUrl} class="btn btn--secondary">Open live demo</a>
+            <a href="/work/briefline" class="btn btn--primary">Leer el caso de estudio</a>
+            {isResolved(briefline.demoUrl) && (
+              <a href={briefline.demoUrl} class="btn btn--secondary">Abrir demo en vivo</a>
+            )}
           </div>
           <p class="work__disclaimer">{brieflineWork.disclaimer}</p>
         </div>
@@ -200,7 +248,7 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
         <h2 id="contact-heading" class="contact__heading">{contactCopy.heading}</h2>
         <p class="contact__lead">{contactCopy.lead}</p>
         <div class="contact__row">
-          <a href="#contact" class="btn btn--primary">Start a conversation</a>
+          <a href="#contact" class="btn btn--primary">Empezar una conversación</a>
           <div class="contact__links">
             <a href={contactConfig.linkedin} class="contact__link">LinkedIn</a>
             <a href={contactConfig.github} class="contact__link">GitHub</a>

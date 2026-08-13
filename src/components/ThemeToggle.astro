@@ -20,9 +20,9 @@
   class="theme-toggle"
   aria-live="polite"
   aria-pressed="false"
-  aria-label="Switch to dark theme"
+  aria-label="Cambiar a tema oscuro"
 >
-  <span class="theme-toggle__label" aria-hidden="true">DARK</span>
+  <span class="theme-toggle__label" aria-hidden="true">OSCURO</span>
 </button>
 
 <style>
@@ -57,10 +57,10 @@
     const label = button.querySelector('.theme-toggle__label');
 
     if (label) {
-      label.textContent = target === 'dark' ? 'DARK' : 'LIGHT';
+      label.textContent = target === 'dark' ? 'OSCURO' : 'CLARO';
     }
     button.setAttribute('aria-pressed', String(current === 'dark'));
-    button.setAttribute('aria-label', `Switch to ${target} theme`);
+    button.setAttribute('aria-label', `Cambiar a tema ${target === 'dark' ? 'oscuro' : 'claro'}`);
   }
 
   const button = document.getElementById('theme-toggle') as HTMLButtonElement | null;

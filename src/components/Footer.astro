@@ -14,6 +14,8 @@
  * nav as Work · Experience · Services · Contact — treated as prototype
  * drift rather than an intentional per-page order, same call as in Header.
  */
+import { site } from '../data/site';
+
 export interface Props {
   background?: 'surface' | 'canvas';
   showNav?: boolean;
@@ -27,23 +29,23 @@ const homeSectionHref = (anchor: string) => (isHome ? `#${anchor}` : `/#${anchor
 const servicesHref = isServices ? '#services' : '/services';
 
 const navItems = [
-  { label: 'Experience', href: homeSectionHref('experience') },
-  { label: 'Work', href: homeSectionHref('work') },
-  { label: 'Services', href: servicesHref },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Experiencia', href: homeSectionHref('experience') },
+  { label: 'Trabajo', href: homeSectionHref('work') },
+  { label: 'Servicios', href: servicesHref },
+  { label: 'Contacto', href: '#contact' },
 ];
 ---
 
 <footer class="site-footer" data-background={background}>
   <div class="site-footer__inner container">
     <div>
-      <p class="site-footer__name">Alex Cuesta</p>
-      <p class="site-footer__tagline font-mono">Clear decisions. Reliable software. Verifiable work.</p>
+      <p class="site-footer__name">{site.name}</p>
+      <p class="site-footer__tagline font-mono">{site.tagline}</p>
     </div>
 
     {
       showNav && (
-        <nav aria-label="Footer" class="site-footer__nav">
+        <nav aria-label="Pie de página" class="site-footer__nav">
           {navItems.map((item) => (
             <a href={item.href} class="site-footer__link">
               {item.label}
@@ -53,7 +55,7 @@ const navItems = [
       )
     }
 
-    <p class="site-footer__copyright font-mono">© 2026 Pedro Alexander Cuesta Rivas</p>
+    <p class="site-footer__copyright font-mono">{site.copyright}</p>
   </div>
 </footer>
 

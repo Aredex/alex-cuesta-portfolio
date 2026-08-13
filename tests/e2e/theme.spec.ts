@@ -9,13 +9,13 @@ test.describe('Theme toggle and persistence', () => {
 
     await expect(html).toHaveAttribute('data-theme', 'light');
     await expect(toggle).toHaveAttribute('aria-pressed', 'false');
-    await expect(toggle).toHaveText('DARK');
+    await expect(toggle).toHaveText('OSCURO');
 
     await toggle.click();
 
     await expect(html).toHaveAttribute('data-theme', 'dark');
     await expect(toggle).toHaveAttribute('aria-pressed', 'true');
-    await expect(toggle).toHaveText('LIGHT');
+    await expect(toggle).toHaveText('CLARO');
     await expect
       .poll(() => page.evaluate(() => localStorage.getItem('ac-theme')))
       .toBe('dark');

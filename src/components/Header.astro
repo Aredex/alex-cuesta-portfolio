@@ -29,13 +29,13 @@ type NavItem = { key: NavKey; label: string; href: string };
 const homeSectionHref = (anchor: string) => (isHome ? `#${anchor}` : `/#${anchor}`);
 
 const navItems: NavItem[] = [
-  { key: 'experience', label: 'Experience', href: homeSectionHref('experience') },
-  { key: 'work', label: 'Work', href: homeSectionHref('work') },
-  { key: 'about', label: 'About', href: homeSectionHref('about') },
+  { key: 'experience', label: 'Experiencia', href: homeSectionHref('experience') },
+  { key: 'work', label: 'Trabajo', href: homeSectionHref('work') },
+  { key: 'about', label: 'Sobre mí', href: homeSectionHref('about') },
   ...(showServicesNav
-    ? [{ key: 'services' as const, label: 'Services', href: '#services' }]
+    ? [{ key: 'services' as const, label: 'Servicios', href: '#services' }]
     : []),
-  { key: 'contact', label: 'Contact', href: '#contact' },
+  { key: 'contact', label: 'Contacto', href: '#contact' },
 ];
 ---
 
@@ -43,7 +43,7 @@ const navItems: NavItem[] = [
   <div class="site-header__inner container">
     <a href="/" class="site-header__wordmark">Alex Cuesta</a>
 
-    <nav aria-label="Primary" class="site-header__nav">
+    <nav aria-label="Principal" class="site-header__nav">
       {
         navItems.map((item) => (
           <a
@@ -60,7 +60,7 @@ const navItems: NavItem[] = [
 
     <div class="site-header__actions">
       <ThemeToggle />
-      <a href="#contact" class="site-header__cta">Start a conversation</a>
+      <a href="#contact" class="site-header__cta">Empezar una conversación</a>
     </div>
   </div>
 </header>

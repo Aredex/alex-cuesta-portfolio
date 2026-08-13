@@ -13,7 +13,7 @@ test.describe('Services contact form', () => {
     await expect(page.locator('#contact-form-status')).toHaveText('');
   });
 
-  test('shows a disabled "Sending context…" state while the request is in flight', async ({
+  test('shows a disabled "Enviando contexto…" state while the request is in flight', async ({
     page,
   }) => {
     await page.goto('/services');
@@ -30,22 +30,22 @@ test.describe('Services contact form', () => {
 
     await page.locator('#contact-form input[name="name"]').fill('Jordan Rivera');
     await page.locator('#contact-form input[name="email"]').fill('jordan@example.com');
-    await page.locator('#contact-form textarea[name="problem"]').fill('Our webhook retries silently fail.');
+    await page.locator('#contact-form textarea[name="problem"]').fill('Nuestros reintentos de webhook fallan en silencio.');
     await page
       .locator('#contact-form textarea[name="outcome"]')
-      .fill('A runbook for replaying a failed delivery.');
+      .fill('Un runbook para repetir una entrega fallida.');
 
     const submit = page.locator('#contact-form-submit');
     const status = page.locator('#contact-form-status');
 
     await submit.click();
     await expect(submit).toBeDisabled();
-    await expect(submit).toHaveText('Sending context…');
+    await expect(submit).toHaveText('Enviando contexto…');
 
     await expect(status).toHaveAttribute('role', 'alert');
-    await expect(status).toContainText('Something went wrong sending this');
+    await expect(status).toContainText('Algo ha fallado al enviarlo');
     await expect(submit).toBeEnabled();
-    await expect(submit).toHaveText('Send project context');
+    await expect(submit).toHaveText('Enviar contexto del proyecto');
   });
 
   test('reaches the error state against the real placeholder endpoint', async ({ page }) => {
@@ -53,10 +53,10 @@ test.describe('Services contact form', () => {
 
     await page.locator('#contact-form input[name="name"]').fill('Jordan Rivera');
     await page.locator('#contact-form input[name="email"]').fill('jordan@example.com');
-    await page.locator('#contact-form textarea[name="problem"]').fill('Our webhook retries silently fail.');
+    await page.locator('#contact-form textarea[name="problem"]').fill('Nuestros reintentos de webhook fallan en silencio.');
     await page
       .locator('#contact-form textarea[name="outcome"]')
-      .fill('A runbook for replaying a failed delivery.');
+      .fill('Un runbook para repetir una entrega fallida.');
 
     const submit = page.locator('#contact-form-submit');
     const status = page.locator('#contact-form-status');
@@ -68,17 +68,17 @@ test.describe('Services contact form', () => {
     // intermediate "sending" state.
     await submit.click();
     await expect(status).toHaveAttribute('role', 'alert');
-    await expect(status).toContainText('Something went wrong sending this');
+    await expect(status).toContainText('Algo ha fallado al enviarlo');
     await expect(submit).toBeEnabled();
   });
 
   test('labels are programmatically associated with their fields', async ({ page }) => {
     await page.goto('/services');
 
-    await expect(page.getByLabel('Name')).toHaveAttribute('name', 'name');
-    await expect(page.getByLabel('Work email')).toHaveAttribute('name', 'email');
-    await expect(page.getByLabel('What are you working on?')).toHaveAttribute('name', 'problem');
-    await expect(page.getByLabel('What would a useful outcome look like?')).toHaveAttribute(
+    await expect(page.getByLabel('Nombre')).toHaveAttribute('name', 'name');
+    await expect(page.getByLabel('Email de trabajo')).toHaveAttribute('name', 'email');
+    await expect(page.getByLabel('¿En qué estás trabajando?')).toHaveAttribute('name', 'problem');
+    await expect(page.getByLabel('¿Cómo sería un resultado útil?')).toHaveAttribute(
       'name',
       'outcome'
     );

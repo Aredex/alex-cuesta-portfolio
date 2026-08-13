@@ -6,28 +6,28 @@ export interface Capability {
 
 export const capabilities: Capability[] = [
   {
-    title: 'Product and API engineering',
+    title: 'Ingeniería de producto y API',
     description:
-      'When a product needs a system behind it and the requirements are still moving. I define the contract first, so the frontend, the API and the tests agree on the same behavior.',
+      'Cuando un producto necesita un sistema detrás y los requisitos todavía se mueven. Defino el contrato primero, para que el frontend, la API y los tests coincidan en el mismo comportamiento.',
     evidence:
-      "Evidence: Briefline's OpenAPI 3.1 contract · Node.js · TypeScript · NestJS · PostgreSQL",
+      'Evidencia: contrato OpenAPI 3.1 de Briefline · Node.js · TypeScript · NestJS · PostgreSQL',
   },
   {
-    title: 'Reliable backend systems',
+    title: 'Sistemas backend fiables',
     description:
-      'When money, concurrency or third parties are involved and failure is not hypothetical. I work on the paths that only matter when something goes wrong.',
-    evidence: 'Evidence: ~500K monthly transactions at 99.9% uptime · queues · retries · observability',
+      'Cuando hay dinero, concurrencia o terceros de por medio y el fallo no es hipotético. Trabajo en los caminos que solo importan cuando algo sale mal.',
+    evidence: 'Evidencia: ~500K transacciones mensuales al 99,9% de uptime · colas · reintentos · observabilidad',
   },
   {
-    title: 'Internal tools and workflows',
+    title: 'Herramientas internas y workflows',
     description:
-      'When an operations team is losing hours in spreadsheets and workarounds. Data-heavy interfaces that are fast by keyboard and honest about state.',
-    evidence: 'Evidence: internal tooling at Chiper · React · Next.js · WCAG 2.2 AA target',
+      'Cuando un equipo de operaciones pierde horas en hojas de cálculo y soluciones improvisadas. Interfaces con mucho dato, rápidas por teclado y honestas sobre su estado.',
+    evidence: 'Evidencia: herramientas internas en Chiper · React · Next.js · objetivo WCAG 2.2 AA',
   },
   {
-    title: 'Automation and production AI',
+    title: 'Automatización e IA en producción',
     description:
-      'When automations mostly work but nobody can explain what happens on a failed run. I make the boundaries, retries and replay explicit.',
-    evidence: 'Evidence: conversational AI in production · Vertex AI · Gemini function calling · n8n',
+      'Cuando las automatizaciones funcionan casi siempre pero nadie puede explicar qué pasa en una ejecución fallida. Hago explícitos los límites, los reintentos y el replay.',
+    evidence: 'Evidencia: IA conversacional en producción · Vertex AI · function calling de Gemini · n8n',
   },
 ];

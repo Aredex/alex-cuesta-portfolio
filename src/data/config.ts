@@ -2,21 +2,31 @@
  * Every real-world value the design handoff could not provide: contact
  * destinations, external links and the form endpoint. Each TODO must be
  * replaced with a real, verifiable URL before launch — the site's premise is
- * that every claim and every link is checkable, so an unresolved TODO should
- * be replaced or the link removed, never left pointing at a placeholder.
+ * that every claim and every link is checkable, so an unresolved TODO must
+ * never render as a live link. `isResolved` is the single gate every
+ * consumer of these placeholder fields must check before rendering a link
+ * that depends on them.
  */
 
+/** True when a config value is a real, publishable URL/address — false for
+ * an unfilled `TODO_*` placeholder or an empty string. */
+export function isResolved(value: string): boolean {
+  return value.length > 0 && !value.startsWith('TODO_');
+}
+
 export const contact = {
-  /** TODO: replace with the real mailto address. */
-  email: 'TODO_EMAIL',
-  /** TODO: replace with the real LinkedIn profile URL. */
-  linkedin: 'TODO_LINKEDIN_URL',
-  /** TODO: replace with the real GitHub profile URL. */
-  github: 'TODO_GITHUB_URL',
+  email: 'mailto:develop@alexcuesta.dev',
+  linkedin: 'https://www.linkedin.com/in/pacuestar/',
+  github: 'https://github.com/Aredex',
 };
 
+/**
+ * Résumé PDF intentionally not published yet — the "Download résumé" CTA is
+ * removed from the UI rather than pointed at a placeholder. Field kept
+ * (typed, unresolved) so the CTA can come back with a single value change.
+ */
 export const resume = {
-  /** TODO: replace with the real résumé PDF path (e.g. /resume-alex-cuesta.pdf). */
+  /** TODO: replace with the real résumé PDF path (e.g. /cv-alex-cuesta.pdf) when it is ready to publish. */
   pdfUrl: 'TODO_RESUME_PDF_URL',
 };
 

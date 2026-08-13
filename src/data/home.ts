@@ -1,39 +1,39 @@
 export const hero = {
   name: 'Alex Cuesta',
-  role: 'Senior Full-Stack & Product Engineer',
-  statement: 'I turn ambiguous product problems into reliable software.',
-  lead: 'I build APIs, internal tools, automation and production AI systems for teams that need clarity, reliability and ownership.',
-  portraitAlt: 'Alex Cuesta, senior full-stack and product engineer',
+  role: 'Desarrollador full-stack freelance en Sevilla',
+  statement: 'Convierto problemas de producto ambiguos en software fiable.',
+  lead: 'Construyo APIs, herramientas internas, automatización y sistemas de IA en producción para equipos y empresas que necesitan claridad, fiabilidad y trabajo del que puedan hacerse cargo.',
+  portraitAlt: 'Alex Cuesta, desarrollador full-stack freelance en Sevilla',
 };
 
 export const about = {
-  heading: 'I work best where the problem is still unclear.',
-  lead: 'I started close to backend systems, payments and infrastructure. Over time, my work expanded into product decisions, frontend experiences and technical leadership.',
-  body: 'I am most useful when a problem is still unclear and a team needs someone to understand the constraints, define the boundaries and carry the solution into production — then explain the trade-offs it took to get there.',
-  portraitAlt: 'Alex Cuesta, professional headshot',
+  heading: 'Trabajo mejor cuando el problema todavía no está claro.',
+  lead: 'Empecé cerca de los sistemas backend, los pagos y la infraestructura. Con el tiempo, mi trabajo se extendió a decisiones de producto, experiencias frontend y liderazgo técnico.',
+  body: 'Soy más útil cuando un problema todavía no está claro y un equipo necesita a alguien que entienda las restricciones, defina los límites y lleve la solución a producción — y después explique las decisiones que costó tomar.',
+  portraitAlt: 'Alex Cuesta, retrato profesional',
 };
 
 export const experienceIntro = {
-  heading: 'Five years building systems used at scale.',
-  lead: 'At Chiper I grew from backend engineer to technical leader, working across payments, billing, internal tools, cloud infrastructure and production AI — mostly on systems other teams depended on every day.',
+  heading: 'Cinco años construyendo sistemas usados a escala.',
+  lead: 'En Chiper crecí de ingeniero backend a líder técnico, trabajando en pagos, facturación, herramientas internas, infraestructura cloud e IA en producción — en su mayoría sistemas de los que otros equipos dependían cada día.',
 };
 
 export const workIntro = {
-  heading: 'Selected work',
-  note: 'Two projects, explained properly, instead of a gallery.',
+  heading: 'Trabajo seleccionado',
+  note: 'Dos proyectos, explicados con detalle, en vez de una galería.',
 };
 
 export const principlesIntro = {
-  heading: 'How I think about building software.',
+  heading: 'Cómo pienso el desarrollo de software.',
 };
 
 export const capabilitiesIntro = {
-  heading: 'Where I add the most value.',
+  heading: 'Dónde aporto más valor.',
 };
 
 export const contact = {
   eyebrow:
-    'I am open to senior product engineering opportunities, technical leadership conversations and selected software collaborations.',
-  heading: 'Have a product problem worth clarifying?',
-  lead: 'Tell me what is happening, what should happen instead and what you have already tried. I will reply with the most useful next step.',
+    'Tengo disponibilidad para proyectos freelance en Sevilla y alrededores: desarrollo a medida, integraciones y automatización. También estoy abierto a conversaciones puntuales de liderazgo técnico.',
+  heading: '¿Tienes un problema de producto que merece la pena aclarar?',
+  lead: 'Cuéntame qué está pasando, qué debería pasar en su lugar y qué has probado ya. Te responderé con el siguiente paso más útil.',
 };

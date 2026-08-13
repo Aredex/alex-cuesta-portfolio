@@ -1,17 +1,17 @@
 export const brieflineWork = {
-  title: 'From an ambiguous brief to a verifiable product.',
+  title: 'De un brief ambiguo a un producto verificable.',
   description:
-    'Briefline is an independent full-stack case study for small digital agencies. I defined the product, designed the workflow, built the frontend and API, and documented the evidence needed to verify its behavior.',
+    'Briefline es un caso de estudio full-stack independiente para pequeñas agencias digitales. Definí el producto, diseñé el flujo de trabajo, construí el frontend y la API, y documenté la evidencia necesaria para verificar su comportamiento.',
   stack: 'React · NestJS · PostgreSQL · OpenAPI 3.1 · Playwright',
   disclaimer:
-    'Independent case study inspired by a real marketplace brief. Not commissioned client work.',
+    'Caso de estudio independiente inspirado en un brief real de marketplace. No es trabajo comisionado por un cliente.',
   boardImageAlt:
-    'Briefline task board with Pending, In progress, Blocked and Completed columns, each task showing priority and assignee.',
+    'Tablero de tareas de Briefline con columnas Pendiente, En curso, Bloqueada y Completada, cada tarea con prioridad y responsable.',
 };
 
 export const chiperWork = {
-  title: 'Payment and billing platform · Chiper',
+  title: 'Plataforma de pagos y facturación · Chiper',
   description:
-    'Professional work: the transaction and multi-country billing systems behind ~500K monthly payments, kept at 99.9% uptime through a migration. Details available in conversation rather than public code.',
-  badge: 'PROFESSIONAL WORK · NDA',
+    'Trabajo profesional: los sistemas de transacciones y facturación multipaís detrás de ~500K pagos mensuales, mantenidos al 99,9% de uptime durante una migración. Detalles disponibles en conversación, no como código público.',
+  badge: 'TRABAJO PROFESIONAL · NDA',
 };

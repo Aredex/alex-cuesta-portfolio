@@ -5,7 +5,7 @@
  */
 export const now = {
   updatedAt: '2026-08',
-  label: 'NOW · AUGUST 2026',
-  title: 'Currently building: n8n Reliability Lab',
-  body: 'A public reliability lab for validating retries, deduplication and recovery behavior in production-style automation workflows. In development — I will link it here when there is something you can run.',
+  label: 'AHORA · AGOSTO 2026',
+  title: 'En desarrollo: n8n Reliability Lab',
+  body: 'Un laboratorio público para validar reintentos, deduplicación y recuperación en workflows de automatización con estilo de producción. En desarrollo — lo enlazaré aquí en cuanto haya algo que puedas ejecutar.',
 };

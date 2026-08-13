@@ -12,42 +12,56 @@ export const engagements: Engagement[] = [
     index: '01 / FIX',
     title: 'Bug Rescue 90',
     description:
-      'A single reproducible defect in a production application, diagnosed and fixed with a regression test that fails before the change and passes after it.',
-    pricingNote: 'Fixed scope · quoted per case',
+      'Un defecto reproducible en una aplicación en producción, diagnosticado y corregido con un test de regresión que falla antes del cambio y pasa después.',
+    pricingNote: 'Alcance cerrado · presupuesto por caso',
     youReceive: [
-      'A written reproduction and root cause',
-      'The fix as a reviewable pull request',
-      'A regression test that pins the behavior',
+      'Una reproducción escrita y la causa raíz',
+      'La corrección como pull request revisable',
+      'Un test de regresión que fija el comportamiento',
     ],
     outOfScope:
-      'Refactors beyond the affected path, new features, and defects that cannot be reproduced on a environment I can access.',
+      'Refactors más allá de la ruta afectada, nuevas funcionalidades, y defectos que no puedan reproducirse en un entorno al que tenga acceso.',
   },
   {
     index: '02 / INTEGRATE',
-    title: 'API Integration Check',
+    title: 'Revisión de integración API',
     description:
-      'A review of one integration you depend on: contract, authentication, error handling, retries, idempotency and what happens when the other side is slow or wrong.',
-    pricingNote: 'Fixed scope · quoted per case',
+      'Una revisión de una integración de la que dependes: contrato, autenticación, manejo de errores, reintentos, idempotencia y qué ocurre cuando el otro lado va lento o falla.',
+    pricingNote: 'Alcance cerrado · presupuesto por caso',
     youReceive: [
-      'A failure-case table with current and expected behavior',
-      'Prioritised findings, separated into risk and polish',
-      'Example requests and tests for the critical paths',
+      'Una tabla de casos de fallo con el comportamiento actual y el esperado',
+      'Hallazgos priorizados, separados entre riesgo y pulido',
+      'Peticiones de ejemplo y tests para las rutas críticas',
     ],
     outOfScope:
-      'Rewriting the integration, negotiating with the third-party vendor, and changes to systems outside the reviewed boundary.',
+      'Reescribir la integración, negociar con el proveedor externo, y cambios en sistemas fuera del límite revisado.',
   },
   {
     index: '03 / OPERATE',
-    title: 'n8n Reliability Audit',
+    title: 'Auditoría de fiabilidad n8n',
     description:
-      'An audit of automations that mostly work: duplicate runs, silent failures, missing validation, and no way to replay what was lost.',
-    pricingNote: 'Fixed scope · quoted per case',
+      'Una auditoría de automatizaciones que funcionan casi siempre: ejecuciones duplicadas, fallos silenciosos, validación ausente y ninguna forma de recuperar lo perdido.',
+    pricingNote: 'Alcance cerrado · presupuesto por caso',
     youReceive: [
-      'A map of every workflow, trigger and external dependency',
-      'Deduplication, validation and retry patterns applied where they matter',
-      'A runbook for detecting and replaying a failed run',
+      'Un mapa de cada workflow, disparador y dependencia externa',
+      'Patrones de deduplicación, validación y reintento aplicados donde importan',
+      'Un runbook para detectar y repetir una ejecución fallida',
     ],
-    outOfScope: 'Ongoing operation of the workflows, and building new automations beyond the audited set.',
+    outOfScope: 'La operación continua de los workflows, y construir nuevas automatizaciones más allá del conjunto auditado.',
+  },
+  {
+    index: '04 / BUILD',
+    title: 'Desarrollo a medida',
+    description:
+      'Una aplicación web o móvil construida desde cero o sobre una base existente: backend en Node.js/NestJS, frontend en React y una API bien definida desde el primer commit. Para negocios que necesitan una herramienta que hoy no existe, no una plantilla genérica.',
+    pricingNote: 'Alcance por fases · presupuesto por caso',
+    youReceive: [
+      'Una propuesta técnica con arquitectura, alcance y fases de entrega',
+      'Código en repositorio propio, con tests desde el primer sprint',
+      'Documentación y traspaso para que tu equipo pueda continuar sin mí',
+    ],
+    outOfScope:
+      'Diseño gráfico o de identidad de marca — trabajo con un diseño ya definido o con componentes funcionales sobrios, y mantenimiento indefinido fuera de lo pactado en cada fase.',
   },
 ];
 
@@ -60,23 +74,23 @@ export interface ProcessStep {
 export const processSteps: ProcessStep[] = [
   {
     index: '01',
-    title: 'Context',
-    description: 'You describe what is happening and what should happen instead. I confirm whether the work fits.',
+    title: 'Contexto',
+    description: 'Me cuentas qué está pasando y qué debería pasar en su lugar. Confirmo si el trabajo encaja.',
   },
   {
     index: '02',
-    title: 'Scope',
+    title: 'Alcance',
     description:
-      'Written scope, acceptance criteria, access needed, price and dates. Nothing starts before this is agreed.',
+      'Alcance por escrito, criterios de aceptación, acceso necesario, precio y fechas. Nada empieza antes de acordar esto.',
   },
   {
     index: '03',
-    title: 'Work',
-    description: 'Reviewable changes, one update mid-way, and a note whenever a finding changes the plan.',
+    title: 'Trabajo',
+    description: 'Cambios revisables, una actualización a mitad de camino, y aviso cada vez que un hallazgo cambia el plan.',
   },
   {
     index: '04',
-    title: 'Handover',
-    description: 'Tests, documentation and a short summary of decisions, so your team can continue without me.',
+    title: 'Traspaso',
+    description: 'Tests, documentación y un resumen breve de las decisiones, para que tu equipo pueda continuar sin mí.',
   },
 ];

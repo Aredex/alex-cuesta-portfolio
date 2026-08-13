@@ -56,11 +56,11 @@ export function computeDimensions(
   return { perView, slideWidth, maxIndex };
 }
 
-/** `CAPABILITY {from}–{to} OF {total}` counter text. */
+/** `CAPACIDAD {from}–{to} DE {total}` counter text. */
 export function getCounterText(index: number, perView: number, total: number): string {
   const from = index + 1;
   const to = Math.min(total, index + perView);
-  return `CAPABILITY ${from}–${to} OF ${total}`;
+  return `CAPACIDAD ${from}–${to} DE ${total}`;
 }
 
 function readGap(track: HTMLElement): number {

@@ -1,25 +1,25 @@
 export const site = {
   name: 'Alex Cuesta',
   legalName: 'Pedro Alexander Cuesta Rivas',
-  role: 'Senior Full-Stack & Product Engineer',
-  tagline: 'Clear decisions. Reliable software. Verifiable work.',
+  role: 'Desarrollador full-stack freelance en Sevilla',
+  tagline: 'Decisiones claras. Software fiable. Trabajo verificable.',
   copyright: '© 2026 Pedro Alexander Cuesta Rivas',
 };
 
 export const homeMeta = {
-  title: 'Alex Cuesta | Senior Full-Stack & Product Engineer',
+  title: 'Alex Cuesta | Desarrollador full-stack freelance en Sevilla',
   description:
-    'Alex Cuesta — Senior Full-Stack & Product Engineer. I turn ambiguous product problems into reliable software.',
+    'Alex Cuesta, desarrollador full-stack freelance en Sevilla y su área. Desarrollo a medida, integraciones API y automatización para empresas, con evidencia verificable de cada proyecto.',
 };
 
 export const servicesMeta = {
-  title: 'Services | Alex Cuesta',
+  title: 'Servicios | Alex Cuesta — Desarrollo freelance en Sevilla',
   description:
-    'Focused engineering help for bugs, API integrations and unreliable automations, with clear scope and a practical handover.',
+    'Ayuda de ingeniería con alcance definido en Sevilla y alrededores: bugs en producción, integraciones API, automatización con n8n y desarrollo de aplicaciones a medida.',
 };
 
 export const briefLineCaseStudyMeta = {
-  title: 'Briefline case study | Alex Cuesta',
+  title: 'Caso de estudio Briefline | Alex Cuesta',
   description:
-    'Briefline — an independent full-stack case study: contract-first API, server-enforced permissions, conflict-safe updates and reproducible evidence.',
+    'Briefline: caso de estudio full-stack independiente. API contract-first, permisos verificados en servidor, actualizaciones seguras ante conflictos y evidencia reproducible.',
 };

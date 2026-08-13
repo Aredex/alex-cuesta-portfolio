@@ -23,17 +23,17 @@ const { capabilities } = Astro.props;
 
 <section aria-labelledby="value-heading" class="capabilities" data-capabilities-root>
   <div class="container">
-    <h2 id="value-heading" class="capabilities__heading" data-reveal>Where I add the most value.</h2>
+    <h2 id="value-heading" class="capabilities__heading" data-reveal>Dónde aporto más valor.</h2>
 
     <div class="capabilities__controls" data-reveal>
       <p class="capabilities__counter font-mono" data-capabilities-counter>
-        CAPABILITY 1–{Math.min(3, capabilities.length)} OF {capabilities.length}
+        CAPACIDAD 1–{Math.min(3, capabilities.length)} DE {capabilities.length}
       </p>
       <div class="capabilities__buttons">
-        <button type="button" class="capabilities__btn" data-capabilities-prev aria-label="Previous capability">
+        <button type="button" class="capabilities__btn" data-capabilities-prev aria-label="Capacidad anterior">
           &larr;
         </button>
-        <button type="button" class="capabilities__btn" data-capabilities-next aria-label="Next capability">
+        <button type="button" class="capabilities__btn" data-capabilities-next aria-label="Siguiente capacidad">
           &rarr;
         </button>
       </div>
@@ -43,7 +43,7 @@ const { capabilities } = Astro.props;
       class="capabilities__viewport"
       data-capabilities-viewport
       role="group"
-      aria-label="Capabilities carousel"
+      aria-label="Carrusel de capacidades"
       data-reveal
     >
       <ul class="capabilities__track" data-capabilities-track>

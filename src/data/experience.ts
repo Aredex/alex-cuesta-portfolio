@@ -9,23 +9,23 @@ export const experience: ExperienceItem[] = [
   {
     years: '2024 — 2026',
     company: 'Chiper',
-    role: 'Technical Lead',
+    role: 'Líder técnico',
     description:
-      "Led a squad of six developers across internal platform work and the company's first production conversational AI, built on Vertex AI with Gemini function calling. Set the review, testing and on-call practices the squad still runs on.",
+      'Lideré un equipo de seis desarrolladores en trabajo de plataforma interna y en la primera IA conversacional en producción de la empresa, construida sobre Vertex AI con function calling de Gemini. Definí las prácticas de revisión, testing y guardias que el equipo todavía sigue.',
   },
   {
     years: '2022 — 2024',
     company: 'Chiper',
-    role: 'Senior Software Engineer',
+    role: 'Ingeniero de software senior',
     description:
-      'Owned payment and multi-country billing systems handling roughly 500K transactions a month, held 99.9% uptime through a critical architecture migration, and cut messaging costs by 20% while making new country integrations 35% faster.',
+      'Responsable de los sistemas de pagos y facturación multipaís, con cerca de 500K transacciones al mes, manteniendo un 99,9% de uptime durante una migración de arquitectura crítica y reduciendo el coste de mensajería un 20% mientras las nuevas integraciones de país eran un 35% más rápidas.',
   },
   {
     years: '2021 — 2022',
     company: 'Chiper',
-    role: 'Backend Engineer',
+    role: 'Ingeniero backend',
     description:
-      'Built Node.js services and internal tools for commercial operations, and raised test coverage in the modules I refactored from roughly 20% to 65% so the team could change them without fear.',
+      'Construí servicios en Node.js y herramientas internas para operaciones comerciales, y elevé la cobertura de tests en los módulos que refactoricé de un ~20% a un ~65% para que el equipo pudiera modificarlos sin miedo.',
   },
 ];
 
@@ -35,11 +35,11 @@ export interface EvidenceMetric {
 }
 
 export const evidenceMetrics: EvidenceMetric[] = [
-  { value: '5 years', label: 'building production software' },
-  { value: '100K+', label: 'active users on systems I built' },
-  { value: '~500K', label: 'payment transactions per month' },
-  { value: '6 developers', label: 'led as technical leader' },
+  { value: '5 años', label: 'construyendo software en producción' },
+  { value: '100K+', label: 'usuarios activos en sistemas que construí' },
+  { value: '~500K', label: 'transacciones de pago al mes' },
+  { value: '6 desarrolladores', label: 'liderados como líder técnico' },
 ];
 
 export const evidenceFootnote =
-  'All four figures come from five years at Chiper, a B2B commerce platform in Latin America.';
+  'Las cuatro cifras proceden de cinco años en Chiper, una plataforma de comercio B2B en Latinoamérica.';

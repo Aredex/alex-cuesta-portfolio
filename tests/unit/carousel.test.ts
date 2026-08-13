@@ -73,12 +73,12 @@ describe('computeDimensions', () => {
 });
 
 describe('getCounterText', () => {
-  it('formats CAPABILITY {from}-{to} OF {total}', () => {
-    expect(getCounterText(0, 3, 4)).toBe('CAPABILITY 1–3 OF 4');
-    expect(getCounterText(1, 3, 4)).toBe('CAPABILITY 2–4 OF 4');
+  it('formats CAPACIDAD {from}-{to} DE {total}', () => {
+    expect(getCounterText(0, 3, 4)).toBe('CAPACIDAD 1–3 DE 4');
+    expect(getCounterText(1, 3, 4)).toBe('CAPACIDAD 2–4 DE 4');
   });
 
   it('clamps "to" at the total slide count', () => {
-    expect(getCounterText(3, 3, 4)).toBe('CAPABILITY 4–4 OF 4');
+    expect(getCounterText(3, 3, 4)).toBe('CAPACIDAD 4–4 DE 4');
   });
 });

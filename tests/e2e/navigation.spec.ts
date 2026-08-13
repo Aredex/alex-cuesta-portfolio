@@ -7,30 +7,30 @@ test.describe('Navigation between pages', () => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Alex Cuesta');
 
-    await page.getByRole('link', { name: 'Read case study' }).click();
+    await page.getByRole('link', { name: 'Leer el caso de estudio', exact: true }).click();
     await expect(page).toHaveURL('/work/briefline');
     await expect(page.getByRole('heading', { level: 1 })).toContainText(
-      'From an ambiguous brief to a verifiable product.'
+      'De un brief ambiguo a un producto verificable.'
     );
 
-    // Header nav "Work" item is active on the case study page.
-    await expect(page.locator('.site-header__link[data-active="true"]')).toHaveText('Work');
+    // Header nav "Trabajo" item is active on the case study page.
+    await expect(page.locator('.site-header__link[data-active="true"]')).toHaveText('Trabajo');
 
     await page.locator('.site-header__wordmark').click();
     await expect(page).toHaveURL('/');
 
     // Header nav only shows "Services" on the Services page itself; from
     // Home, the footer nav is the way there.
-    await page.locator('.site-footer__nav').getByRole('link', { name: 'Services' }).click();
+    await page.locator('.site-footer__nav').getByRole('link', { name: 'Servicios' }).click();
     await expect(page).toHaveURL('/services');
     await expect(page.getByRole('heading', { level: 1 })).toContainText(
-      'Focused help for software that needs to work.'
+      'Ayuda de ingeniería enfocada para software que necesita funcionar.'
     );
   });
 
   test('services page highlights Services as the active nav item', async ({ page }) => {
     await page.goto('/services');
-    await expect(page.locator('.site-header__link[data-active="true"]')).toHaveText('Services');
+    await expect(page.locator('.site-header__link[data-active="true"]')).toHaveText('Servicios');
     await expect(page.locator('.site-header__link[data-active="true"]')).toHaveAttribute(
       'aria-current',
       'page'

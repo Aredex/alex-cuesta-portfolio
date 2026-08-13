@@ -54,7 +54,7 @@ test.describe('Full keyboard walkthrough', () => {
   test('services contact form is fully operable by keyboard, including submit', async ({ page }) => {
     await page.goto('/services');
 
-    await page.getByLabel('Name').focus();
+    await page.getByLabel('Nombre').focus();
     await page.keyboard.type('Jordan Rivera');
     await page.keyboard.press('Tab');
     await page.keyboard.type('jordan@example.com');

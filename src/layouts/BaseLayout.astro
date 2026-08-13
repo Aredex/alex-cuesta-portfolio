@@ -4,6 +4,10 @@ import Footer from '../components/Footer.astro';
 import '../styles/fonts.css';
 import '../styles/tokens.css';
 import '../styles/global.css';
+import { buildAbsoluteUrl, buildCanonicalUrl, serializeJsonLd } from '../lib/seo';
+
+const SITE_NAME = 'Alex Cuesta';
+const DEFAULT_OG_IMAGE = '/og-image.png';
 
 export interface Props {
   title: string;
@@ -21,6 +25,18 @@ export interface Props {
   footerBackground?: 'surface' | 'canvas';
   /** The case-study footer has no nav at all. */
   footerShowNav?: boolean;
+  /** Open Graph type — `website` for Home/Services, `article` for the
+   * Briefline case study (it reads as a single piece of long-form content). */
+  ogType?: 'website' | 'article';
+  /** Absolute or root-relative path to the social preview image. Defaults to
+   * the shared 1200×630 `/og-image.png`. */
+  ogImage?: string;
+  /** `robots` meta content. Defaults to indexable; pages like 404 pass
+   * `noindex, follow`. */
+  robots?: string;
+  /** Pre-built JSON-LD object(s) for this page — serialized once here so no
+   * page has to hand-write a `<script type="application/ld+json">` tag. */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -32,17 +48,48 @@ const {
   isServices = false,
   footerBackground = 'surface',
   footerShowNav = true,
+  ogType = 'website',
+  ogImage = DEFAULT_OG_IMAGE,
+  robots = 'index, follow',
+  jsonLd,
 } = Astro.props;
+
+const canonicalUrl = buildCanonicalUrl(Astro.site, Astro.url.pathname);
+const absoluteOgImage = buildAbsoluteUrl(Astro.site, ogImage);
+const jsonLdEntries = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es-ES">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_ES" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteOgImage} />
+
+    {
+      jsonLdEntries.map((entry) => (
+        <script type="application/ld+json" is:inline set:html={serializeJsonLd(entry)} />
+      ))
+    }
 
     <script is:inline>
       // Anti-flash theme bootstrap. Runs synchronously, before first paint,
@@ -69,7 +116,7 @@ const {
     </script>
   </head>
   <body>
-    <a href="#main" class="skip-link">Skip to content</a>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
 
     <Header activeNav={activeNav} showServicesNav={showServicesNav} isHome={isHome} />
 

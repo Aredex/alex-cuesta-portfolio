@@ -5,23 +5,23 @@ export interface Principle {
 
 export const principles: Principle[] = [
   {
-    statement: 'Reliability is part of the product.',
+    statement: 'La fiabilidad forma parte del producto.',
     explanation:
-      "Permissions, retries, conflicts and recovery are decided while the feature is being designed. Added afterwards, they become someone else's incident.",
+      'Permisos, reintentos, conflictos y recuperación se deciden mientras la funcionalidad se diseña. Añadidos después, se convierten en el incidente de otra persona.',
   },
   {
-    statement: 'Good architecture makes change safer, not merely cleaner.',
+    statement: 'Una buena arquitectura hace el cambio más seguro, no solo más limpio.',
     explanation:
-      'I judge a design by how confidently the next person can modify it — not by how elegant the diagram looks.',
+      'Juzgo un diseño por la confianza con la que la siguiente persona puede modificarlo — no por lo elegante que se vea el diagrama.',
   },
   {
-    statement: 'Documentation exists to make claims verifiable.',
+    statement: 'La documentación existe para hacer verificables las afirmaciones.',
     explanation:
-      'A contract, a test or a runbook is worth more than a description of intent. If I claim a behavior, there should be something you can run.',
+      'Un contrato, un test o un runbook valen más que una descripción de intenciones. Si afirmo un comportamiento, tiene que haber algo que puedas ejecutar.',
   },
   {
-    statement: 'AI is useful when its limits are explicit.',
+    statement: 'La IA es útil cuando sus límites son explícitos.',
     explanation:
-      'In production I define what the model may call, what it must never decide alone, and what happens when it is wrong. That is what made the assistant at Chiper operable.',
+      'En producción defino qué puede invocar el modelo, qué no debe decidir nunca por sí solo y qué ocurre cuando se equivoca. Eso fue lo que hizo operable el asistente de Chiper.',
   },
 ];

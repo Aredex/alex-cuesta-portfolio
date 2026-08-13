@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const meta = {
+  title: 'Página no encontrada | Alex Cuesta',
+  description: 'La página que buscas no existe o se ha movido.',
+};
+---
+
+<BaseLayout title={meta.title} description={meta.description} robots="noindex, follow">
+  <section class="not-found">
+    <div class="container not-found__inner">
+      <p class="not-found__eyebrow font-mono">ERROR 404</p>
+      <h1 class="not-found__title">Esta página no existe.</h1>
+      <p class="not-found__lead">
+        Puede que el enlace esté roto o que la página se haya movido. Prueba a volver al inicio o a
+        revisar los servicios disponibles.
+      </p>
+      <div class="not-found__actions">
+        <a href="/" class="btn btn--primary">Volver al inicio</a>
+        <a href="/services" class="btn btn--secondary">Ver servicios</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding-block: clamp(96px, 14vw, 160px);
+  }
+
+  .not-found__inner {
+    max-width: 60ch;
+  }
+
+  .not-found__eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 24px;
+  }
+
+  .not-found__title {
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+
+  .not-found__lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 24px 0 0;
+  }
+
+  .not-found__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 24px;
+    white-space: nowrap;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .btn--primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  .btn--primary:hover {
+    background: var(--accent-hover);
+    color: var(--accent-ink);
+    text-decoration: none;
+  }
+
+  .btn--secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+
+  .btn--secondary:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+    text-decoration: none;
+  }
+</style>
