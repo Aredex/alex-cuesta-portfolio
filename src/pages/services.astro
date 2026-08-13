@@ -1,0 +1,339 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { servicesMeta } from '../data/site';
+import { engagements, processSteps } from '../data/services';
+
+/**
+ * Hero and contact copy short enough, and used only on this page, that it
+ * does not warrant its own src/data module (see handoff README "3.
+ * Services" and the Services prototype, lines 47-55 and 159-166).
+ */
+const servicesHero = {
+  eyebrow: 'Services',
+  heading: 'Focused help for software that needs to work.',
+  lead: 'Three engagements with explicit scope, practical tests and a concise handover. Each one ends with something you can run and verify without me in the room.',
+};
+
+const contactCopy = {
+  heading: 'Send the context, not a brief.',
+  body: 'Tell me what is happening, what should happen instead and what you have already tried. I will reply with the most useful next step.',
+  notice: 'Share only what is safe to discuss. Do not include credentials or sensitive customer data.',
+};
+
+/** Matches the prototype's 0/80/160/240ms stagger on the four process steps. */
+const revealDelays = [0, 80, 160, 240];
+---
+
+<BaseLayout
+  title={servicesMeta.title}
+  description={servicesMeta.description}
+  activeNav="services"
+  showServicesNav={true}
+  isHome={false}
+  isServices={true}
+  footerBackground="canvas"
+  footerShowNav={true}
+>
+  <section class="services-hero" id="services">
+    <div class="services-hero__inner container">
+      <div class="services-hero__grid" data-reveal>
+        <div>
+          <p class="services-hero__eyebrow font-mono">{servicesHero.eyebrow}</p>
+          <h1 class="services-hero__title">{servicesHero.heading}</h1>
+        </div>
+        <p class="services-hero__lead">{servicesHero.lead}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="engagements" aria-label="Engagements">
+    <div class="container engagements__inner">
+      {
+        engagements.map((engagement) => (
+          <article class="engagement" data-reveal>
+            <p class="engagement__index font-mono">{engagement.index}</p>
+            <div>
+              <h2 class="engagement__title">{engagement.title}</h2>
+              <p class="engagement__description">{engagement.description}</p>
+              <p class="engagement__pricing font-mono">{engagement.pricingNote}</p>
+            </div>
+            <div class="engagement__details">
+              <div>
+                <h3 class="mono-label">You receive</h3>
+                <ul class="engagement__receive-list">
+                  {engagement.youReceive.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 class="mono-label">Out of scope</h3>
+                <p class="engagement__out-of-scope">{engagement.outOfScope}</p>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="process" aria-labelledby="process-heading">
+    <div class="container process__inner">
+      <h2 id="process-heading" class="process__heading" data-reveal>
+        How an engagement runs.
+      </h2>
+      <ol class="process__list">
+        {
+          processSteps.map((step, index) => (
+            <li class="process__step" data-reveal data-reveal-delay={revealDelays[index]}>
+              <p class="mono-label process__step-index">{step.index}</p>
+              <h3 class="process__step-title">{step.title}</h3>
+              <p class="process__step-description">{step.description}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section id="contact" class="contact" aria-labelledby="contact-heading">
+    <div class="container contact__inner">
+      <div data-reveal>
+        <h2 id="contact-heading" class="contact__heading">{contactCopy.heading}</h2>
+        <p class="contact__body">{contactCopy.body}</p>
+        <p class="contact__notice">{contactCopy.notice}</p>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { initReveal } from '../scripts/reveal';
+  initReveal();
+</script>
+
+<style>
+  .services-hero__inner {
+    padding-block: 96px 80px;
+  }
+
+  .services-hero__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: clamp(40px, 5vw, 80px);
+    align-items: end;
+  }
+
+  .services-hero__eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 28px;
+  }
+
+  .services-hero__title {
+    font-size: clamp(40px, 4.6vw, 56px);
+    line-height: 1.02;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .services-hero__lead {
+    font-size: clamp(19px, 1.6vw, 22px);
+    line-height: 1.45;
+    color: var(--muted);
+    margin: 0;
+    max-width: 50ch;
+  }
+
+  .engagements {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .engagements__inner {
+    padding-block: clamp(72px, 8vw, 112px);
+  }
+
+  .engagement {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: clamp(24px, 3vw, 48px);
+    align-items: start;
+    padding: 56px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .engagement:first-child {
+    padding-top: 0;
+  }
+
+  .engagement:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .engagement__index {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .engagement__title {
+    font-size: clamp(23px, 2vw, 26px);
+    line-height: 1.2;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .engagement__description {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 12px 0 0;
+    max-width: 46ch;
+  }
+
+  .engagement__pricing {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 20px 0 0;
+  }
+
+  .engagement__details {
+    display: grid;
+    gap: 28px;
+  }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+
+  .engagement__receive-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .engagement__receive-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 17px;
+  }
+
+  .engagement__out-of-scope {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
+    max-width: 50ch;
+  }
+
+  .process {
+    border-top: 1px solid var(--line);
+    background: var(--canvas);
+  }
+
+  .process__inner {
+    padding-block: clamp(72px, 8vw, 112px);
+  }
+
+  .process__heading {
+    font-size: clamp(32px, 3.4vw, 40px);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+    max-width: 24ch;
+  }
+
+  .process__list {
+    list-style: none;
+    margin: 56px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 40px;
+  }
+
+  .process__step {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+  }
+
+  .process__step-index {
+    margin: 0 0 12px;
+  }
+
+  .process__step-title {
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .process__step-description {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 8px 0 0;
+  }
+
+  .contact {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .contact__inner {
+    padding-block: clamp(72px, 8vw, 112px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: clamp(40px, 5vw, 80px);
+    align-items: start;
+  }
+
+  .contact__heading {
+    font-size: clamp(32px, 3.4vw, 40px);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .contact__body {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 24px 0 0;
+    max-width: 50ch;
+  }
+
+  .contact__notice {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 28px 0 0;
+    padding-left: 16px;
+    border-left: 2px solid var(--line);
+    max-width: 46ch;
+  }
+</style>

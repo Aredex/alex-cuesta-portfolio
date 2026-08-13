@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# tool run artifacts
+.playwright-cli/
+.claude/scheduled_tasks.lock

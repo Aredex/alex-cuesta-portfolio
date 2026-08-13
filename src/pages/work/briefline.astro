@@ -1,0 +1,534 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContractCard from '../../components/ContractCard.astro';
+import { briefLineCaseStudyMeta } from '../../data/site';
+import { briefline } from '../../data/config';
+import {
+  brieflineHero,
+  brieflineMeta,
+  brieflineContext,
+  brieflineConstraints,
+  decisionContract,
+  decisionPermissions,
+  decisionConcurrency,
+  brieflineStates,
+  brieflineEvidence,
+  brieflineTradeoffs,
+  brieflineOutcome,
+  brieflineContact,
+} from '../../data/caseStudy';
+import boardImage from '../../assets/images/briefline-board.webp';
+import clientDetailImage from '../../assets/images/briefline-client-detail.webp';
+import moveToMenuImage from '../../assets/images/briefline-move-to-menu.webp';
+import focusStateImage from '../../assets/images/briefline-focus-state.webp';
+
+/**
+ * The case-study hero figure uses its own alt text — a semicolon-delimited
+ * variant distinct from `brieflineWork.boardImageAlt` (comma-delimited, used
+ * on Home's Selected work card). Handoff HTML line 78 has the literal text
+ * for this page; reusing the Home alt here would not match the prototype.
+ */
+const boardImageAlt =
+  'Briefline task board with Pending, In progress, Blocked and Completed columns; each task shows priority and assignee.';
+
+/**
+ * Resolves an evidence link's `configKey` to its real (TODO-placeholder)
+ * URL. `demoUrl`/`repoUrl` live directly on `briefline`; every other key
+ * lives under `briefline.evidence`. Typed against both sources so a typo'd
+ * key fails at build time rather than rendering `undefined`.
+ */
+type EvidenceConfigKey = 'demoUrl' | 'repoUrl' | keyof typeof briefline.evidence;
+
+function resolveEvidenceHref(configKey: EvidenceConfigKey): string {
+  if (configKey === 'demoUrl' || configKey === 'repoUrl') {
+    return briefline[configKey];
+  }
+  return briefline.evidence[configKey];
+}
+---
+
+<BaseLayout
+  title={briefLineCaseStudyMeta.title}
+  description={briefLineCaseStudyMeta.description}
+  activeNav="work"
+  isHome={false}
+  isServices={false}
+  showServicesNav={false}
+  footerBackground="surface"
+  footerShowNav={false}
+>
+  <section class="hero">
+    <div class="container">
+      <div class="hero__intro" data-reveal>
+        <p class="eyebrow font-mono">{brieflineHero.eyebrow}</p>
+        <h1 class="hero__title">{brieflineHero.title}</h1>
+        <p class="lead">{brieflineHero.lead}</p>
+      </div>
+
+      <dl class="meta" data-reveal data-reveal-delay="80">
+        {
+          brieflineMeta.map((item) => (
+            <div>
+              <dt class="font-mono">{item.term}</dt>
+              <dd>{item.description}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <div class="button-row" data-reveal data-reveal-delay="120">
+        <a href={briefline.demoUrl} class="btn btn--primary">Open live demo</a>
+        <a href={briefline.repoUrl} class="btn btn--secondary">View repository</a>
+      </div>
+
+      <figure class="hero-figure" data-reveal data-reveal-delay="160">
+        <Image src={boardImage} alt={boardImageAlt} class="hero-figure__img" />
+        <figcaption class="caption font-mono">Board view — the primary working surface, with live counts per status.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="context-heading" class="section section--surface">
+    <div class="container two-col">
+      <div data-reveal class="col">
+        <h2 id="context-heading" class="h2">{brieflineContext.heading}</h2>
+        {brieflineContext.paragraphs.map((p) => <p class="body-muted">{p}</p>)}
+      </div>
+      <div data-reveal data-reveal-delay="80" class="col">
+        <h2 class="h2">{brieflineConstraints.heading}</h2>
+        <ul class="divided-list">
+          {brieflineConstraints.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="decisions-heading" class="section">
+    <div class="container">
+      <h2 id="decisions-heading" data-reveal class="h2 h2--wide">The decisions that shaped the system</h2>
+
+      <div data-reveal class="decision-block">
+        <div class="decision-block__text">
+          <h3 class="h3">{decisionContract.title}</h3>
+          <p class="body-muted">{decisionContract.description}</p>
+        </div>
+        <ContractCard lines={decisionContract.contractLines} />
+      </div>
+
+      <div data-reveal class="decision-block">
+        <div class="decision-block__text">
+          <h3 class="h3">{decisionPermissions.title}</h3>
+          <p class="body-muted">{decisionPermissions.description}</p>
+        </div>
+        <figure class="decision-figure">
+          <Image src={clientDetailImage} alt={decisionPermissions.imageAlt} class="decision-figure__img" />
+          <figcaption class="caption font-mono">{decisionPermissions.caption}</figcaption>
+        </figure>
+      </div>
+
+      <div data-reveal class="decision-block decision-block--last">
+        <div class="decision-block__text">
+          <h3 class="h3">{decisionConcurrency.title}</h3>
+          <p class="body-muted">{decisionConcurrency.description}</p>
+        </div>
+        <figure class="decision-figure">
+          <Image src={moveToMenuImage} alt={decisionConcurrency.imageAlt} class="decision-figure__img" />
+          <figcaption class="caption font-mono">{decisionConcurrency.caption}</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="states-heading" class="section section--surface">
+    <div class="container states-row">
+      <div data-reveal class="col">
+        <h2 id="states-heading" class="h2">{brieflineStates.heading}</h2>
+        {brieflineStates.paragraphs.map((p) => <p class="body-muted">{p}</p>)}
+      </div>
+      <figure data-reveal data-reveal-delay="80" class="states-figure">
+        <Image src={focusStateImage} alt={brieflineStates.imageAlt} class="decision-figure__img" />
+        <figcaption class="caption font-mono">{brieflineStates.caption}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="evidence" aria-labelledby="evidence-heading" class="section">
+    <div class="container">
+      <h2 id="evidence-heading" data-reveal class="h2 h2--wide">{brieflineEvidence.heading}</h2>
+      <p data-reveal class="body-muted evidence-note">{brieflineEvidence.note}</p>
+      <div data-reveal data-reveal-delay="80" class="metrics">
+        {
+          brieflineEvidence.metrics.map((metric) => (
+            <div>
+              <p class="metric-value">{metric.value}</p>
+              <p class="metric-label">{metric.label}</p>
+            </div>
+          ))
+        }
+      </div>
+      <ul data-reveal data-reveal-delay="120" class="evidence-links">
+        {
+          brieflineEvidence.links.map((link) => (
+            <li>
+              <a href={resolveEvidenceHref(link.configKey)}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="tradeoffs-heading" class="section section--surface">
+    <div class="container two-col two-col--wide">
+      <div data-reveal class="col">
+        <h2 id="tradeoffs-heading" class="h2">{brieflineTradeoffs.heading}</h2>
+        <ul class="divided-list">
+          {brieflineTradeoffs.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <div data-reveal data-reveal-delay="80" class="col">
+        <h2 class="h2">{brieflineOutcome.heading}</h2>
+        {brieflineOutcome.paragraphs.map((p) => <p class="body-muted">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-heading" class="section">
+    <div class="container">
+      <div data-reveal class="contact">
+        <h2 id="contact-heading" class="h2 h2--contact">{brieflineContact.heading}</h2>
+        <p class="lead lead--contact">{brieflineContact.lead}</p>
+        <div class="button-row">
+          <a href="#contact" class="btn btn--primary">Start a conversation</a>
+          <a href="/#work" class="btn btn--secondary">View selected work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { initReveal } from '../../scripts/reveal';
+  initReveal();
+</script>
+
+<style>
+  .container {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding-inline: clamp(20px, 4vw, 72px);
+  }
+
+  .section {
+    border-top: 1px solid var(--line);
+  }
+
+  .section .container {
+    padding-block: clamp(64px, 8vw, 104px);
+  }
+
+  .section--surface {
+    background: var(--surface);
+  }
+
+  .hero .container {
+    padding-block: clamp(48px, 6vw, 80px) clamp(40px, 5vw, 64px);
+  }
+
+  .hero__intro {
+    max-width: 66ch;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 24px;
+  }
+
+  .hero__title {
+    font-size: clamp(36px, 4.4vw, 54px);
+    line-height: 1.04;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .lead {
+    font-size: clamp(19px, 1.6vw, 22px);
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 28px 0 0;
+  }
+
+  .lead--contact {
+    margin-top: 24px;
+    font-size: clamp(19px, 1.6vw, 21px);
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    gap: 24px 40px;
+    margin: 48px 0 0;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .meta dt {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+
+  .meta dd {
+    margin: 0;
+    font-size: 17px;
+  }
+
+  .button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 24px;
+    white-space: nowrap;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .btn--primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+    transition: background-color 180ms ease;
+  }
+
+  .btn--primary:hover {
+    background: var(--accent-hover);
+    color: var(--accent-ink);
+    text-decoration: none;
+  }
+
+  .btn--primary:active {
+    transform: translateY(1px);
+  }
+
+  .btn--secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    transition: border-color 180ms ease;
+  }
+
+  .btn--secondary:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .hero-figure {
+    margin: 56px 0 0;
+  }
+
+  .hero-figure__img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .caption {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--muted);
+    margin-top: 16px;
+  }
+
+  .two-col {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(40px, 5vw, 80px);
+  }
+
+  .two-col--wide {
+    gap: clamp(40px, 5vw, 80px);
+  }
+
+  .col {
+    flex: 1 1 420px;
+    min-width: 0;
+  }
+
+  .h2 {
+    font-size: clamp(28px, 3vw, 34px);
+    line-height: 1.12;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .h2--wide {
+    font-size: clamp(30px, 3.2vw, 38px);
+    line-height: 1.1;
+    max-width: 24ch;
+  }
+
+  .h2--contact {
+    font-size: clamp(30px, 3.6vw, 42px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    text-wrap: pretty;
+  }
+
+  .h3 {
+    font-size: clamp(21px, 1.9vw, 24px);
+    line-height: 1.25;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .body-muted {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 20px 0 0;
+    max-width: 56ch;
+  }
+
+  .body-muted + .body-muted {
+    margin-top: 16px;
+  }
+
+  .divided-list {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .divided-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .decision-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(32px, 4vw, 64px);
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    align-items: start;
+  }
+
+  .decision-block ~ .decision-block {
+    margin-top: 40px;
+  }
+
+  .decision-block--last {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 32px;
+  }
+
+  .decision-block__text {
+    flex: 1 1 380px;
+    min-width: 0;
+  }
+
+  .decision-block__text .body-muted {
+    margin-top: 12px;
+  }
+
+  .decision-figure {
+    flex: 1 1 340px;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .decision-figure__img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+
+  .decision-figure .caption {
+    margin-top: 12px;
+  }
+
+  .states-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(32px, 4vw, 64px);
+    align-items: start;
+  }
+
+  .states-figure {
+    flex: 1 1 420px;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .states-figure .caption {
+    margin-top: 12px;
+  }
+
+  .evidence-note {
+    max-width: 64ch;
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 24px 40px;
+    margin-top: 40px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .metric-value {
+    font-size: clamp(28px, 3vw, 34px);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .metric-label {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 6px 0 0;
+  }
+
+  .evidence-links {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+    font-size: 16px;
+  }
+
+  .contact {
+    max-width: 58ch;
+  }
+</style>

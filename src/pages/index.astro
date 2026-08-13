@@ -1,0 +1,792 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CapabilitiesCarousel from '../components/CapabilitiesCarousel.astro';
+import portraitImage from '../assets/images/portrait.png';
+import brieflineBoardImage from '../assets/images/briefline-board.webp';
+import { homeMeta } from '../data/site';
+import {
+  hero,
+  about,
+  experienceIntro,
+  workIntro,
+  principlesIntro,
+  contact as contactCopy,
+} from '../data/home';
+import { experience, evidenceMetrics, evidenceFootnote } from '../data/experience';
+import { brieflineWork, chiperWork } from '../data/work';
+import { principles } from '../data/principles';
+import { capabilities } from '../data/capabilities';
+import { now } from '../data/now';
+import { contact as contactConfig, resume, briefline } from '../data/config';
+
+/**
+ * Home (`/`). Implements hero variant A (`portrait-editorial`) only — see
+ * handoff/README.md and lines 49-67 of the Home v2 prototype for the
+ * undesigned variant B (`statement-band`), intentionally left unbuilt.
+ *
+ * BaseLayout already wraps the slot in `<main id="main">`, so this page
+ * renders `<section>`s directly with no `<main>` of its own. `activeNav` is
+ * left undefined on purpose: the prototype never highlights a nav item on
+ * Home, only on the internal pages the sections belong to.
+ */
+---
+
+<BaseLayout
+  title={homeMeta.title}
+  description={homeMeta.description}
+  isHome={true}
+  footerBackground="surface"
+  footerShowNav={true}
+  showServicesNav={false}
+>
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__text" data-reveal>
+        <h1 class="hero__name">Alex&nbsp;Cuesta</h1>
+        <p class="hero__role">{hero.role}</p>
+        <p class="hero__statement">{hero.statement}</p>
+        <p class="hero__lead">{hero.lead}</p>
+        <div class="hero__actions">
+          <a href="#contact" class="btn btn--primary">Start a conversation</a>
+          <a href={resume.pdfUrl} class="btn btn--secondary">Download résumé</a>
+        </div>
+      </div>
+      <div class="hero__portrait" data-reveal data-reveal-delay="120">
+        <Image src={portraitImage} alt={hero.portraitAlt} width={900} class="hero__portrait-img" />
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="evidence-heading" class="evidence">
+    <div class="container">
+      <h2 id="evidence-heading" class="visually-hidden">Professional evidence</h2>
+      <div class="evidence__grid">
+        {
+          evidenceMetrics.map((metric, i) => (
+            <div data-reveal data-reveal-delay={i === 0 ? undefined : i * 80}>
+              <p class="evidence__value">{metric.value}</p>
+              <p class="evidence__label">{metric.label}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="evidence__footnote">
+        {evidenceFootnote} <a href="#experience">The context for each one is in Experience</a>.
+      </p>
+    </div>
+  </section>
+
+  <section id="about" aria-labelledby="about-heading" class="about">
+    <div class="container about__inner">
+      <div class="about__text" data-reveal>
+        <h2 id="about-heading" class="about__heading">{about.heading}</h2>
+        <p class="about__lead">{about.lead}</p>
+        <p class="about__body">{about.body}</p>
+      </div>
+      <div class="about__figure" data-reveal data-reveal-delay="120">
+        <div class="about__placeholder" role="img" aria-label={about.placeholderImageAlt}>
+          <span class="about__chip font-mono">{about.placeholderChip}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" aria-labelledby="experience-heading" class="experience">
+    <div class="container">
+      <h2 id="experience-heading" class="section-heading" data-reveal>{experienceIntro.heading}</h2>
+      <p class="section-lead" data-reveal>{experienceIntro.lead}</p>
+
+      <ol class="experience__list">
+        {
+          experience.map((item) => (
+            <li class="experience__item" data-reveal>
+              <div>
+                <p class="experience__years font-mono">{item.years}</p>
+                <p class="experience__company">{item.company}</p>
+              </div>
+              <div>
+                <h3 class="experience__role">{item.role}</h3>
+                <p class="experience__description">{item.description}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section id="work" aria-labelledby="work-heading" class="work">
+    <div class="container">
+      <div class="work__header" data-reveal>
+        <h2 id="work-heading" class="section-heading">{workIntro.heading}</h2>
+        <p class="work__note">{workIntro.note}</p>
+      </div>
+
+      <article class="work__project work__project--briefline" data-reveal data-reveal-delay="80">
+        <figure class="work__figure">
+          <a href="/work/briefline">
+            <Image
+              src={brieflineBoardImage}
+              alt={brieflineWork.boardImageAlt}
+              width={1200}
+              class="work__image"
+            />
+          </a>
+        </figure>
+        <div class="work__content">
+          <h3 class="work__title">{brieflineWork.title}</h3>
+          <p class="work__description">{brieflineWork.description}</p>
+          <p class="work__stack font-mono">{brieflineWork.stack}</p>
+          <div class="work__actions">
+            <a href="/work/briefline" class="btn btn--primary">Read case study</a>
+            <a href={briefline.demoUrl} class="btn btn--secondary">Open live demo</a>
+          </div>
+          <p class="work__disclaimer">{brieflineWork.disclaimer}</p>
+        </div>
+      </article>
+
+      <article class="work__project work__project--chiper" data-reveal data-reveal-delay="120">
+        <div>
+          <h3 class="work__chiper-title">{chiperWork.title}</h3>
+          <p class="work__chiper-description">{chiperWork.description}</p>
+        </div>
+        <span class="badge font-mono">{chiperWork.badge}</span>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="think-heading" class="principles">
+    <div class="container">
+      <h2 id="think-heading" class="section-heading principles__heading" data-reveal>
+        {principlesIntro.heading}
+      </h2>
+      <div class="principles__list">
+        {
+          principles.map((principle) => (
+            <div class="principles__row" data-reveal>
+              <p class="principles__statement">{principle.statement}</p>
+              <p class="principles__explanation">{principle.explanation}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CapabilitiesCarousel capabilities={capabilities} />
+
+  <section aria-labelledby="now-heading" class="now">
+    <div class="container now__inner" data-reveal>
+      <div class="now__meta">
+        <p class="now__label font-mono">{now.label}</p>
+        <h2 id="now-heading" class="now__title">{now.title}</h2>
+      </div>
+      <p class="now__body">{now.body}</p>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-heading" class="contact">
+    <div class="container">
+      <div class="contact__inner" data-reveal>
+        <p class="contact__eyebrow">{contactCopy.eyebrow}</p>
+        <h2 id="contact-heading" class="contact__heading">{contactCopy.heading}</h2>
+        <p class="contact__lead">{contactCopy.lead}</p>
+        <div class="contact__row">
+          <a href="#contact" class="btn btn--primary">Start a conversation</a>
+          <div class="contact__links">
+            <a href={contactConfig.linkedin} class="contact__link">LinkedIn</a>
+            <a href={contactConfig.github} class="contact__link">GitHub</a>
+            <a href={contactConfig.email} class="contact__link">Email</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { initReveal } from '../scripts/reveal';
+  initReveal();
+</script>
+
+<style>
+  /* Shared section heading/lead, reused with per-section max-width overrides. */
+  .section-heading {
+    font-size: clamp(32px, 3.4vw, 40px);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .section-lead {
+    font-size: clamp(19px, 1.6vw, 21px);
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 24px 0 0;
+    max-width: 64ch;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 24px;
+    white-space: nowrap;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .btn--primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+    transition: background-color 180ms ease;
+  }
+
+  .btn--primary:hover {
+    background: var(--accent-hover);
+    color: var(--accent-ink);
+    text-decoration: none;
+  }
+
+  .btn--primary:active {
+    transform: translateY(1px);
+  }
+
+  .btn--secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+
+  .btn--secondary:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  /* Hero (variant A — portrait-editorial) */
+  .hero {
+    padding-block: clamp(48px, 6vw, 84px) clamp(64px, 8vw, 104px);
+  }
+
+  .hero__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(40px, 5vw, 72px);
+    align-items: center;
+  }
+
+  .hero__text {
+    flex: 1 1 540px;
+    min-width: 0;
+  }
+
+  .hero__name {
+    font-size: clamp(44px, 5.4vw, 68px);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    margin: 0;
+  }
+
+  .hero__role {
+    font-size: clamp(19px, 1.7vw, 22px);
+    line-height: 1.45;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 14px 0 0;
+  }
+
+  .hero__statement {
+    font-size: clamp(23px, 2.2vw, 28px);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 36px 0 0;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    max-width: 24ch;
+    text-wrap: pretty;
+  }
+
+  .hero__lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 20px 0 0;
+    max-width: 56ch;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 36px;
+  }
+
+  .hero__portrait {
+    flex: 0 1 400px;
+    min-width: 0;
+  }
+
+  .hero__portrait-img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 18%;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+
+  /* Evidence band */
+  .evidence {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+    padding-block: clamp(32px, 4vw, 48px);
+  }
+
+  .evidence__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr));
+    gap: 24px 20px;
+  }
+
+  .evidence__value {
+    font-size: clamp(30px, 3vw, 36px);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .evidence__label {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 6px 0 0;
+  }
+
+  .evidence__footnote {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 28px auto 0;
+    max-width: 84ch;
+    text-align: center;
+  }
+
+  /* About */
+  .about {
+    padding-block: clamp(72px, 9vw, 120px);
+  }
+
+  .about__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(40px, 5vw, 80px);
+    align-items: start;
+  }
+
+  .about__text {
+    flex: 1 1 520px;
+    min-width: 0;
+  }
+
+  .about__heading {
+    font-size: clamp(30px, 3.2vw, 38px);
+    line-height: 1.12;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+    max-width: 26ch;
+    text-wrap: pretty;
+  }
+
+  .about__lead {
+    font-size: clamp(19px, 1.6vw, 21px);
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 28px 0 0;
+    max-width: 60ch;
+  }
+
+  .about__body {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 20px 0 0;
+    max-width: 60ch;
+  }
+
+  .about__figure {
+    flex: 0 1 380px;
+    min-width: 0;
+  }
+
+  .about__placeholder {
+    aspect-ratio: 5 / 4;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: repeating-linear-gradient(135deg, var(--surface) 0 10px, var(--canvas) 10px 20px);
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+  }
+
+  .about__chip {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+
+  /* Experience */
+  .experience {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+    padding-block: clamp(72px, 9vw, 120px);
+  }
+
+  .experience .section-heading {
+    max-width: 24ch;
+    text-wrap: pretty;
+  }
+
+  .experience__list {
+    list-style: none;
+    margin: 64px 0 0;
+    padding: 0;
+  }
+
+  .experience__item {
+    display: grid;
+    grid-template-columns: minmax(110px, 170px) 1fr;
+    gap: clamp(20px, 3vw, 48px);
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .experience__item:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .experience__years {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .experience__company {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 8px 0 0;
+  }
+
+  .experience__role {
+    font-size: clamp(21px, 1.9vw, 24px);
+    line-height: 1.25;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .experience__description {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 10px 0 0;
+    max-width: 66ch;
+  }
+
+  /* Selected work */
+  .work {
+    border-top: 1px solid var(--line);
+    padding-block: clamp(72px, 9vw, 120px);
+  }
+
+  .work__header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 40px;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .work__note {
+    font-size: 15px;
+    color: var(--muted);
+    margin: 0;
+    max-width: 44ch;
+  }
+
+  .work__project--briefline {
+    margin-top: 56px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(32px, 4vw, 64px);
+    align-items: center;
+  }
+
+  .work__figure {
+    flex: 1 1 480px;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .work__image {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .work__content {
+    flex: 1 1 380px;
+    min-width: 0;
+  }
+
+  .work__title {
+    font-size: clamp(23px, 2.2vw, 28px);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .work__description {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 16px 0 0;
+    max-width: 56ch;
+  }
+
+  .work__stack {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 20px 0 0;
+  }
+
+  .work__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .work__disclaimer {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 24px 0 0;
+    padding-left: 16px;
+    border-left: 2px solid var(--line);
+    max-width: 52ch;
+  }
+
+  .work__project--chiper {
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 48px;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .work__chiper-title {
+    font-size: clamp(21px, 1.9vw, 24px);
+    line-height: 1.25;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .work__chiper-description {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 12px 0 0;
+    max-width: 62ch;
+  }
+
+  /* Principles */
+  .principles {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+    padding-block: clamp(72px, 9vw, 120px);
+  }
+
+  .principles__heading {
+    max-width: 20ch;
+  }
+
+  .principles__list {
+    margin-top: 56px;
+    display: grid;
+    gap: 0;
+  }
+
+  .principles__row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 16px clamp(32px, 5vw, 80px);
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+
+  .principles__row:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .principles__statement {
+    font-size: clamp(23px, 2.2vw, 28px);
+    line-height: 1.25;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .principles__explanation {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
+    max-width: 58ch;
+  }
+
+  /* Now */
+  .now {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+    padding-block: clamp(48px, 6vw, 72px);
+  }
+
+  .now__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px clamp(40px, 5vw, 80px);
+    align-items: baseline;
+  }
+
+  .now__meta {
+    flex: 0 1 320px;
+  }
+
+  .now__label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+
+  .now__title {
+    font-size: clamp(21px, 1.9vw, 24px);
+    line-height: 1.25;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .now__body {
+    flex: 1 1 380px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  /* Contact */
+  .contact {
+    border-top: 1px solid var(--line);
+    padding-block: clamp(72px, 9vw, 120px);
+  }
+
+  .contact__inner {
+    text-align: center;
+  }
+
+  .contact__eyebrow {
+    font-size: clamp(19px, 1.6vw, 21px);
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0 auto 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+    max-width: 66ch;
+  }
+
+  .contact__heading {
+    font-size: clamp(38px, 5.6vw, 76px);
+    line-height: 1.02;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    margin: 0 auto;
+    max-width: 22ch;
+    text-wrap: pretty;
+  }
+
+  .contact__lead {
+    font-size: clamp(19px, 1.6vw, 22px);
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 28px auto 0;
+    max-width: 62ch;
+  }
+
+  .contact__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .contact__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 16px;
+  }
+
+  .contact__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--muted);
+  }
+
+  .contact__link:hover {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

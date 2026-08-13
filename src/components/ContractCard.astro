@@ -1,0 +1,37 @@
+---
+/**
+ * "The contract comes first" decision block's API contract sample.
+ *
+ * The prototype renders this as a single mono paragraph joined by `<br>`
+ * (handoff HTML line 114), but the README explicitly calls that out as a
+ * prototype shortcut to fix in production: a contract listing belongs in a
+ * `<pre>` or a real list, never `<br>`-joined text. `<pre>` was chosen
+ * because the content already reads as fixed-width lines (an HTTP contract
+ * summary), so preserving that literal formatting is the more semantic fit
+ * than an unordered list would be.
+ */
+export interface Props {
+  lines: string[];
+}
+
+const { lines } = Astro.props;
+---
+
+<pre class="contract-card font-mono">{lines.join('\n')}</pre>
+
+<style>
+  .contract-card {
+    margin: 0;
+    flex: 1 1 340px;
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+    background: var(--surface);
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+</style>

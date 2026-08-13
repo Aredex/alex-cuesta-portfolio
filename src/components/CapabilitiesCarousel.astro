@@ -1,0 +1,183 @@
+---
+import type { Capability } from '../data/capabilities';
+
+/**
+ * "Where I add the most value" carousel (Home only).
+ *
+ * Ported from the prototype's data-value-viewport/track/slide markup
+ * (handoff/design/Alex Cuesta - Home v2.dc.html, lines 228-263). Layout math
+ * and interaction live in ../scripts/carousel.ts so they're unit-testable;
+ * this component only wires the DOM contract (`data-capabilities-*`
+ * attributes) that script expects, via the inline module script below.
+ *
+ * No-JS fallback: the viewport is a native horizontal scroller with
+ * scroll-snap until `initCapabilitiesCarousel` runs, at which point it
+ * switches to transform-based paging (`.is-active`, set by the script).
+ */
+export interface Props {
+  capabilities: Capability[];
+}
+
+const { capabilities } = Astro.props;
+---
+
+<section aria-labelledby="value-heading" class="capabilities" data-capabilities-root>
+  <div class="container">
+    <h2 id="value-heading" class="capabilities__heading" data-reveal>Where I add the most value.</h2>
+
+    <div class="capabilities__controls" data-reveal>
+      <p class="capabilities__counter font-mono" data-capabilities-counter>
+        CAPABILITY 1–{Math.min(3, capabilities.length)} OF {capabilities.length}
+      </p>
+      <div class="capabilities__buttons">
+        <button type="button" class="capabilities__btn" data-capabilities-prev aria-label="Previous capability">
+          &larr;
+        </button>
+        <button type="button" class="capabilities__btn" data-capabilities-next aria-label="Next capability">
+          &rarr;
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="capabilities__viewport"
+      data-capabilities-viewport
+      role="group"
+      aria-label="Capabilities carousel"
+      data-reveal
+    >
+      <ul class="capabilities__track" data-capabilities-track>
+        {
+          capabilities.map((capability) => (
+            <li class="capabilities__slide" data-capabilities-slide>
+              <h3 class="capabilities__title">{capability.title}</h3>
+              <p class="capabilities__description">{capability.description}</p>
+              <p class="capabilities__evidence font-mono">{capability.evidence}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initCapabilitiesCarousel } from '../scripts/carousel';
+
+  const root = document.querySelector<HTMLElement>('[data-capabilities-root]');
+  if (root) initCapabilitiesCarousel(root);
+</script>
+
+<style>
+  .capabilities {
+    border-top: 1px solid var(--line);
+  }
+
+  .capabilities__heading {
+    font-size: clamp(32px, 3.4vw, 40px);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+    max-width: 22ch;
+  }
+
+  .capabilities__controls {
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .capabilities__counter {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .capabilities__buttons {
+    display: flex;
+    gap: 12px;
+  }
+
+  .capabilities__btn {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 18px;
+    cursor: pointer;
+    transition: border-color 180ms ease;
+  }
+
+  .capabilities__btn:hover {
+    border-color: var(--ink);
+  }
+
+  .capabilities__viewport {
+    margin-top: 24px;
+    border-top: 1px solid var(--line);
+    /* No-JS fallback: native horizontal scroll with snap. */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .capabilities__viewport.is-active {
+    overflow: hidden;
+    scroll-snap-type: none;
+  }
+
+  .capabilities__track {
+    display: flex;
+    gap: clamp(24px, 3vw, 40px);
+    transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .capabilities__slide {
+    flex: 1 1 min(100%, 320px);
+    min-width: 280px;
+    scroll-snap-align: start;
+    padding-top: 28px;
+    padding-bottom: 8px;
+  }
+
+  .capabilities__viewport.is-active .capabilities__slide {
+    scroll-snap-align: none;
+  }
+
+  .capabilities__title {
+    font-size: clamp(21px, 1.9vw, 24px);
+    line-height: 1.25;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .capabilities__description {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 12px 0 0;
+    max-width: 54ch;
+  }
+
+  .capabilities__evidence {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 16px 0 0;
+  }
+</style>

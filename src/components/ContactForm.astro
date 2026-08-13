@@ -1,0 +1,266 @@
+---
+/**
+ * Services contact form.
+ *
+ * Reproduces the prototype's markup/styling exactly (handoff HTML lines
+ * 167-186: border/radius/padding/gap on the form shell, 48px inputs, 3-row
+ * textareas), but replaces the prototype's simulated `setTimeout` submit
+ * with a real POST to Formspree (`config.servicesForm.formspreeEndpoint`),
+ * using `FormData` directly from the form element — Formspree's documented
+ * pattern, and it sidesteps hand-rolling JSON serialization.
+ *
+ * States: idle -> sending -> sent | error. `error` did not exist in the
+ * prototype; the README explicitly calls it out as a production requirement
+ * (network failure, non-OK response). The status paragraph's `role` toggles
+ * between `status` (polite: sending/sent) and `alert` (assertive: error) so
+ * screen readers announce a failed submission with the right urgency.
+ *
+ * Each field carries `aria-describedby` pointing at an (empty by default)
+ * per-field error container, so real-time field validation can be added
+ * later without changing the DOM contract — today only the shared
+ * form-level status is populated, since the only failure mode is the
+ * network/Formspree response, not per-field validation (the browser already
+ * enforces `required`/`type="email"`).
+ *
+ * Honeypot: a `_gotcha` field, hidden from sighted users via CSS and from
+ * assistive tech via `aria-hidden`, `tabindex="-1"` keeps it out of the tab
+ * order. This is Formspree's documented spam-reduction convention and needs
+ * no CAPTCHA.
+ *
+ * `servicesForm.formspreeEndpoint` is still the `TODO_FORMSPREE_ENDPOINT`
+ * placeholder (see src/data/config.ts) — the fetch below will fail until a
+ * real endpoint is set. That is expected, not a bug: it is what proves the
+ * `error` state actually works before the real endpoint exists.
+ */
+import { servicesForm } from '../data/config';
+---
+
+<form
+  class="contact-form"
+  id="contact-form"
+  data-reveal
+  data-reveal-delay="100"
+  novalidate
+>
+  <div class="contact-form__row">
+    <label class="contact-form__field">
+      Name
+      <input type="text" name="name" required aria-describedby="name-error" />
+      <span id="name-error" class="contact-form__field-error"></span>
+    </label>
+    <label class="contact-form__field">
+      Work email
+      <input type="email" name="email" required aria-describedby="email-error" />
+      <span id="email-error" class="contact-form__field-error"></span>
+    </label>
+  </div>
+
+  <label class="contact-form__field">
+    What are you working on?
+    <textarea name="problem" rows="3" required aria-describedby="problem-error"></textarea>
+    <span id="problem-error" class="contact-form__field-error"></span>
+  </label>
+
+  <label class="contact-form__field">
+    What would a useful outcome look like?
+    <textarea name="outcome" rows="3" required aria-describedby="outcome-error"></textarea>
+    <span id="outcome-error" class="contact-form__field-error"></span>
+  </label>
+
+  <input
+    type="text"
+    name="_gotcha"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+    class="contact-form__honeypot"
+  />
+
+  <div class="contact-form__actions">
+    <button type="submit" class="contact-form__submit" id="contact-form-submit">
+      Send project context
+    </button>
+    <p id="contact-form-status" class="contact-form__status" role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<style>
+  .contact-form {
+    display: grid;
+    gap: 24px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 40px;
+    background: var(--canvas);
+  }
+
+  .contact-form__row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 24px;
+  }
+
+  .contact-form__field {
+    display: grid;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .contact-form__field input,
+  .contact-form__field textarea {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+
+  .contact-form__field input {
+    height: 48px;
+    padding: 0 14px;
+  }
+
+  .contact-form__field textarea {
+    padding: 12px 14px;
+    line-height: 1.6;
+    resize: vertical;
+  }
+
+  .contact-form__field input:focus,
+  .contact-form__field textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .contact-form__field-error {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .contact-form__field-error:empty {
+    display: none;
+  }
+
+  .contact-form__honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .contact-form__actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .contact-form__submit {
+    display: inline-flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 24px;
+    white-space: nowrap;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: none;
+    border-radius: 10px;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 180ms ease;
+  }
+
+  .contact-form__submit:hover {
+    background: var(--accent-hover);
+  }
+
+  .contact-form__submit:active {
+    transform: translateY(1px);
+  }
+
+  .contact-form__submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .contact-form__status {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0;
+    max-width: 34ch;
+  }
+</style>
+
+<script is:inline define:vars={{ endpoint: servicesForm.formspreeEndpoint }}>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('contact-form-status');
+  const submitButton = document.getElementById('contact-form-submit');
+
+  const IDLE_LABEL = 'Send project context';
+  const MESSAGES = {
+    sending: 'Sending context…',
+    sent: 'Thanks. I have your context and will reply with the most useful next step.',
+    error: 'Something went wrong sending this — please try again or email me directly.',
+  };
+
+  function setStatus(state) {
+    if (!(status instanceof HTMLElement) || !(submitButton instanceof HTMLButtonElement)) return;
+
+    if (state === 'sending') {
+      submitButton.disabled = true;
+      submitButton.textContent = MESSAGES.sending;
+      status.setAttribute('role', 'status');
+      status.textContent = '';
+      return;
+    }
+
+    submitButton.disabled = false;
+    submitButton.textContent = IDLE_LABEL;
+
+    if (state === 'sent') {
+      status.setAttribute('role', 'status');
+      status.textContent = MESSAGES.sent;
+    } else if (state === 'error') {
+      status.setAttribute('role', 'alert');
+      status.textContent = MESSAGES.error;
+    } else {
+      status.setAttribute('role', 'status');
+      status.textContent = '';
+    }
+  }
+
+  if (form instanceof HTMLFormElement) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      setStatus('sending');
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Formspree responded with status ${response.status}`);
+        }
+
+        setStatus('sent');
+        form.reset();
+      } catch {
+        setStatus('error');
+      }
+    });
+  }
+</script>
