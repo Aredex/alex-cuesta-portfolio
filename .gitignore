@@ -26,3 +26,7 @@ pnpm-debug.log*
 # tool run artifacts
 .playwright-cli/
 .claude/scheduled_tasks.lock
+
+# Playwright / Vitest run artifacts
+test-results/
+playwright-report/
