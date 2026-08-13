@@ -1,0 +1,115 @@
+---
+/**
+ * Shared footer for all three pages.
+ *
+ * - `background`: `--surface` on Home/case-study, `--canvas` on Services.
+ * - `showNav`: the case-study footer has no nav at all.
+ * - `isHome` / `isServices`: control anchor prefixing, same idea as Header —
+ *   Experience/Work are home sections (`/#work` unless already on Home),
+ *   Services is its own page (`/services` unless already on it), Contact is
+ *   always a same-page anchor since every page has its own #contact section.
+ *
+ * Nav item order is standardized to Experience · Work · Services · Contact
+ * (matches the Home prototype). The Services prototype orders its footer
+ * nav as Work · Experience · Services · Contact — treated as prototype
+ * drift rather than an intentional per-page order, same call as in Header.
+ */
+export interface Props {
+  background?: 'surface' | 'canvas';
+  showNav?: boolean;
+  isHome?: boolean;
+  isServices?: boolean;
+}
+
+const { background = 'surface', showNav = true, isHome = false, isServices = false } = Astro.props;
+
+const homeSectionHref = (anchor: string) => (isHome ? `#${anchor}` : `/#${anchor}`);
+const servicesHref = isServices ? '#services' : '/services';
+
+const navItems = [
+  { label: 'Experience', href: homeSectionHref('experience') },
+  { label: 'Work', href: homeSectionHref('work') },
+  { label: 'Services', href: servicesHref },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<footer class="site-footer" data-background={background}>
+  <div class="site-footer__inner container">
+    <div>
+      <p class="site-footer__name">Alex Cuesta</p>
+      <p class="site-footer__tagline font-mono">Clear decisions. Reliable software. Verifiable work.</p>
+    </div>
+
+    {
+      showNav && (
+        <nav aria-label="Footer" class="site-footer__nav">
+          {navItems.map((item) => (
+            <a href={item.href} class="site-footer__link">
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      )
+    }
+
+    <p class="site-footer__copyright font-mono">© 2026 Pedro Alexander Cuesta Rivas</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .site-footer[data-background='canvas'] {
+    background: var(--canvas);
+  }
+
+  .site-footer__inner {
+    padding-block: clamp(32px, 4vw, 48px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .site-footer__name {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .site-footer__tagline {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--muted);
+    margin: 8px 0 0;
+  }
+
+  .site-footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-size: 15px;
+  }
+
+  .site-footer__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--muted);
+  }
+
+  .site-footer__link:hover {
+    color: var(--ink);
+  }
+
+  .site-footer__copyright {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0;
+  }
+</style>

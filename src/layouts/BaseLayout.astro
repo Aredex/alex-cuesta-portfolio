@@ -1,0 +1,100 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  /** Highlights the matching item in the header nav. */
+  activeNav?: 'experience' | 'work' | 'about' | 'services' | 'contact';
+  /** Adds "Services" to the header's main nav (Services page only). */
+  showServicesNav?: boolean;
+  /** True on Home: header/footer links to home sections are bare anchors
+   * instead of `/#anchor`. */
+  isHome?: boolean;
+  /** True on Services: footer's Services link is `#services` instead of `/services`. */
+  isServices?: boolean;
+  /** Footer background token — `surface` (Home/case-study) or `canvas` (Services). */
+  footerBackground?: 'surface' | 'canvas';
+  /** The case-study footer has no nav at all. */
+  footerShowNav?: boolean;
+}
+
+const {
+  title,
+  description,
+  activeNav,
+  showServicesNav = false,
+  isHome = false,
+  isServices = false,
+  footerBackground = 'surface',
+  footerShowNav = true,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script is:inline>
+      // Anti-flash theme bootstrap. Runs synchronously, before first paint,
+      // so the correct theme is already applied by the time CSS resolves
+      // tokens.css. Intentionally NOT a module script (those are deferred)
+      // and intentionally NOT imported from src/scripts/theme.ts, to avoid
+      // any network/parse delay that could reintroduce the flash. Keep this
+      // in sync with the storage key and two-state model in theme.ts.
+      (function () {
+        try {
+          var stored = localStorage.getItem('ac-theme');
+          var theme =
+            stored === 'dark' || stored === 'light'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          // localStorage/matchMedia unavailable — fall back to the light
+          // theme defined on :root.
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <Header activeNav={activeNav} showServicesNav={showServicesNav} isHome={isHome} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer background={footerBackground} showNav={footerShowNav} isHome={isHome} isServices={isServices} />
+
+    <style>
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 12px;
+        background: var(--surface);
+        color: var(--ink);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px 16px;
+        z-index: 60;
+      }
+
+      .skip-link:focus {
+        left: 24px;
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+/**
+ * Design tokens for the Alex Cuesta portfolio.
+ * Light values live on :root; dark overrides live on :root[data-theme="dark"].
+ * Theme is switched by setting the `data-theme` attribute on <html> (see
+ * src/scripts/theme.ts and the inline anti-flash script in BaseLayout.astro) —
+ * never via inline `style.setProperty`, so plain CSS can resolve the theme.
+ */
+
+:root {
+  --canvas: #F7F8F5;
+  --surface: #FFFFFF;
+  --ink: #111713;
+  --muted: #58635D;
+  --line: #D8DEDA;
+  --accent: #2257D6;
+  --accent-hover: #1845AD;
+  --accent-soft: #EAF0FF;
+  --accent-ink: #FFFFFF;
+  --shadow: 0 18px 50px rgba(17, 23, 19, 0.10);
+
+  /* Self-hosted type families (see src/styles/fonts.css). The fontsource
+     package names the family "Geist Sans" (not "Geist"); the fallback stack
+     matches the handoff spec. */
+  --font-sans: 'Geist Sans', Arial, 'Helvetica Neue', sans-serif;
+  --font-mono: 'Geist Mono', SFMono-Regular, Consolas, monospace;
+
+  /* Header is sticky with min-height:70px; give anchor targets enough
+     breathing room so the header never overlaps a scrolled-to heading. */
+  --header-scroll-offset: 88px;
+}
+
+:root[data-theme="dark"] {
+  --canvas: #101411;
+  --surface: #171D19;
+  --ink: #F1F4F1;
+  --muted: #AAB4AD;
+  --line: #303A33;
+  --accent: #7FA2FF;
+  --accent-hover: #A6BCFF;
+  --accent-soft: #1C2B51;
+  --accent-ink: #101411;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}

@@ -1,0 +1,15 @@
+/**
+ * Self-hosted fonts (@fontsource/geist-sans, @fontsource/geist-mono).
+ * Only the latin subset and the weights actually used in the design are
+ * imported, each with font-display: swap baked into the fontsource files.
+ *
+ * Geist Sans: 400, 500, 600, 700
+ * Geist Mono: 400, 500
+ */
+@import '@fontsource/geist-sans/latin-400.css';
+@import '@fontsource/geist-sans/latin-500.css';
+@import '@fontsource/geist-sans/latin-600.css';
+@import '@fontsource/geist-sans/latin-700.css';
+
+@import '@fontsource/geist-mono/latin-400.css';
+@import '@fontsource/geist-mono/latin-500.css';

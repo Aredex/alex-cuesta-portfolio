@@ -1,0 +1,75 @@
+---
+/**
+ * Light/dark theme toggle button, shared across all three pages.
+ *
+ * Deliberate deviation from the prototype: the Services prototype uses a
+ * 40px-tall button; here every instance is 44px to meet the 44px minimum
+ * touch target used everywhere else in the header.
+ *
+ * Shows the theme it will switch TO ("DARK" while in light mode, "LIGHT"
+ * while in dark mode), same as the prototype, plus real accessibility on
+ * top of it: `aria-pressed` reflects whether dark mode is currently active,
+ * and `aria-label` states the action in full ("Switch to dark theme").
+ * `aria-live="polite"` is kept so screen readers announce the label change.
+ */
+---
+
+<button
+  type="button"
+  id="theme-toggle"
+  class="theme-toggle"
+  aria-live="polite"
+  aria-pressed="false"
+  aria-label="Switch to dark theme"
+>
+  <span class="theme-toggle__label" aria-hidden="true">DARK</span>
+</button>
+
+<style>
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    padding: 0 14px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+  }
+
+  .theme-toggle:hover {
+    color: var(--ink);
+    border-color: var(--muted);
+  }
+</style>
+
+<script>
+  import { getCurrentTheme, getTargetTheme, toggleTheme } from '../scripts/theme';
+
+  function syncButton(button: HTMLButtonElement): void {
+    const current = getCurrentTheme();
+    const target = getTargetTheme(current);
+    const label = button.querySelector('.theme-toggle__label');
+
+    if (label) {
+      label.textContent = target === 'dark' ? 'DARK' : 'LIGHT';
+    }
+    button.setAttribute('aria-pressed', String(current === 'dark'));
+    button.setAttribute('aria-label', `Switch to ${target} theme`);
+  }
+
+  const button = document.getElementById('theme-toggle') as HTMLButtonElement | null;
+
+  if (button) {
+    syncButton(button);
+    button.addEventListener('click', () => {
+      toggleTheme();
+      syncButton(button);
+    });
+  }
+</script>

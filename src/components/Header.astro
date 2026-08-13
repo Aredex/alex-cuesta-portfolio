@@ -1,0 +1,153 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+/**
+ * Shared sticky header for all three pages.
+ *
+ * Nav item order is standardized to Experience · Work · About · [Services] ·
+ * Contact on every page. The Services prototype orders its header nav as
+ * Work · Experience · About · Services · Contact — that looks like an
+ * inconsistency between prototype sessions rather than an intentional
+ * per-page difference (the README never calls it out), so a single
+ * consistent order was chosen here.
+ *
+ * `isHome` controls whether Experience/Work/About link to same-page anchors
+ * (`#work`) or to the home page (`/#work`) — every page has its own
+ * `#contact` section, so Contact and the CTA are always same-page anchors.
+ */
+export interface Props {
+  activeNav?: 'experience' | 'work' | 'about' | 'services' | 'contact';
+  showServicesNav?: boolean;
+  isHome?: boolean;
+}
+
+const { activeNav, showServicesNav = false, isHome = false } = Astro.props;
+
+type NavKey = 'experience' | 'work' | 'about' | 'services' | 'contact';
+type NavItem = { key: NavKey; label: string; href: string };
+
+const homeSectionHref = (anchor: string) => (isHome ? `#${anchor}` : `/#${anchor}`);
+
+const navItems: NavItem[] = [
+  { key: 'experience', label: 'Experience', href: homeSectionHref('experience') },
+  { key: 'work', label: 'Work', href: homeSectionHref('work') },
+  { key: 'about', label: 'About', href: homeSectionHref('about') },
+  ...(showServicesNav
+    ? [{ key: 'services' as const, label: 'Services', href: '#services' }]
+    : []),
+  { key: 'contact', label: 'Contact', href: '#contact' },
+];
+---
+
+<header class="site-header">
+  <div class="site-header__inner container">
+    <a href="/" class="site-header__wordmark">Alex Cuesta</a>
+
+    <nav aria-label="Primary" class="site-header__nav">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class="site-header__link"
+            data-active={item.key === activeNav ? 'true' : undefined}
+            aria-current={item.key === activeNav ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="site-header__actions">
+      <ThemeToggle />
+      <a href="#contact" class="site-header__cta">Start a conversation</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .site-header__inner {
+    min-height: 70px;
+    padding-block: 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap: 32px;
+  }
+
+  .site-header__wordmark {
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .site-header__nav {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 24px;
+    row-gap: 4px;
+    font-size: 15px;
+    margin-right: auto;
+  }
+
+  .site-header__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .site-header__link:hover {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .site-header__link[data-active='true'] {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .site-header__cta {
+    display: inline-flex;
+    align-items: center;
+    height: 44px;
+    padding: 0 20px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 180ms ease;
+  }
+
+  .site-header__cta:hover {
+    background: var(--accent-hover);
+    color: var(--accent-ink);
+    text-decoration: none;
+  }
+
+  .site-header__cta:active {
+    transform: translateY(1px);
+  }
+</style>
