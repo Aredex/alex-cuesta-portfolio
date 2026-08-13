@@ -10,8 +10,7 @@ export const about = {
   heading: 'I work best where the problem is still unclear.',
   lead: 'I started close to backend systems, payments and infrastructure. Over time, my work expanded into product decisions, frontend experiences and technical leadership.',
   body: 'I am most useful when a problem is still unclear and a team needs someone to understand the constraints, define the boundaries and carry the solution into production — then explain the trade-offs it took to get there.',
-  placeholderImageAlt: 'Alex Cuesta working',
-  placeholderChip: 'portrait-about.jpg — working or in conversation',
+  portraitAlt: 'Alex Cuesta, professional headshot',
 };
 
 export const experienceIntro = {

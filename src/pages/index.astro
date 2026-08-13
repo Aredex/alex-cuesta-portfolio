@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CapabilitiesCarousel from '../components/CapabilitiesCarousel.astro';
 import portraitImage from '../assets/images/portrait.png';
+import aboutPortraitImage from '../assets/images/about-portrait.png';
 import brieflineBoardImage from '../assets/images/briefline-board.webp';
 import { homeMeta } from '../data/site';
 import {
@@ -93,9 +94,7 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
         <p class="about__body">{about.body}</p>
       </div>
       <div class="about__figure" data-reveal data-reveal-delay="120">
-        <div class="about__placeholder" role="img" aria-label={about.placeholderImageAlt}>
-          <span class="about__chip font-mono">{about.placeholderChip}</span>
-        </div>
+        <Image src={aboutPortraitImage} alt={about.portraitAlt} width={760} class="about__portrait-img" />
       </div>
     </div>
   </section>
@@ -459,24 +458,13 @@ import { contact as contactConfig, resume, briefline } from '../data/config';
     min-width: 0;
   }
 
-  .about__placeholder {
+  .about__portrait-img {
+    width: 100%;
     aspect-ratio: 5 / 4;
+    object-fit: cover;
+    object-position: 50% 22%;
     border: 1px solid var(--line);
     border-radius: 16px;
-    background: repeating-linear-gradient(135deg, var(--surface) 0 10px, var(--canvas) 10px 20px);
-    display: flex;
-    align-items: flex-end;
-    padding: 20px;
-  }
-
-  .about__chip {
-    font-size: 12px;
-    line-height: 1.4;
-    color: var(--muted);
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 8px 10px;
   }
 
   /* Experience */

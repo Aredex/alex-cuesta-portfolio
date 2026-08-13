@@ -46,6 +46,3 @@ export const servicesForm = {
    */
   formspreeEndpoint: 'TODO_FORMSPREE_ENDPOINT',
 };
-
-/** TODO: replace the About section's striped placeholder with a real photo (aspect-ratio 5/4). */
-export const aboutPhotoIsPlaceholder = true;
