@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="description" content="Alex Cuesta — Senior Full-Stack &amp; Product Engineer. I turn ambiguous product problems into reliable software.">
+<title>Alex Cuesta | Senior Full-Stack &amp; Product Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #F7F8F5; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  * { box-sizing: border-box; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { color: var(--accent-hover); text-decoration: underline; text-underline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  ::selection { background: var(--accent-soft); color: var(--ink); }
+  img { display: block; max-width: 100%; }
+</style>
+</helmet>
+<div id="ac-root" style="--canvas:#F7F8F5; --surface:#FFFFFF; --ink:#111713; --muted:#58635D; --line:#D8DEDA; --accent:#2257D6; --accent-hover:#1845AD; --accent-soft:#EAF0FF; --accent-ink:#FFFFFF; --shadow:0 18px 50px rgba(17,23,19,0.10); background:var(--canvas); color:var(--ink); font-family:Geist, Arial, 'Helvetica Neue', sans-serif; font-size:17px; line-height:1.6; min-height:100vh; transition:background-color 200ms ease, color 200ms ease;">
+
+  <a href="#main" style="position:absolute; left:-9999px; top:12px; background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:10px 16px; z-index:60;" style-focus="left:24px;">Skip to content</a>
+
+  <header style="position:sticky; top:0; z-index:50; background:var(--surface); border-bottom:1px solid var(--line);">
+    <div style="max-width:1360px; margin:0 auto; padding:10px clamp(20px, 4vw, 72px); min-height:70px; display:flex; align-items:center; flex-wrap:wrap; row-gap:10px; column-gap:32px;">
+      <a href="#main" style="font-weight:600; font-size:17px; letter-spacing:-0.01em; color:var(--ink); text-decoration:none; white-space:nowrap;">Alex Cuesta</a>
+      <nav aria-label="Primary" style="display:flex; flex-wrap:wrap; column-gap:24px; row-gap:4px; font-size:15px; margin-right:auto;">
+        <a href="#experience" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted); text-decoration:none;" style-hover="color:var(--ink); text-decoration:none;">Experience</a>
+        <a href="#work" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted); text-decoration:none;" style-hover="color:var(--ink); text-decoration:none;">Work</a>
+        <a href="#about" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted); text-decoration:none;" style-hover="color:var(--ink); text-decoration:none;">About</a>
+        <a href="#contact" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted); text-decoration:none;" style-hover="color:var(--ink); text-decoration:none;">Contact</a>
+      </nav>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <button type="button" onClick="{{ toggleTheme }}" aria-live="polite" style="display:flex; align-items:center; height:44px; padding:0 14px; background:transparent; border:1px solid var(--line); border-radius:10px; color:var(--muted); font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; font-weight:500; letter-spacing:0.04em; cursor:pointer;" style-hover="color:var(--ink); border-color:var(--muted);">{{ themeLabel }}</button>
+        <a href="#contact" style="display:inline-flex; align-items:center; height:44px; padding:0 20px; background:var(--accent); color:var(--accent-ink); border-radius:10px; font-size:15px; font-weight:600; text-decoration:none; white-space:nowrap; transition:background-color 180ms ease;" style-hover="background:var(--accent-hover); color:var(--accent-ink); text-decoration:none;">Start a conversation</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <sc-if value="{{ heroA }}" hint-placeholder-val="{{ true }}">
+      <section style="max-width:1360px; margin:0 auto; padding:clamp(48px, 6vw, 84px) clamp(20px, 4vw, 72px) clamp(64px, 8vw, 104px);">
+        <div style="display:flex; flex-wrap:wrap; gap:clamp(40px, 5vw, 72px); align-items:center;">
+          <div data-reveal style="flex:1 1 540px; min-width:0;">
+            <h1 style="font-size:clamp(44px, 5.4vw, 68px); line-height:1.0; font-weight:600; letter-spacing:-0.035em; margin:0;">Alex&nbsp;Cuesta</h1>
+            <p style="font-size:clamp(19px, 1.7vw, 22px); line-height:1.45; font-weight:500; color:var(--ink); margin:14px 0 0;">Senior Full-Stack &amp; Product Engineer</p>
+            <p style="font-size:clamp(23px, 2.2vw, 28px); line-height:1.3; letter-spacing:-0.01em; color:var(--ink); margin:36px 0 0; padding-top:28px; border-top:1px solid var(--line); max-width:24ch; text-wrap:pretty;">I turn ambiguous product problems into reliable software.</p>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:20px 0 0; max-width:56ch;">I build APIs, internal tools, automation and production AI systems for teams that need clarity, reliability and ownership.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:36px;">
+              <a href="#contact" style="display:inline-flex; align-items:center; height:48px; padding:0 24px; white-space:nowrap; background:var(--accent); color:var(--accent-ink); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none; transition:background-color 180ms ease;" style-hover="background:var(--accent-hover); color:var(--accent-ink); text-decoration:none;" style-active="transform:translateY(1px);">Start a conversation</a>
+              <a href="#contact" style="display:inline-flex; align-items:center; height:48px; padding:0 24px; white-space:nowrap; background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none;" style-hover="border-color:var(--ink); color:var(--ink); text-decoration:none;">Download résumé</a>
+            </div>
+          </div>
+          <div data-reveal data-reveal-delay="120" style="flex:0 1 400px; min-width:0;">
+            <img src="assets/portrait.png" alt="Alex Cuesta, senior full-stack and product engineer" style="width:100%; aspect-ratio:4/5; object-fit:cover; object-position:50% 18%; border:1px solid var(--line); border-radius:16px;">
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ heroB }}">
+      <section style="max-width:1360px; margin:0 auto; padding:clamp(48px, 6vw, 84px) clamp(20px, 4vw, 72px) clamp(64px, 8vw, 104px);">
+        <div data-reveal style="display:flex; flex-wrap:wrap; align-items:baseline; gap:12px 32px;">
+          <h1 style="font-size:clamp(28px, 2.6vw, 34px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0;">Alex Cuesta</h1>
+          <p style="font-size:17px; color:var(--muted); margin:0;">Senior Full-Stack &amp; Product Engineer</p>
+        </div>
+        <p data-reveal data-reveal-delay="80" style="font-size:clamp(38px, 4.8vw, 60px); line-height:1.04; font-weight:600; letter-spacing:-0.03em; margin:40px 0 0; max-width:26ch; text-wrap:pretty;">I turn ambiguous product problems into reliable software.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:clamp(32px, 4vw, 56px); margin-top:56px; align-items:end;">
+          <img data-reveal data-reveal-delay="160" src="assets/portrait.png" alt="Alex Cuesta, senior full-stack and product engineer" style="flex:1 1 420px; min-width:0; width:100%; aspect-ratio:5/4; object-fit:cover; object-position:50% 16%; border:1px solid var(--line); border-radius:16px;">
+          <div data-reveal data-reveal-delay="200" style="flex:0 1 420px; min-width:0;">
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:0; max-width:52ch;">I build APIs, internal tools, automation and production AI systems for teams that need clarity, reliability and ownership. Five years in production, from payments to technical leadership.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:32px;">
+              <a href="#contact" style="display:inline-flex; align-items:center; height:48px; padding:0 24px; white-space:nowrap; background:var(--accent); color:var(--accent-ink); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none;" style-hover="background:var(--accent-hover); color:var(--accent-ink); text-decoration:none;">Start a conversation</a>
+              <a href="#contact" style="display:inline-flex; align-items:center; height:48px; padding:0 24px; white-space:nowrap; background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none;" style-hover="border-color:var(--ink); color:var(--ink); text-decoration:none;">Download résumé</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <section aria-labelledby="evidence-heading" style="border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--surface);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(32px, 4vw, 48px) clamp(20px, 4vw, 72px);">
+        <h2 id="evidence-heading" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);">Professional evidence</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 120px), 1fr)); gap:24px 20px;">
+          <div data-reveal>
+            <p style="font-size:clamp(30px, 3vw, 36px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0;">5 years</p>
+            <p style="font-size:14px; line-height:1.5; color:var(--muted); margin:6px 0 0;">building production software</p>
+          </div>
+          <div data-reveal data-reveal-delay="80">
+            <p style="font-size:clamp(30px, 3vw, 36px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0;">100K+</p>
+            <p style="font-size:14px; line-height:1.5; color:var(--muted); margin:6px 0 0;">active users on systems I built</p>
+          </div>
+          <div data-reveal data-reveal-delay="160">
+            <p style="font-size:clamp(30px, 3vw, 36px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0;">~500K</p>
+            <p style="font-size:14px; line-height:1.5; color:var(--muted); margin:6px 0 0;">payment transactions per month</p>
+          </div>
+          <div data-reveal data-reveal-delay="240">
+            <p style="font-size:clamp(30px, 3vw, 36px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0;">6 developers</p>
+            <p style="font-size:14px; line-height:1.5; color:var(--muted); margin:6px 0 0;">led as technical leader</p>
+          </div>
+        </div>
+        <p style="font-size:14px; line-height:1.5; color:var(--muted); margin:28px auto 0; max-width:84ch; text-align:center;">All four figures come from five years at Chiper, a B2B commerce platform in Latin America. <a href="#experience">The context for each one is in Experience</a>.</p>
+      </div>
+    </section>
+
+    <section id="about" aria-labelledby="about-heading" style="max-width:1360px; margin:0 auto; padding:clamp(72px, 9vw, 120px) clamp(20px, 4vw, 72px);">
+      <div style="display:flex; flex-wrap:wrap; gap:clamp(40px, 5vw, 80px); align-items:start;">
+        <div data-reveal style="flex:1 1 520px; min-width:0;">
+          <h2 id="about-heading" style="font-size:clamp(30px, 3.2vw, 38px); line-height:1.12; font-weight:600; letter-spacing:-0.02em; margin:0; max-width:26ch; text-wrap:pretty;">I work best where the problem is still unclear.</h2>
+          <p style="font-size:clamp(19px, 1.6vw, 21px); line-height:1.5; color:var(--muted); margin:28px 0 0; max-width:60ch;">I started close to backend systems, payments and infrastructure. Over time, my work expanded into product decisions, frontend experiences and technical leadership.</p>
+          <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:20px 0 0; max-width:60ch;">I am most useful when a problem is still unclear and a team needs someone to understand the constraints, define the boundaries and carry the solution into production — then explain the trade-offs it took to get there.</p>
+        </div>
+        <div data-reveal data-reveal-delay="120" style="flex:0 1 380px; min-width:0;">
+          <div role="img" aria-label="Alex Cuesta working" style="aspect-ratio:5/4; border:1px solid var(--line); border-radius:16px; background:repeating-linear-gradient(135deg, var(--surface) 0 10px, var(--canvas) 10px 20px); display:flex; align-items:flex-end; padding:20px;">
+            <span style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.4; color:var(--muted); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:8px 10px;">portrait-about.jpg — working or in conversation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" aria-labelledby="experience-heading" style="border-top:1px solid var(--line); background:var(--surface);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(72px, 9vw, 120px) clamp(20px, 4vw, 72px);">
+        <h2 id="experience-heading" data-reveal style="font-size:clamp(32px, 3.4vw, 40px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0; max-width:24ch; text-wrap:pretty;">Five years building systems used at scale.</h2>
+        <p data-reveal style="font-size:clamp(19px, 1.6vw, 21px); line-height:1.5; color:var(--muted); margin:24px 0 0; max-width:64ch;">At Chiper I grew from backend engineer to technical leader, working across payments, billing, internal tools, cloud infrastructure and production AI — mostly on systems other teams depended on every day.</p>
+
+        <ol style="list-style:none; margin:64px 0 0; padding:0;">
+          <li data-reveal style="display:grid; grid-template-columns:minmax(110px, 170px) 1fr; gap:clamp(20px, 3vw, 48px); padding:32px 0; border-top:1px solid var(--line);">
+            <div>
+              <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; font-weight:500; letter-spacing:0.06em; color:var(--muted); margin:0;">2024 — 2026</p>
+              <p style="font-size:14px; color:var(--muted); margin:8px 0 0;">Chiper</p>
+            </div>
+            <div>
+              <h3 style="font-size:clamp(21px, 1.9vw, 24px); line-height:1.25; font-weight:600; margin:0;">Technical Lead</h3>
+              <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:10px 0 0; max-width:66ch;">Led a squad of six developers across internal platform work and the company's first production conversational AI, built on Vertex AI with Gemini function calling. Set the review, testing and on-call practices the squad still runs on.</p>
+            </div>
+          </li>
+          <li data-reveal style="display:grid; grid-template-columns:minmax(110px, 170px) 1fr; gap:clamp(20px, 3vw, 48px); padding:32px 0; border-top:1px solid var(--line);">
+            <div>
+              <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; font-weight:500; letter-spacing:0.06em; color:var(--muted); margin:0;">2022 — 2024</p>
+              <p style="font-size:14px; color:var(--muted); margin:8px 0 0;">Chiper</p>
+            </div>
+            <div>
+              <h3 style="font-size:clamp(21px, 1.9vw, 24px); line-height:1.25; font-weight:600; margin:0;">Senior Software Engineer</h3>
+              <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:10px 0 0; max-width:66ch;">Owned payment and multi-country billing systems handling roughly 500K transactions a month, held 99.9% uptime through a critical architecture migration, and cut messaging costs by 20% while making new country integrations 35% faster.</p>
+            </div>
+          </li>
+          <li data-reveal style="display:grid; grid-template-columns:minmax(110px, 170px) 1fr; gap:clamp(20px, 3vw, 48px); padding:32px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+            <div>
+              <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; font-weight:500; letter-spacing:0.06em; color:var(--muted); margin:0;">2021 — 2022</p>
+              <p style="font-size:14px; color:var(--muted); margin:8px 0 0;">Chiper</p>
+            </div>
+            <div>
+              <h3 style="font-size:clamp(21px, 1.9vw, 24px); line-height:1.25; font-weight:600; margin:0;">Backend Engineer</h3>
+              <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:10px 0 0; max-width:66ch;">Built Node.js services and internal tools for commercial operations, and raised test coverage in the modules I refactored from roughly 20% to 65% so the team could change them without fear.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="work" aria-labelledby="work-heading" style="border-top:1px solid var(--line);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(72px, 9vw, 120px) clamp(20px, 4vw, 72px);">
+        <div data-reveal style="display:flex; flex-wrap:wrap; gap:24px 40px; align-items:baseline; justify-content:space-between;">
+          <h2 id="work-heading" style="font-size:clamp(32px, 3.4vw, 40px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0;">Selected work</h2>
+          <p style="font-size:15px; color:var(--muted); margin:0; max-width:44ch;">Two projects, explained properly, instead of a gallery.</p>
+        </div>
+
+        <article data-reveal data-reveal-delay="80" style="margin-top:56px; display:flex; flex-wrap:wrap; gap:clamp(32px, 4vw, 64px); align-items:center;">
+          <figure style="flex:1 1 480px; min-width:0; margin:0;">
+            <a href="Alex Cuesta - Briefline case study.dc.html" style="display:block; text-decoration:none;">
+              <img src="assets/briefline-board.webp" alt="Briefline task board with Pending, In progress, Blocked and Completed columns, each task showing priority and assignee." style="width:100%; border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow);">
+            </a>
+          </figure>
+          <div style="flex:1 1 380px; min-width:0;">
+            <h3 style="font-size:clamp(23px, 2.2vw, 28px); line-height:1.2; font-weight:600; letter-spacing:-0.01em; margin:0; text-wrap:pretty;">From an ambiguous brief to a verifiable product.</h3>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:16px 0 0; max-width:56ch;">Briefline is an independent full-stack case study for small digital agencies. I defined the product, designed the workflow, built the frontend and API, and documented the evidence needed to verify its behavior.</p>
+            <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.6; color:var(--muted); margin:20px 0 0;">React · NestJS · PostgreSQL · OpenAPI 3.1 · Playwright</p>
+            <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:28px;">
+              <a href="Alex Cuesta - Briefline case study.dc.html" style="display:inline-flex; align-items:center; height:48px; padding:0 24px; white-space:nowrap; background:var(--accent); color:var(--accent-ink); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none;" style-hover="background:var(--accent-hover); color:var(--accent-ink); text-decoration:none;">Read case study</a>
+              <a href="#work" style="display:inline-flex; align-items:center; height:48px; padding:0 24px; white-space:nowrap; background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none;" style-hover="border-color:var(--ink); color:var(--ink); text-decoration:none;">Open live demo</a>
+            </div>
+            <p style="font-size:14px; line-height:1.5; color:var(--muted); margin:24px 0 0; padding-left:16px; border-left:2px solid var(--line); max-width:52ch;">Independent case study inspired by a real marketplace brief. Not commissioned client work.</p>
+          </div>
+        </article>
+
+        <article data-reveal data-reveal-delay="120" style="margin-top:48px; padding-top:40px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; gap:24px 48px; align-items:baseline; justify-content:space-between;">
+          <div>
+            <h3 style="font-size:clamp(21px, 1.9vw, 24px); line-height:1.25; font-weight:600; margin:0;">Payment and billing platform · Chiper</h3>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:12px 0 0; max-width:62ch;">Professional work: the transaction and multi-country billing systems behind ~500K monthly payments, kept at 99.9% uptime through a migration. Details available in conversation rather than public code.</p>
+          </div>
+          <span style="display:inline-flex; align-items:center; height:32px; padding:0 14px; border-radius:999px; border:1px solid var(--line); color:var(--muted); font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; letter-spacing:0.04em; white-space:nowrap;">PROFESSIONAL WORK · NDA</span>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="think-heading" style="border-top:1px solid var(--line); background:var(--surface);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(72px, 9vw, 120px) clamp(20px, 4vw, 72px);">
+        <h2 id="think-heading" data-reveal style="font-size:clamp(32px, 3.4vw, 40px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0; max-width:20ch;">How I think about building software.</h2>
+        <div style="margin-top:56px; display:grid; gap:0;">
+          <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap:16px clamp(32px, 5vw, 80px); padding:32px 0; border-top:1px solid var(--line); align-items:baseline;">
+            <p style="font-size:clamp(23px, 2.2vw, 28px); line-height:1.25; font-weight:600; letter-spacing:-0.01em; margin:0; text-wrap:pretty;">Reliability is part of the product.</p>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:0; max-width:58ch;">Permissions, retries, conflicts and recovery are decided while the feature is being designed. Added afterwards, they become someone else's incident.</p>
+          </div>
+          <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap:16px clamp(32px, 5vw, 80px); padding:32px 0; border-top:1px solid var(--line); align-items:baseline;">
+            <p style="font-size:clamp(23px, 2.2vw, 28px); line-height:1.25; font-weight:600; letter-spacing:-0.01em; margin:0; text-wrap:pretty;">Good architecture makes change safer, not merely cleaner.</p>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:0; max-width:58ch;">I judge a design by how confidently the next person can modify it — not by how elegant the diagram looks.</p>
+          </div>
+          <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap:16px clamp(32px, 5vw, 80px); padding:32px 0; border-top:1px solid var(--line); align-items:baseline;">
+            <p style="font-size:clamp(23px, 2.2vw, 28px); line-height:1.25; font-weight:600; letter-spacing:-0.01em; margin:0; text-wrap:pretty;">Documentation exists to make claims verifiable.</p>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:0; max-width:58ch;">A contract, a test or a runbook is worth more than a description of intent. If I claim a behavior, there should be something you can run.</p>
+          </div>
+          <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap:16px clamp(32px, 5vw, 80px); padding:32px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); align-items:baseline;">
+            <p style="font-size:clamp(23px, 2.2vw, 28px); line-height:1.25; font-weight:600; letter-spacing:-0.01em; margin:0; text-wrap:pretty;">AI is useful when its limits are explicit.</p>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:0; max-width:58ch;">In production I define what the model may call, what it must never decide alone, and what happens when it is wrong. That is what made the assistant at Chiper operable.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="value-heading" style="border-top:1px solid var(--line);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(72px, 9vw, 120px) clamp(20px, 4vw, 72px);">
+        <h2 id="value-heading" data-reveal style="font-size:clamp(32px, 3.4vw, 40px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0; max-width:22ch;">Where I add the most value.</h2>
+        <div data-reveal style="margin-top:48px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+          <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; font-weight:500; letter-spacing:0.06em; color:var(--muted); margin:0;">{{ valueCounter }}</p>
+          <div style="display:flex; gap:12px;">
+            <button type="button" onClick="{{ valuePrev }}" aria-label="Previous capability" style="width:48px; height:48px; display:flex; align-items:center; justify-content:center; background:transparent; border:1px solid var(--line); border-radius:10px; color:var(--ink); font-family:Geist, Arial, sans-serif; font-size:18px; cursor:pointer; transition:border-color 180ms ease;" style-hover="border-color:var(--ink);">←</button>
+            <button type="button" onClick="{{ valueNext }}" aria-label="Next capability" style="width:48px; height:48px; display:flex; align-items:center; justify-content:center; background:transparent; border:1px solid var(--line); border-radius:10px; color:var(--ink); font-family:Geist, Arial, sans-serif; font-size:18px; cursor:pointer; transition:border-color 180ms ease;" style-hover="border-color:var(--ink);">→</button>
+          </div>
+        </div>
+        <div data-reveal data-value-viewport="true" role="group" aria-label="Capabilities carousel" style="margin-top:24px; overflow:hidden; border-top:1px solid var(--line);">
+          <div data-value-track="true" style="display:flex; gap:clamp(24px, 3vw, 40px); transition:transform 520ms cubic-bezier(0.16, 1, 0.3, 1); will-change:transform;">
+          <div data-value-slide="true" style="flex:0 0 auto; padding-top:28px; padding-bottom:8px;">
+            <h3 style="font-size:clamp(21px, 1.9vw, 24px); line-height:1.25; font-weight:600; margin:0;">Product and API engineering</h3>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:12px 0 0; max-width:54ch;">When a product needs a system behind it and the requirements are still moving. I define the contract first, so the frontend, the API and the tests agree on the same behavior.</p>
+            <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.6; color:var(--muted); margin:16px 0 0;">Evidence: Briefline's OpenAPI 3.1 contract · Node.js · TypeScript · NestJS · PostgreSQL</p>
+          </div>
+          <div data-value-slide="true" style="flex:0 0 auto; padding-top:28px; padding-bottom:8px;">
+            <h3 style="font-size:clamp(21px, 1.9vw, 24px); line-height:1.25; font-weight:600; margin:0;">Reliable backend systems</h3>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:12px 0 0; max-width:54ch;">When money, concurrency or third parties are involved and failure is not hypothetical. I work on the paths that only matter when something goes wrong.</p>
+            <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.6; color:var(--muted); margin:16px 0 0;">Evidence: ~500K monthly transactions at 99.9% uptime · queues · retries · observability</p>
+          </div>
+          <div data-value-slide="true" style="flex:0 0 auto; padding-top:28px; padding-bottom:8px;">
+            <h3 style="font-size:clamp(21px, 1.9vw, 24px); line-height:1.25; font-weight:600; margin:0;">Internal tools and workflows</h3>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:12px 0 0; max-width:54ch;">When an operations team is losing hours in spreadsheets and workarounds. Data-heavy interfaces that are fast by keyboard and honest about state.</p>
+            <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.6; color:var(--muted); margin:16px 0 0;">Evidence: internal tooling at Chiper · React · Next.js · WCAG 2.2 AA target</p>
+          </div>
+          <div data-value-slide="true" style="flex:0 0 auto; padding-top:28px; padding-bottom:8px;">
+            <h3 style="font-size:clamp(21px, 1.9vw, 24px); line-height:1.25; font-weight:600; margin:0;">Automation and production AI</h3>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:12px 0 0; max-width:54ch;">When automations mostly work but nobody can explain what happens on a failed run. I make the boundaries, retries and replay explicit.</p>
+            <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.6; color:var(--muted); margin:16px 0 0;">Evidence: conversational AI in production · Vertex AI · Gemini function calling · n8n</p>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="now-heading" style="border-top:1px solid var(--line); background:var(--surface);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(48px, 6vw, 72px) clamp(20px, 4vw, 72px);">
+        <div data-reveal style="display:flex; flex-wrap:wrap; gap:24px clamp(40px, 5vw, 80px); align-items:baseline;">
+          <div style="flex:0 1 320px;">
+            <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; font-weight:500; letter-spacing:0.08em; color:var(--muted); margin:0 0 12px;">NOW · AUGUST 2026</p>
+            <h2 id="now-heading" style="font-size:clamp(21px, 1.9vw, 24px); line-height:1.25; font-weight:600; margin:0;">Currently building: n8n Reliability Lab</h2>
+          </div>
+          <p style="flex:1 1 380px; font-size:17px; line-height:1.6; color:var(--muted); margin:0; max-width:60ch;">A public reliability lab for validating retries, deduplication and recovery behavior in production-style automation workflows. In development — I will link it here when there is something you can run.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-heading" style="border-top:1px solid var(--line);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(72px, 9vw, 120px) clamp(20px, 4vw, 72px);">
+        <div data-reveal style="text-align:center;">
+          <p style="font-size:clamp(19px, 1.6vw, 21px); line-height:1.5; color:var(--muted); margin:0 auto 40px; padding-bottom:40px; border-bottom:1px solid var(--line); max-width:66ch;">I am open to senior product engineering opportunities, technical leadership conversations and selected software collaborations.</p>
+          <h2 id="contact-heading" style="font-size:clamp(38px, 5.6vw, 76px); line-height:1.02; font-weight:600; letter-spacing:-0.035em; margin:0 auto; max-width:22ch; text-wrap:pretty;">Have a product problem worth clarifying?</h2>
+          <p style="font-size:clamp(19px, 1.6vw, 22px); line-height:1.5; color:var(--muted); margin:28px auto 0; max-width:62ch;">Tell me what is happening, what should happen instead and what you have already tried. I will reply with the most useful next step.</p>
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:24px; margin-top:40px;">
+            <a href="#contact" style="display:inline-flex; align-items:center; height:48px; padding:0 24px; white-space:nowrap; background:var(--accent); color:var(--accent-ink); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none;" style-hover="background:var(--accent-hover); color:var(--accent-ink); text-decoration:none;">Start a conversation</a>
+            <div style="display:flex; flex-wrap:wrap; gap:20px; font-size:16px;">
+              <a href="#contact" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted);" style-hover="color:var(--ink); text-decoration:underline; text-underline-offset:3px;">LinkedIn</a>
+              <a href="#contact" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted);" style-hover="color:var(--ink); text-decoration:underline; text-underline-offset:3px;">GitHub</a>
+              <a href="#contact" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted);" style-hover="color:var(--ink); text-decoration:underline; text-underline-offset:3px;">Email</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="border-top:1px solid var(--line); background:var(--surface);">
+    <div style="max-width:1360px; margin:0 auto; padding:clamp(32px, 4vw, 48px) clamp(20px, 4vw, 72px); display:flex; flex-wrap:wrap; gap:32px; align-items:baseline; justify-content:space-between;">
+      <div>
+        <p style="font-size:17px; font-weight:600; margin:0;">Alex Cuesta</p>
+        <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.4; color:var(--muted); margin:8px 0 0;">Clear decisions. Reliable software. Verifiable work.</p>
+      </div>
+      <nav aria-label="Footer" style="display:flex; flex-wrap:wrap; gap:24px; font-size:15px;">
+        <a href="#experience" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted);" style-hover="color:var(--ink);">Experience</a>
+        <a href="#work" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted);" style-hover="color:var(--ink);">Work</a>
+        <a href="Alex Cuesta - Services.dc.html" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted);" style-hover="color:var(--ink);">Services</a>
+        <a href="#contact" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted);" style-hover="color:var(--ink);">Contact</a>
+      </nav>
+      <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; color:var(--muted); margin:0;">© 2026 Pedro Alexander Cuesta Rivas</p>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;portrait-editorial&quot;,&quot;statement-band&quot;],&quot;default&quot;:&quot;portrait-editorial&quot;,&quot;tsType&quot;:&quot;'portrait-editorial' | 'statement-band'&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;options&quot;:[&quot;#2257D6&quot;,&quot;#1C5E4A&quot;,&quot;#8A3B12&quot;],&quot;default&quot;:&quot;#2257D6&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identity&quot;}}">
+const DARK = {
+  '--canvas': '#101411', '--surface': '#171D19', '--ink': '#F1F4F1', '--muted': '#AAB4AD',
+  '--line': '#303A33', '--accent': '#7FA2FF', '--accent-hover': '#A6BCFF', '--accent-soft': '#1C2B51',
+  '--accent-ink': '#101411', '--shadow': '0 18px 50px rgba(0,0,0,0.45)'
+};
+const LIGHT = {
+  '--canvas': '#F7F8F5', '--surface': '#FFFFFF', '--ink': '#111713', '--muted': '#58635D',
+  '--line': '#D8DEDA', '--accent': '#2257D6', '--accent-hover': '#1845AD', '--accent-soft': '#EAF0FF',
+  '--accent-ink': '#FFFFFF', '--shadow': '0 18px 50px rgba(17,23,19,0.10)'
+};
+
+class Component extends DCLogic {
+  state = { theme: 'light', valueIndex: 0 };
+
+  componentDidMount() {
+    let theme = null;
+    try { theme = localStorage.getItem('ac-theme'); } catch (e) {}
+    if (!theme) {
+      theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    this.applyTheme(theme);
+    this.setState({ theme });
+    this.setupReveals();
+    this.layoutCarousel();
+    window.addEventListener('resize', this.layoutCarousel);
+  }
+
+  componentDidUpdate() { this.applyTheme(this.state.theme); }
+
+  applyTheme(theme) {
+    const el = document.getElementById('ac-root');
+    if (!el) return;
+    const tokens = theme === 'dark' ? DARK : LIGHT;
+    Object.keys(tokens).forEach(k => el.style.setProperty(k, tokens[k]));
+    const accent = this.props.accent;
+    if (accent && theme === 'light') el.style.setProperty('--accent', accent);
+    document.body.style.background = tokens['--canvas'];
+  }
+
+  toggleTheme = () => {
+    const theme = this.state.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('ac-theme', theme); } catch (e) {}
+    this.applyTheme(theme);
+    this.setState({ theme });
+  };
+
+  layoutCarousel = () => {
+    const vp = document.querySelector('[data-value-viewport]');
+    const track = document.querySelector('[data-value-track]');
+    if (!vp || !track) return;
+    const slides = Array.prototype.slice.call(track.querySelectorAll('[data-value-slide]'));
+    if (!slides.length) return;
+    const w = vp.clientWidth;
+    const gap = parseFloat(window.getComputedStyle(track).gap) || 32;
+    const per = w >= 1040 ? 3 : w >= 680 ? 2 : 1;
+    const slideW = (w - gap * (per - 1)) / per;
+    slides.forEach(el => { el.style.flex = '0 0 ' + slideW + 'px'; el.style.maxWidth = slideW + 'px'; });
+    this._per = per;
+    this._slideW = slideW;
+    this._gap = gap;
+    this._maxIndex = Math.max(0, slides.length - per);
+    const index = Math.min(this.state.valueIndex, this._maxIndex);
+    track.style.transform = 'translateX(' + (-index * (slideW + gap)) + 'px)';
+    if (index !== this.state.valueIndex) this.setState({ valueIndex: index });
+    else this.forceUpdate();
+  };
+
+  moveCarousel = (dir) => {
+    const max = this._maxIndex || 0;
+    let next = this.state.valueIndex + dir;
+    if (next < 0) next = max;
+    if (next > max) next = 0;
+    const track = document.querySelector('[data-value-track]');
+    if (track) track.style.transform = 'translateX(' + (-next * ((this._slideW || 0) + (this._gap || 0))) + 'px)';
+    this.setState({ valueIndex: next });
+  };
+
+  setupReveals() {
+    if (this._reveals) return;
+    this._reveals = true;
+    const els = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+    if (!els.length) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // Only hide content if this environment actually advances CSS transitions.
+    const probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute; left:-9999px; top:0; width:8px; height:8px; opacity:0; transition:opacity 200ms linear;';
+    document.body.appendChild(probe);
+    window.requestAnimationFrame(() => {
+      probe.style.opacity = '1';
+      window.setTimeout(() => {
+        const v = parseFloat(window.getComputedStyle(probe).opacity);
+        probe.remove();
+        if (v > 0.05 && v < 0.98) this.enableReveals(els);
+      }, 110);
+    });
+  }
+
+  enableReveals(els) {
+    const ease = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    els.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = 'opacity 560ms ' + ease + ', transform 560ms ' + ease;
+    });
+    const show = (el) => {
+      const delay = parseInt(el.dataset.revealDelay || '0', 10);
+      window.setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, delay);
+    };
+    let pending = els.slice();
+    const check = () => {
+      const h = window.innerHeight || 800;
+      pending = pending.filter(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < h * 0.92 && r.bottom > -120) { show(el); return false; }
+        return true;
+      });
+      if (!pending.length) window.removeEventListener('resize', check);
+    };
+    let timer = null;
+    const revealAllPending = () => { pending.slice().forEach(show); pending = []; };
+    const armSafety = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(revealAllPending, 2000);
+    };
+    const onScroll = () => { armSafety(); check(); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    window.addEventListener('resize', check);
+    window.requestAnimationFrame(check);
+    armSafety();
+  }
+
+  renderVals() {
+    const variant = this.props.heroVariant || 'portrait-editorial';
+    const total = 4;
+    const per = this._per || 1;
+    return {
+      valueCounter: 'CAPABILITY ' + (this.state.valueIndex + 1) + '–' + Math.min(total, this.state.valueIndex + per) + ' OF ' + total,
+      valuePrev: () => this.moveCarousel(-1),
+      valueNext: () => this.moveCarousel(1),
+      heroA: variant === 'portrait-editorial',
+      heroB: variant === 'statement-band',
+      themeLabel: this.state.theme === 'dark' ? 'LIGHT' : 'DARK',
+      toggleTheme: this.toggleTheme
+    };
+  }
+}
+
+</script>
+</body>
+</html>

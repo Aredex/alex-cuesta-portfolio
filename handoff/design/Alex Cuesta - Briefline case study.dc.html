@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="description" content="Briefline — an independent full-stack case study: contract-first API, server-enforced permissions, conflict-safe updates and reproducible evidence.">
+<title>Briefline case study | Alex Cuesta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #F7F8F5; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { color: var(--accent-hover); text-decoration: underline; text-underline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  ::selection { background: var(--accent-soft); color: var(--ink); }
+  img { display: block; max-width: 100%; }
+</style>
+</helmet>
+<div id="ac-root" style="--canvas:#F7F8F5; --surface:#FFFFFF; --ink:#111713; --muted:#58635D; --line:#D8DEDA; --accent:#2257D6; --accent-hover:#1845AD; --accent-soft:#EAF0FF; --accent-ink:#FFFFFF; --shadow:0 18px 50px rgba(17,23,19,0.10); background:var(--canvas); color:var(--ink); font-family:Geist, Arial, 'Helvetica Neue', sans-serif; font-size:17px; line-height:1.6; min-height:100vh; transition:background-color 200ms ease, color 200ms ease;">
+
+  <header style="position:sticky; top:0; z-index:50; background:var(--surface); border-bottom:1px solid var(--line);">
+    <div style="max-width:1360px; margin:0 auto; padding:10px clamp(20px, 4vw, 72px); min-height:70px; display:flex; align-items:center; flex-wrap:wrap; row-gap:10px; column-gap:32px;">
+      <a href="Alex Cuesta - Home v2.dc.html" style="font-weight:600; font-size:17px; letter-spacing:-0.01em; color:var(--ink); text-decoration:none; white-space:nowrap;">Alex Cuesta</a>
+      <nav aria-label="Primary" style="display:flex; flex-wrap:wrap; column-gap:24px; row-gap:4px; font-size:15px; margin-right:auto;">
+        <a href="Alex Cuesta - Home v2.dc.html#experience" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted); text-decoration:none;" style-hover="color:var(--ink); text-decoration:none;">Experience</a>
+        <a href="Alex Cuesta - Home v2.dc.html#work" style="display:inline-flex; align-items:center; min-height:44px; color:var(--ink); font-weight:500; text-decoration:none;">Work</a>
+        <a href="Alex Cuesta - Home v2.dc.html#about" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted); text-decoration:none;" style-hover="color:var(--ink); text-decoration:none;">About</a>
+        <a href="#contact" style="display:inline-flex; align-items:center; min-height:44px; color:var(--muted); text-decoration:none;" style-hover="color:var(--ink); text-decoration:none;">Contact</a>
+      </nav>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <button type="button" onClick="{{ toggleTheme }}" aria-live="polite" style="display:flex; align-items:center; height:44px; padding:0 14px; background:transparent; border:1px solid var(--line); border-radius:10px; color:var(--muted); font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; font-weight:500; letter-spacing:0.04em; cursor:pointer;" style-hover="color:var(--ink); border-color:var(--muted);">{{ themeLabel }}</button>
+        <a href="#contact" style="display:inline-flex; align-items:center; height:44px; padding:0 20px; background:var(--accent); color:var(--accent-ink); border-radius:10px; font-size:15px; font-weight:600; text-decoration:none; white-space:nowrap;" style-hover="background:var(--accent-hover); color:var(--accent-ink); text-decoration:none;">Start a conversation</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section style="max-width:1360px; margin:0 auto; padding:clamp(48px, 6vw, 80px) clamp(20px, 4vw, 72px) clamp(40px, 5vw, 64px);">
+      <div data-reveal style="max-width:66ch;">
+        <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; font-weight:500; letter-spacing:0.08em; color:var(--muted); margin:0 0 24px;">CASE STUDY · BRIEFLINE · 2026</p>
+        <h1 style="font-size:clamp(36px, 4.4vw, 54px); line-height:1.04; font-weight:600; letter-spacing:-0.03em; margin:0; text-wrap:pretty;">From an ambiguous brief to a verifiable product.</h1>
+        <p style="font-size:clamp(19px, 1.6vw, 22px); line-height:1.5; color:var(--muted); margin:28px 0 0;">A small agency runs client work in spreadsheets and chat. The brief asked for “a simple task tool”. I turned that into a product with defined boundaries, then produced the evidence that it behaves as described.</p>
+      </div>
+
+      <dl data-reveal data-reveal-delay="80" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap:24px 40px; margin:48px 0 0; padding:28px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+        <div>
+          <dt style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; letter-spacing:0.06em; color:var(--muted); margin:0 0 8px;">MY ROLE</dt>
+          <dd style="margin:0; font-size:17px;">Product definition, design, frontend, API, testing</dd>
+        </div>
+        <div>
+          <dt style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; letter-spacing:0.06em; color:var(--muted); margin:0 0 8px;">STACK</dt>
+          <dd style="margin:0; font-size:17px;">React · NestJS · PostgreSQL · OpenAPI 3.1 · Playwright</dd>
+        </div>
+        <div>
+          <dt style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; letter-spacing:0.06em; color:var(--muted); margin:0 0 8px;">TYPE</dt>
+          <dd style="margin:0; font-size:17px;">Independent case study, not commissioned client work</dd>
+        </div>
+        <div>
+          <dt style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; letter-spacing:0.06em; color:var(--muted); margin:0 0 8px;">EVIDENCE</dt>
+          <dd style="margin:0; font-size:17px;">483 tests, public demo, OpenAPI contract (12 Aug 2026)</dd>
+        </div>
+      </dl>
+
+      <div data-reveal data-reveal-delay="120" style="display:flex; flex-wrap:wrap; gap:16px; margin-top:32px;">
+        <a href="#evidence" style="display:inline-flex; align-items:center; height:48px; padding:0 24px; white-space:nowrap; background:var(--accent); color:var(--accent-ink); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none;" style-hover="background:var(--accent-hover); color:var(--accent-ink); text-decoration:none;">Open live demo</a>
+        <a href="#evidence" style="display:inline-flex; align-items:center; height:48px; padding:0 24px; white-space:nowrap; background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none;" style-hover="border-color:var(--ink); color:var(--ink); text-decoration:none;">View repository</a>
+      </div>
+
+      <figure data-reveal data-reveal-delay="160" style="margin:56px 0 0;">
+        <img src="assets/briefline-board.webp" alt="Briefline task board with Pending, In progress, Blocked and Completed columns; each task shows priority and assignee." style="width:100%; border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow);">
+        <figcaption style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.4; color:var(--muted); margin-top:16px;">Board view — the primary working surface, with live counts per status.</figcaption>
+      </figure>
+    </section>
+
+    <section aria-labelledby="context-heading" style="border-top:1px solid var(--line); background:var(--surface);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(64px, 8vw, 104px) clamp(20px, 4vw, 72px);">
+        <div style="display:flex; flex-wrap:wrap; gap:clamp(40px, 5vw, 80px);">
+          <div data-reveal style="flex:1 1 420px; min-width:0;">
+            <h2 id="context-heading" style="font-size:clamp(28px, 3vw, 34px); line-height:1.12; font-weight:600; letter-spacing:-0.02em; margin:0;">Context and audience</h2>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:20px 0 0; max-width:60ch;">Briefline is aimed at agencies of three to fifteen people: an owner who needs to know what is late, account managers who talk to clients, and freelancers who should see only their own work.</p>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:16px 0 0; max-width:60ch;">The job to be done is not “track tasks”. It is answering, in one screen, what is blocked, who is responsible and what the client was promised.</p>
+          </div>
+          <div data-reveal data-reveal-delay="80" style="flex:1 1 420px; min-width:0;">
+            <h2 style="font-size:clamp(28px, 3vw, 34px); line-height:1.12; font-weight:600; letter-spacing:-0.02em; margin:0;">Constraints I set</h2>
+            <ul style="list-style:none; margin:20px 0 0; padding:0; border-top:1px solid var(--line);">
+              <li style="padding:14px 0; border-bottom:1px solid var(--line); font-size:17px;">One team, one workspace — no multi-tenant billing in v1</li>
+              <li style="padding:14px 0; border-bottom:1px solid var(--line); font-size:17px;">Roles limited to owner, manager and collaborator</li>
+              <li style="padding:14px 0; border-bottom:1px solid var(--line); font-size:17px;">No real-time collaboration; conflicts resolved on write</li>
+              <li style="padding:14px 0; border-bottom:1px solid var(--line); font-size:17px;">Demo data must be fictional and reset daily</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="decisions-heading" style="border-top:1px solid var(--line);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(64px, 8vw, 104px) clamp(20px, 4vw, 72px);">
+        <h2 id="decisions-heading" data-reveal style="font-size:clamp(30px, 3.2vw, 38px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0; max-width:24ch;">The decisions that shaped the system</h2>
+
+        <div data-reveal style="display:flex; flex-wrap:wrap; gap:clamp(32px, 4vw, 64px); margin-top:48px; padding-top:32px; border-top:1px solid var(--line); align-items:start;">
+          <div style="flex:1 1 380px; min-width:0;">
+            <h3 style="font-size:clamp(21px, 1.9vw, 24px); line-height:1.25; font-weight:600; margin:0;">The contract comes first</h3>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:12px 0 0; max-width:56ch;">The API is described in OpenAPI 3.1 before implementation. The client types, the server validation and the integration tests are all generated from or checked against that document, so a breaking change is visible in review rather than in production.</p>
+          </div>
+          <div style="flex:1 1 340px; min-width:0; border:1px solid var(--line); border-radius:16px; padding:24px; background:var(--surface);">
+            <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.7; color:var(--ink); margin:0;">PATCH /tasks/{id}<br>If-Match: required<br>200 → updated task + new version<br>409 → current server state + changed fields<br>403 → permission denied, no partial write</p>
+          </div>
+        </div>
+
+        <div data-reveal style="display:flex; flex-wrap:wrap; gap:clamp(32px, 4vw, 64px); margin-top:40px; padding-top:32px; border-top:1px solid var(--line); align-items:start;">
+          <div style="flex:1 1 380px; min-width:0;">
+            <h3 style="font-size:clamp(21px, 1.9vw, 24px); line-height:1.25; font-weight:600; margin:0;">Permissions live on the server</h3>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:12px 0 0; max-width:56ch;">The interface hides what you cannot do, but every rule is enforced again in the API and covered by tests. A collaborator who guesses a URL gets a 403, not a surprise.</p>
+          </div>
+          <figure style="flex:1 1 340px; min-width:0; margin:0;">
+            <img src="assets/briefline-client-detail.webp" alt="Briefline client detail page showing contact information and the client's three related tasks." style="width:100%; border:1px solid var(--line); border-radius:16px;">
+            <figcaption style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.4; color:var(--muted); margin-top:12px;">Client detail — the same record renders differently per role.</figcaption>
+          </figure>
+        </div>
+
+        <div data-reveal style="display:flex; flex-wrap:wrap; gap:clamp(32px, 4vw, 64px); margin-top:40px; padding-top:32px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding-bottom:32px; align-items:start;">
+          <div style="flex:1 1 380px; min-width:0;">
+            <h3 style="font-size:clamp(21px, 1.9vw, 24px); line-height:1.25; font-weight:600; margin:0;">A stale update never wins silently</h3>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:12px 0 0; max-width:56ch;">Every change is versioned and written atomically with its history entry. If two people edit the same task, the later request is rejected with the current state so the interface can show what actually happened instead of overwriting a colleague.</p>
+          </div>
+          <figure style="flex:1 1 340px; min-width:0; margin:0;">
+            <img src="assets/briefline-move-to-menu.webp" alt="Briefline move-to menu open on a task, listing the available target statuses." style="width:100%; border:1px solid var(--line); border-radius:16px;">
+            <figcaption style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.4; color:var(--muted); margin-top:12px;">Status change — one action, one audited transition.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="states-heading" style="border-top:1px solid var(--line); background:var(--surface);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(64px, 8vw, 104px) clamp(20px, 4vw, 72px);">
+        <div style="display:flex; flex-wrap:wrap; gap:clamp(32px, 4vw, 64px); align-items:start;">
+          <div data-reveal style="flex:1 1 380px; min-width:0;">
+            <h2 id="states-heading" style="font-size:clamp(28px, 3vw, 34px); line-height:1.12; font-weight:600; letter-spacing:-0.02em; margin:0;">The states most tools postpone</h2>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:20px 0 0; max-width:56ch;">Empty, loading, denied, conflicted and offline were designed with the happy path, not after it. Keyboard focus is visible on every interactive element and was reviewed manually, not only by an automated audit.</p>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:16px 0 0; max-width:56ch;">Accessibility target is WCAG 2.2 AA: sequential headings, labelled form fields, errors tied to their input, and no information carried by colour alone.</p>
+          </div>
+          <figure data-reveal data-reveal-delay="80" style="flex:1 1 420px; min-width:0; margin:0;">
+            <img src="assets/briefline-focus-state.webp" alt="Briefline interface with a visible keyboard focus ring on an interactive control." style="width:100%; border:1px solid var(--line); border-radius:16px;">
+            <figcaption style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.4; color:var(--muted); margin-top:12px;">Focus state — verified by manual keyboard review.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="evidence" aria-labelledby="evidence-heading" style="border-top:1px solid var(--line);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(64px, 8vw, 104px) clamp(20px, 4vw, 72px);">
+        <h2 id="evidence-heading" data-reveal style="font-size:clamp(30px, 3.2vw, 38px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0; max-width:24ch;">Evidence you can check</h2>
+        <p data-reveal style="font-size:17px; line-height:1.6; color:var(--muted); margin:20px 0 0; max-width:64ch;">Counts dated 12 August 2026. Demo data is fictional and resets daily, so the demo you open behaves the same way the tests describe.</p>
+        <div data-reveal data-reveal-delay="80" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap:24px 40px; margin-top:40px; padding:28px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+          <div>
+            <p style="font-size:clamp(28px, 3vw, 34px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0;">203</p>
+            <p style="font-size:14px; line-height:1.5; color:var(--muted); margin:6px 0 0;">unit tests</p>
+          </div>
+          <div>
+            <p style="font-size:clamp(28px, 3vw, 34px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0;">206</p>
+            <p style="font-size:14px; line-height:1.5; color:var(--muted); margin:6px 0 0;">integration tests over PostgreSQL</p>
+          </div>
+          <div>
+            <p style="font-size:clamp(28px, 3vw, 34px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0;">74</p>
+            <p style="font-size:14px; line-height:1.5; color:var(--muted); margin:6px 0 0;">end-to-end tests with Playwright</p>
+          </div>
+          <div>
+            <p style="font-size:clamp(28px, 3vw, 34px); line-height:1.1; font-weight:600; letter-spacing:-0.02em; margin:0;">AA</p>
+            <p style="font-size:14px; line-height:1.5; color:var(--muted); margin:6px 0 0;">WCAG 2.2 target, keyboard reviewed</p>
+          </div>
+        </div>
+        <ul data-reveal data-reveal-delay="120" style="list-style:none; margin:32px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:16px 32px; font-size:16px;">
+          <li><a href="#evidence">Public demo</a></li>
+          <li><a href="#evidence">Repository</a></li>
+          <li><a href="#evidence">OpenAPI 3.1 contract</a></li>
+          <li><a href="#evidence">Permission matrix</a></li>
+          <li><a href="#evidence">Data model</a></li>
+          <li><a href="#evidence">Testing strategy</a></li>
+          <li><a href="#evidence">Accessibility notes</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="tradeoffs-heading" style="border-top:1px solid var(--line); background:var(--surface);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(64px, 8vw, 104px) clamp(20px, 4vw, 72px);">
+        <div style="display:flex; flex-wrap:wrap; gap:clamp(40px, 5vw, 80px);">
+          <div data-reveal style="flex:1 1 420px; min-width:0;">
+            <h2 id="tradeoffs-heading" style="font-size:clamp(28px, 3vw, 34px); line-height:1.12; font-weight:600; letter-spacing:-0.02em; margin:0;">Trade-offs and what I left out</h2>
+            <ul style="list-style:none; margin:20px 0 0; padding:0; border-top:1px solid var(--line);">
+              <li style="padding:14px 0; border-bottom:1px solid var(--line); font-size:17px; line-height:1.5;">Optimistic concurrency instead of real-time sync — simpler to reason about, at the cost of occasional conflict dialogs.</li>
+              <li style="padding:14px 0; border-bottom:1px solid var(--line); font-size:17px; line-height:1.5;">No custom workflow builder — four statuses cover the agency case and keep the audit trail meaningful.</li>
+              <li style="padding:14px 0; border-bottom:1px solid var(--line); font-size:17px; line-height:1.5;">Server-rendered lists over infinite scroll — predictable performance and a URL you can share.</li>
+            </ul>
+          </div>
+          <div data-reveal data-reveal-delay="80" style="flex:1 1 420px; min-width:0;">
+            <h2 style="font-size:clamp(28px, 3vw, 34px); line-height:1.12; font-weight:600; letter-spacing:-0.02em; margin:0;">Outcome and what I would change</h2>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:20px 0 0; max-width:56ch;">The product does what the case study claims, and every claim on this page maps to a test, a contract or a screen you can open. Writing the contract first was the decision that saved the most time.</p>
+            <p style="font-size:17px; line-height:1.6; color:var(--muted); margin:16px 0 0; max-width:56ch;">Next time I would invest earlier in the conflict experience: the API behaviour was right from the start, but the interface took three iterations to explain it in plain language.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-heading" style="border-top:1px solid var(--line);">
+      <div style="max-width:1360px; margin:0 auto; padding:clamp(64px, 8vw, 104px) clamp(20px, 4vw, 72px);">
+        <div data-reveal style="max-width:58ch;">
+          <h2 id="contact-heading" style="font-size:clamp(30px, 3.6vw, 42px); line-height:1.08; font-weight:600; letter-spacing:-0.03em; margin:0; text-wrap:pretty;">Want the same rigour on your product?</h2>
+          <p style="font-size:clamp(19px, 1.6vw, 21px); line-height:1.5; color:var(--muted); margin:24px 0 0;">Tell me what is happening, what should happen instead and what you have already tried. I will reply with the most useful next step.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:32px;">
+            <a href="#contact" style="display:inline-flex; align-items:center; height:48px; padding:0 24px; white-space:nowrap; background:var(--accent); color:var(--accent-ink); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none;" style-hover="background:var(--accent-hover); color:var(--accent-ink); text-decoration:none;">Start a conversation</a>
+            <a href="Alex Cuesta - Home v2.dc.html#work" style="display:inline-flex; align-items:center; height:48px; padding:0 24px; white-space:nowrap; background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none;" style-hover="border-color:var(--ink); color:var(--ink); text-decoration:none;">View selected work</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="border-top:1px solid var(--line); background:var(--surface);">
+    <div style="max-width:1360px; margin:0 auto; padding:clamp(32px, 4vw, 48px) clamp(20px, 4vw, 72px); display:flex; flex-wrap:wrap; gap:32px; align-items:baseline; justify-content:space-between;">
+      <div>
+        <p style="font-size:17px; font-weight:600; margin:0;">Alex Cuesta</p>
+        <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; line-height:1.4; color:var(--muted); margin:8px 0 0;">Clear decisions. Reliable software. Verifiable work.</p>
+      </div>
+      <p style="font-family:'Geist Mono', SFMono-Regular, Consolas, monospace; font-size:12px; color:var(--muted); margin:0;">© 2026 Pedro Alexander Cuesta Rivas</p>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+const DARK = {
+  '--canvas': '#101411', '--surface': '#171D19', '--ink': '#F1F4F1', '--muted': '#AAB4AD',
+  '--line': '#303A33', '--accent': '#7FA2FF', '--accent-hover': '#A6BCFF', '--accent-soft': '#1C2B51',
+  '--accent-ink': '#101411', '--shadow': '0 18px 50px rgba(0,0,0,0.45)'
+};
+const LIGHT = {
+  '--canvas': '#F7F8F5', '--surface': '#FFFFFF', '--ink': '#111713', '--muted': '#58635D',
+  '--line': '#D8DEDA', '--accent': '#2257D6', '--accent-hover': '#1845AD', '--accent-soft': '#EAF0FF',
+  '--accent-ink': '#FFFFFF', '--shadow': '0 18px 50px rgba(17,23,19,0.10)'
+};
+
+class Component extends DCLogic {
+  state = { theme: 'light' };
+
+  componentDidMount() {
+    let theme = null;
+    try { theme = localStorage.getItem('ac-theme'); } catch (e) {}
+    if (!theme) {
+      theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    this.applyTheme(theme);
+    this.setState({ theme });
+    this.setupReveals();
+  }
+
+  componentDidUpdate() { this.applyTheme(this.state.theme); }
+
+  applyTheme(theme) {
+    const el = document.getElementById('ac-root');
+    if (!el) return;
+    const tokens = theme === 'dark' ? DARK : LIGHT;
+    Object.keys(tokens).forEach(k => el.style.setProperty(k, tokens[k]));
+    document.body.style.background = tokens['--canvas'];
+  }
+
+  toggleTheme = () => {
+    const theme = this.state.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('ac-theme', theme); } catch (e) {}
+    this.applyTheme(theme);
+    this.setState({ theme });
+  };
+
+  setupReveals() {
+    if (this._reveals) return;
+    this._reveals = true;
+    const els = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+    if (!els.length) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute; left:-9999px; top:0; width:8px; height:8px; opacity:0; transition:opacity 200ms linear;';
+    document.body.appendChild(probe);
+    window.requestAnimationFrame(() => {
+      probe.style.opacity = '1';
+      window.setTimeout(() => {
+        const v = parseFloat(window.getComputedStyle(probe).opacity);
+        probe.remove();
+        if (v > 0.05 && v < 0.98) this.enableReveals(els);
+      }, 110);
+    });
+  }
+
+  enableReveals(els) {
+    const ease = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    els.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = 'opacity 560ms ' + ease + ', transform 560ms ' + ease;
+    });
+    const show = (el) => {
+      const delay = parseInt(el.dataset.revealDelay || '0', 10);
+      window.setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, delay);
+    };
+    let pending = els.slice();
+    const check = () => {
+      const h = window.innerHeight || 800;
+      pending = pending.filter(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < h * 0.92 && r.bottom > -120) { show(el); return false; }
+        return true;
+      });
+      if (!pending.length) window.removeEventListener('resize', check);
+    };
+    let timer = null;
+    const armSafety = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => { pending.slice().forEach(show); pending = []; }, 2000);
+    };
+    const onScroll = () => { armSafety(); check(); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    window.addEventListener('resize', check);
+    window.requestAnimationFrame(check);
+    armSafety();
+  }
+
+  renderVals() {
+    return { themeLabel: this.state.theme === 'dark' ? 'LIGHT' : 'DARK', toggleTheme: this.toggleTheme };
+  }
+}
+
+</script>
+</body>
+</html>
