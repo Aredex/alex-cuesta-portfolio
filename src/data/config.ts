@@ -31,21 +31,14 @@ export const resume = {
 };
 
 export const briefline = {
-  /** TODO: replace with the real public demo URL. */
-  demoUrl: 'TODO_BRIEFLINE_DEMO_URL',
-  /** TODO: replace with the real repository URL. */
-  repoUrl: 'TODO_BRIEFLINE_REPO_URL',
+  demoUrl: 'https://briefline.alexcuesta.dev/login',
+  repoUrl: 'https://github.com/Aredex/briefline-crm',
   evidence: {
-    /** TODO: replace with the real OpenAPI 3.1 contract URL. */
-    openApiContract: 'TODO_OPENAPI_CONTRACT_URL',
-    /** TODO: replace with the real permission matrix URL. */
-    permissionMatrix: 'TODO_PERMISSION_MATRIX_URL',
-    /** TODO: replace with the real data model doc URL. */
-    dataModel: 'TODO_DATA_MODEL_URL',
-    /** TODO: replace with the real testing strategy doc URL. */
-    testingStrategy: 'TODO_TESTING_STRATEGY_URL',
-    /** TODO: replace with the real accessibility notes URL. */
-    accessibilityNotes: 'TODO_ACCESSIBILITY_NOTES_URL',
+    openApiContract: 'https://github.com/Aredex/briefline-crm/blob/main/packages/api-contract/openapi.yaml',
+    permissionMatrix: 'https://github.com/Aredex/briefline-crm/blob/main/.claude/plans/permission-matrix.md',
+    dataModel: 'https://github.com/Aredex/briefline-crm/blob/main/.claude/plans/data-model.md',
+    testingStrategy: 'https://github.com/Aredex/briefline-crm/blob/main/.claude/plans/test-matrix.md',
+    accessibilityNotes: 'https://github.com/Aredex/briefline-crm/blob/main/.claude/plans/ux-wireframes-tokens.md',
   },
 };
 

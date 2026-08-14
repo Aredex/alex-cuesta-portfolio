@@ -37,25 +37,18 @@ npm run test:e2e    → 66/66
 
 ## Placeholders pendientes de valores reales
 
-Todos centralizados en `src/data/config.ts` salvo el dominio (en `astro.config.mjs`). Nada de esto bloquea el desarrollo ni los tests; sí bloquea la publicación:
+Todos centralizados en `src/data/config.ts`. Nada de esto bloquea el desarrollo ni los tests; sí bloquea la publicación:
 
-1. **Email real** (`mailto:`) — `config.contact.email`
-2. **LinkedIn** — `config.contact.linkedin`
-3. **GitHub** — `config.contact.github`
-4. **PDF del résumé** — `config.resume.pdfUrl`
-5. **Demo pública de Briefline** — `config.briefline.demoUrl`
-6. **Repositorio de Briefline** — `config.briefline.repoUrl`
-7. **Contrato OpenAPI 3.1** — `config.briefline.evidence.openApiContract`
-8. **Matriz de permisos** — `config.briefline.evidence.permissionMatrix`
-9. **Modelo de datos** — `config.briefline.evidence.dataModel`
-10. **Estrategia de testing** — `config.briefline.evidence.testingStrategy`
-11. **Notas de accesibilidad** — `config.briefline.evidence.accessibilityNotes`
-12. **Endpoint de Formspree** — variable de build `PUBLIC_FORMSPREE_ENDPOINT` (crear el formulario y configurar `https://formspree.io/f/{form_id}` en el hosting). Sin ella, el email directo sigue funcionando.
+1. **PDF del résumé** — `config.resume.pdfUrl`. El CTA "Descargar CV" queda oculto hasta que exista.
 
-Resuelto desde la primera versión de este documento:
+Resuelto:
 - ✅ **Foto real de About** — resultó ser la misma imagen que ya usaba el hero (`profile.png` era byte-idéntica a `portrait.png` del handoff). Se usa con un recorte distinto (5/4) para no verse como una copia exacta del hero.
 - ✅ **Dominio de producción** — confirmado como `alexcuesta.dev`, ya no es un placeholder inventado.
 - ✅ **SEO técnico y assets sociales** — canonical, Open Graph/Twitter, `og:image`, sitemap, robots y JSON-LD publicados en el build.
+- ✅ **Endpoint de Formspree** — `https://formspree.io/f/maewbjoq`, configurado como `PUBLIC_FORMSPREE_ENDPOINT` en `.env` local (no versionado; hay que replicarlo como variable de entorno en el hosting de producción antes de desplegar).
+- ✅ **Email / LinkedIn / GitHub** — `config.contact.*`.
+- ✅ **Demo y repositorio de Briefline** — `briefline.alexcuesta.dev/login` (con selección de cuenta demo) y `github.com/Aredex/briefline-crm`.
+- ✅ **Los 5 documentos de evidencia de Briefline** (contrato OpenAPI, matriz de permisos, modelo de datos, estrategia de testing, notas de accesibilidad) — enlazados directamente a los archivos reales y públicos del repo `briefline-crm` (`packages/api-contract/openapi.yaml` y `.claude/plans/*.md`), verificados con `curl` (200 en los 5).
 
 ## Si quieres retomar
 
