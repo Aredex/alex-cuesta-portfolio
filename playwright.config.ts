@@ -25,6 +25,10 @@ export default defineConfig({
     // exit. `serve` stays in the foreground, so it works with Playwright's
     // normal start/health-check/teardown lifecycle.
     command: 'npm run build && npx serve dist --listen 4331',
+    env: {
+      ...process.env,
+      PUBLIC_FORMSPREE_ENDPOINT: 'https://formspree.io/f/e2e-test',
+    },
     url: 'http://localhost:4331',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,

@@ -2,7 +2,9 @@ import { test, expect } from '@playwright/test';
 
 const PAGES = ['/', '/services', '/work/briefline'];
 const EXPECTED_CANONICALS = [
-  'https://alexcuesta.dev/',
+  // @astrojs/sitemap follows `trailingSlash: 'never'` and serializes the
+  // origin without a terminal slash. Browsers resolve both forms identically.
+  'https://alexcuesta.dev',
   'https://alexcuesta.dev/services',
   'https://alexcuesta.dev/work/briefline',
 ];

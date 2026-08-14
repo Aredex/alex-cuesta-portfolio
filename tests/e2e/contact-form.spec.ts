@@ -18,12 +18,7 @@ test.describe('Services contact form', () => {
   }) => {
     await page.goto('/services');
 
-    // config.servicesForm.formspreeEndpoint is still the TODO_* placeholder,
-    // which resolves to a same-origin path — real enough to exercise the
-    // fetch, but its response needs to be delayed here so the transient
-    // "sending" state is observable instead of racing a near-instant local
-    // 404.
-    await page.route('**/TODO_FORMSPREE_ENDPOINT', async (route) => {
+    await page.route('https://formspree.io/f/e2e-test', async (route) => {
       await new Promise((resolve) => setTimeout(resolve, 500));
       await route.fulfill({ status: 500, body: 'error' });
     });
@@ -48,8 +43,12 @@ test.describe('Services contact form', () => {
     await expect(submit).toHaveText('Enviar contexto del proyecto');
   });
 
-  test('reaches the error state against the real placeholder endpoint', async ({ page }) => {
+  test('reaches the error state when the form provider rejects the request', async ({ page }) => {
     await page.goto('/services');
+
+    await page.route('https://formspree.io/f/e2e-test', async (route) => {
+      await route.fulfill({ status: 500, body: 'error' });
+    });
 
     await page.locator('#contact-form input[name="name"]').fill('Jordan Rivera');
     await page.locator('#contact-form input[name="email"]').fill('jordan@example.com');
@@ -61,15 +60,27 @@ test.describe('Services contact form', () => {
     const submit = page.locator('#contact-form-submit');
     const status = page.locator('#contact-form-status');
 
-    // No interception here: config.servicesForm.formspreeEndpoint is still
-    // TODO_FORMSPREE_ENDPOINT, which the static server 404s on same-origin —
-    // this proves the error path works end-to-end before a real endpoint
-    // exists, without asserting on the (possibly too-fast-to-observe)
-    // intermediate "sending" state.
     await submit.click();
     await expect(status).toHaveAttribute('role', 'alert');
     await expect(status).toContainText('Algo ha fallado al enviarlo');
     await expect(submit).toBeEnabled();
+  });
+
+  test('shows success and clears the form when the provider accepts the request', async ({ page }) => {
+    await page.goto('/services');
+
+    await page.route('https://formspree.io/f/e2e-test', async (route) => {
+      await route.fulfill({ status: 200, contentType: 'application/json', body: '{}' });
+    });
+
+    await page.getByLabel('Nombre').fill('Jordan Rivera');
+    await page.getByLabel('Email de trabajo').fill('jordan@example.com');
+    await page.getByLabel('¿En qué estás trabajando?').fill('Una integración que necesita revisión.');
+    await page.getByLabel('¿Cómo sería un resultado útil?').fill('Una ruta de corrección verificable.');
+    await page.locator('#contact-form-submit').click();
+
+    await expect(page.locator('#contact-form-status')).toContainText('Gracias. Tengo tu contexto');
+    await expect(page.getByLabel('Nombre')).toHaveValue('');
   });
 
   test('labels are programmatically associated with their fields', async ({ page }) => {

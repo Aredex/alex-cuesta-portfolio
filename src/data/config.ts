@@ -51,8 +51,9 @@ export const briefline = {
 
 export const servicesForm = {
   /**
-   * TODO: replace with the real Formspree form endpoint
-   * (https://formspree.io/f/{form_id}), created for this site.
+   * Configure at build time with a real `https://formspree.io/f/{form_id}`
+   * value. An empty or invalid value renders a direct-email fallback instead
+   * of shipping a broken form.
    */
-  formspreeEndpoint: 'TODO_FORMSPREE_ENDPOINT',
+  formspreeEndpoint: import.meta.env.PUBLIC_FORMSPREE_ENDPOINT ?? '',
 };

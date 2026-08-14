@@ -27,12 +27,14 @@
  * order. This is Formspree's documented spam-reduction convention and needs
  * no CAPTCHA.
  *
- * `servicesForm.formspreeEndpoint` is still the `TODO_FORMSPREE_ENDPOINT`
- * placeholder (see src/data/config.ts) — the fetch below will fail until a
- * real endpoint is set. That is expected, not a bug: it is what proves the
- * `error` state actually works before the real endpoint exists.
+ * The parent renders this component only after validating a real Formspree
+ * endpoint. Until then, Services shows a direct-email fallback instead.
  */
-import { servicesForm } from '../data/config';
+export interface Props {
+  endpoint: string;
+}
+
+const { endpoint } = Astro.props;
 ---
 
 <form
@@ -196,7 +198,7 @@ import { servicesForm } from '../data/config';
   }
 </style>
 
-<script is:inline define:vars={{ endpoint: servicesForm.formspreeEndpoint }}>
+<script is:inline define:vars={{ endpoint }}>
   const form = document.getElementById('contact-form');
   const status = document.getElementById('contact-form-status');
   const submitButton = document.getElementById('contact-form-submit');

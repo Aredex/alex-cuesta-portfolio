@@ -3,7 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { servicesMeta } from '../data/site';
 import { engagements, processSteps } from '../data/services';
+import { contact, servicesForm } from '../data/config';
 import { buildCanonicalUrl } from '../lib/seo';
+import { resolveServicesContact } from '../lib/contact-config';
 
 /**
  * Hero and contact copy short enough, and used only on this page, that it
@@ -26,6 +28,7 @@ const contactCopy = {
 const revealDelays = [0, 80, 160, 240];
 
 const canonicalUrl = buildCanonicalUrl(Astro.site, Astro.url.pathname);
+const servicesContact = resolveServicesContact(servicesForm.formspreeEndpoint, contact.email);
 
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
@@ -137,7 +140,20 @@ const offerCatalogJsonLd = {
         <p class="contact__body">{contactCopy.body}</p>
         <p class="contact__notice">{contactCopy.notice}</p>
       </div>
-      <ContactForm />
+      {
+        servicesContact.formEnabled && servicesContact.endpoint ? (
+          <ContactForm endpoint={servicesContact.endpoint} />
+        ) : (
+          <div class="contact-fallback" data-reveal data-reveal-delay="100">
+            <p class="contact-fallback__label font-mono">CONTACTO DIRECTO</p>
+            <p class="contact-fallback__body">
+              El formulario estará disponible cuando termine la configuración del envío. Mientras tanto,
+              puedes contarme el contexto directamente por email.
+            </p>
+            <a class="contact-fallback__link" href={servicesContact.fallbackHref}>Escribirme por email</a>
+          </div>
+        )
+      }
     </div>
   </section>
 </BaseLayout>
@@ -368,5 +384,49 @@ const offerCatalogJsonLd = {
     padding-left: 16px;
     border-left: 2px solid var(--line);
     max-width: 46ch;
+  }
+
+  .contact-fallback {
+    display: grid;
+    gap: 20px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 40px;
+    background: var(--canvas);
+  }
+
+  .contact-fallback__label {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+
+  .contact-fallback__body {
+    margin: 0;
+    max-width: 44ch;
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .contact-fallback__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: start;
+    min-height: 48px;
+    padding: 0 24px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .contact-fallback__link:hover {
+    background: var(--accent-hover);
+    color: var(--accent-ink);
+    text-decoration: none;
   }
 </style>

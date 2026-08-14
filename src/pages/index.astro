@@ -91,8 +91,10 @@ const websiteJsonLd = {
   <section class="hero">
     <div class="container hero__inner">
       <div class="hero__text" data-reveal>
-        <h1 class="hero__name">Alex&nbsp;Cuesta</h1>
-        <p class="hero__role">{hero.role}</p>
+        <h1 class="hero__name">
+          Alex&nbsp;Cuesta
+          <span class="hero__role">{hero.role}</span>
+        </h1>
         <p class="hero__statement">{hero.statement}</p>
         <p class="hero__lead">{hero.lead}</p>
         <div class="hero__actions">
@@ -362,6 +364,7 @@ const websiteJsonLd = {
   }
 
   .hero__role {
+    display: block;
     font-size: clamp(19px, 1.7vw, 22px);
     line-height: 1.45;
     font-weight: 500;
