@@ -244,11 +244,10 @@ SERP.
    accesibilidad). Se pidieron explícitamente dos veces durante esta fase y no se recibieron;
    los botones y enlaces correspondientes permanecen ocultos (no publicados como placeholder)
    hasta que existan.
-3. **Endpoint real de Formspree** (`src/data/config.ts` → `servicesForm.formspreeEndpoint`):
-   sigue siendo `TODO_FORMSPREE_ENDPOINT`. Esto es una condición preexistente a esta fase de
-   trabajo (no se pidió resolverla) y significa que el formulario de contacto de Servicios no
-   puede enviar mensajes reales todavía — solo demuestra correctamente su estado de error, tal
-   y como documenta el propio componente (`src/components/ContactForm.astro`).
+3. **Endpoint real de Formspree**: debe configurarse en el hosting mediante
+   `PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/{form_id}`. El código valida el dominio y
+   HTTPS antes de publicar el formulario; si falta o es inválido, Servicios muestra el email
+   directo y no expone un formulario roto.
 4. **Decisión sobre la migración a inglés (`/en/`)**: documentada como fase futura en la
    sección 4, no implementada. Requiere que Alex confirme si sigue siendo prioritario captar
    empleo senior internacional en inglés, y con qué urgencia frente al objetivo local en
