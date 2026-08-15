@@ -1,6 +1,6 @@
 # Evidencia TDD — integración del laboratorio
 
-Fecha: 2026-08-15  
+Fecha: 2026-08-15
 Rama de trabajo: `agent/laboratorio-integration`
 
 ## Plan fuente
