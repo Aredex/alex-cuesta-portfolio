@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   computeDimensions,
   getCounterText,
@@ -6,6 +6,7 @@ import {
   getNextIndex,
   getSlideWidth,
   getSlidesPerView,
+  initCapabilitiesCarousel,
 } from '../../src/scripts/carousel';
 
 describe('getSlidesPerView', () => {
@@ -80,5 +81,95 @@ describe('getCounterText', () => {
 
   it('clamps "to" at the total slide count', () => {
     expect(getCounterText(3, 3, 4)).toBe('CAPACIDAD 4–4 DE 4');
+  });
+});
+
+describe('initCapabilitiesCarousel', () => {
+  it('keeps the native-scroll fallback when the required DOM contract is incomplete', () => {
+    const root = {
+      querySelector: () => null,
+    } as unknown as HTMLElement;
+
+    expect(() => initCapabilitiesCarousel(root)).not.toThrow();
+  });
+
+  it('lays out slides and responds to click, keyboard and resize events', () => {
+    type Handler = (event: { key?: string; preventDefault?: () => void }) => void;
+    const eventTarget = () => {
+      const listeners = new Map<string, Handler[]>();
+      return {
+        listeners,
+        addEventListener(type: string, handler: Handler) {
+          listeners.set(type, [...(listeners.get(type) ?? []), handler]);
+        },
+        dispatch(type: string, event: Parameters<Handler>[0] = {}) {
+          for (const handler of listeners.get(type) ?? []) handler(event);
+        },
+      };
+    };
+
+    const slides = Array.from({ length: 4 }, () => ({ style: { flex: '', maxWidth: '' } }));
+    const trackEvents = eventTarget();
+    const track = {
+      ...trackEvents,
+      style: { transform: '' },
+      querySelectorAll: () => slides,
+    };
+    const viewport = {
+      ...eventTarget(),
+      clientWidth: 1000,
+      classList: { add: vi.fn() },
+    };
+    const previous = eventTarget();
+    const next = eventTarget();
+    const counter = { textContent: '' };
+    const rootEvents = eventTarget();
+    const nodes = new Map<string, unknown>([
+      ['[data-capabilities-viewport]', viewport],
+      ['[data-capabilities-track]', track],
+      ['[data-capabilities-prev]', previous],
+      ['[data-capabilities-next]', next],
+      ['[data-capabilities-counter]', counter],
+    ]);
+    const root = {
+      ...rootEvents,
+      querySelector: (selector: string) => nodes.get(selector) ?? null,
+    } as unknown as HTMLElement;
+
+    const windowEvents = eventTarget();
+    vi.stubGlobal('window', {
+      ...windowEvents,
+      getComputedStyle: () => ({ columnGap: '32px' }),
+      clearTimeout: vi.fn(),
+      setTimeout: (callback: () => void) => {
+        callback();
+        return 1;
+      },
+    });
+
+    initCapabilitiesCarousel(root);
+
+    expect(viewport.classList.add).toHaveBeenCalledWith('is-active');
+    expect(counter.textContent).toBe('CAPACIDAD 1–2 DE 4');
+    expect(slides.every((slide) => slide.style.flex.startsWith('0 0 '))).toBe(true);
+
+    next.dispatch('click');
+    expect(counter.textContent).toBe('CAPACIDAD 2–3 DE 4');
+    expect(track.style.transform).toContain('translateX(-');
+
+    const preventDefault = vi.fn();
+    rootEvents.dispatch('keydown', { key: 'ArrowLeft', preventDefault });
+    expect(preventDefault).toHaveBeenCalledOnce();
+    expect(counter.textContent).toBe('CAPACIDAD 1–2 DE 4');
+
+    previous.dispatch('click');
+    expect(counter.textContent).toBe('CAPACIDAD 3–4 DE 4');
+
+    viewport.clientWidth = 600;
+    windowEvents.dispatch('resize');
+    expect(counter.textContent).toBe('CAPACIDAD 3–3 DE 4');
+    expect(slides[0].style.maxWidth).toBe('600px');
+
+    vi.unstubAllGlobals();
   });
 });

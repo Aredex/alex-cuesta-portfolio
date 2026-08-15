@@ -41,3 +41,9 @@
   --accent-ink: #101411;
   --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
 }
+
+@media (max-width: 720px) {
+  :root {
+    --header-scroll-offset: 132px;
+  }
+}

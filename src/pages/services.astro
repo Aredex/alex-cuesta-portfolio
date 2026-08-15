@@ -107,6 +107,11 @@ const offerCatalogJsonLd = {
                 <h3 class="mono-label">Fuera de alcance</h3>
                 <p class="engagement__out-of-scope">{engagement.outOfScope}</p>
               </div>
+              <div class="engagement__evidence" data-service-evidence>
+                <h3 class="mono-label">Evidencia ejecutable</h3>
+                <p class="engagement__evidence-list">{engagement.evidence.join(' · ')}</p>
+                <a href={engagement.evidenceHref}>Ver evidencia en el laboratorio</a>
+              </div>
             </div>
           </article>
         ))
@@ -294,6 +299,27 @@ const offerCatalogJsonLd = {
     color: var(--muted);
     margin: 0;
     max-width: 50ch;
+  }
+
+  .engagement__evidence {
+    padding-top: 4px;
+  }
+
+  .engagement__evidence-list {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  .engagement__evidence a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 15px;
+    font-weight: 600;
   }
 
   .process {

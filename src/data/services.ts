@@ -5,6 +5,8 @@ export interface Engagement {
   pricingNote: string;
   youReceive: string[];
   outOfScope: string;
+  evidence: readonly string[];
+  evidenceHref: string;
 }
 
 export const engagements: Engagement[] = [
@@ -21,6 +23,8 @@ export const engagements: Engagement[] = [
     ],
     outOfScope:
       'Refactors más allá de la ruta afectada, nuevas funcionalidades, y defectos que no puedan reproducirse en un entorno al que tenga acceso.',
+    evidence: ['incident-timeline-builder', 'audit-log-explorer'],
+    evidenceHref: '/laboratorio#internal-tools',
   },
   {
     index: '02 / INTEGRATE',
@@ -35,6 +39,8 @@ export const engagements: Engagement[] = [
     ],
     outOfScope:
       'Reescribir la integración, negociar con el proveedor externo, y cambios en sistemas fuera del límite revisado.',
+    evidence: ['api-contract-diff', 'rest-failure-matrix', 'webhook-reliability-playground'],
+    evidenceHref: '/laboratorio#product-api',
   },
   {
     index: '03 / OPERATE',
@@ -48,6 +54,8 @@ export const engagements: Engagement[] = [
       'Un runbook para detectar y repetir una ejecución fallida',
     ],
     outOfScope: 'La operación continua de los workflows, y construir nuevas automatizaciones más allá del conjunto auditado.',
+    evidence: ['queue-retry-simulator', 'idempotency-key-visualizer', 'slo-error-budget-calculator'],
+    evidenceHref: '/laboratorio#reliable-backend',
   },
   {
     index: '04 / BUILD',
@@ -62,6 +70,8 @@ export const engagements: Engagement[] = [
     ],
     outOfScope:
       'Diseño gráfico o de identidad de marca — trabajo con un diseño ya definido o con componentes funcionales sobrios, y mantenimiento indefinido fuera de lo pactado en cada fase.',
+    evidence: ['architecture-decision-explorer', 'event-schema-registry-mini', 'accessible-admin-table'],
+    evidenceHref: '/laboratorio#product-api',
   },
 ];
 

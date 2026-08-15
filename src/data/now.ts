@@ -6,6 +6,8 @@
 export const now = {
   updatedAt: '2026-08',
   label: 'AHORA · AGOSTO 2026',
-  title: 'En desarrollo: n8n Reliability Lab',
-  body: 'Un laboratorio público para validar reintentos, deduplicación y recuperación en workflows de automatización con estilo de producción. En desarrollo — lo enlazaré aquí en cuanto haya algo que puedas ejecutar.',
+  title: 'El laboratorio ya está abierto',
+  body: '29 sistemas pequeños y ejecutables para estudiar contratos, reintentos, herramientas internas e IA verificable. Cada uno publica demo, código y una limitación explícita.',
+  href: '/laboratorio',
+  linkLabel: 'Explorar los 29 proyectos',
 };

@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "@astrojs/check": "^0.9.10",
     "@playwright/test": "^1.62.1",
     "@types/node": "^26.2.0",
+    "@vitest/coverage-v8": "^4.1.10",
     "serve": "^14.2.6",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10"

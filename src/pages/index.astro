@@ -240,6 +240,7 @@ const websiteJsonLd = {
         <h2 id="now-heading" class="now__title">{now.title}</h2>
       </div>
       <p class="now__body">{now.body}</p>
+      <a class="now__link" href={now.href}>{now.linkLabel}</a>
     </div>
   </section>
 
@@ -754,6 +755,14 @@ const websiteJsonLd = {
 
   .now__meta {
     flex: 0 1 320px;
+  }
+
+  .now__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 15px;
+    font-weight: 600;
   }
 
   .now__label {

@@ -53,6 +53,7 @@ const { capabilities } = Astro.props;
               <h3 class="capabilities__title">{capability.title}</h3>
               <p class="capabilities__description">{capability.description}</p>
               <p class="capabilities__evidence font-mono">{capability.evidence}</p>
+              <a class="capabilities__lab-link" href={capability.labHref}>Ver proyectos relacionados</a>
             </li>
           ))
         }
@@ -183,5 +184,14 @@ const { capabilities } = Astro.props;
     line-height: 1.6;
     color: var(--muted);
     margin: 16px 0 0;
+  }
+
+  .capabilities__lab-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: 16px;
+    font-size: 15px;
+    font-weight: 600;
   }
 </style>

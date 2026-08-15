@@ -18,6 +18,12 @@ export const servicesMeta = {
     'Ayuda de ingeniería con alcance definido en Sevilla y alrededores: bugs en producción, integraciones API, automatización con n8n y desarrollo de aplicaciones a medida.',
 };
 
+export const laboratoryMeta = {
+  title: 'Laboratorio de software fiable | Alex Cuesta',
+  description:
+    '29 proyectos públicos y ejecutables sobre contratos API, recuperación backend, herramientas internas e IA verificable. Cada uno incluye demo, código y límites explícitos.',
+};
+
 export const briefLineCaseStudyMeta = {
   title: 'Caso de estudio Briefline | Alex Cuesta',
   description:

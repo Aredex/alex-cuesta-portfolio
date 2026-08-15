@@ -16,14 +16,14 @@ import ThemeToggle from './ThemeToggle.astro';
  * `#contact` section, so Contact and the CTA are always same-page anchors.
  */
 export interface Props {
-  activeNav?: 'experience' | 'work' | 'about' | 'services' | 'contact';
+  activeNav?: 'experience' | 'work' | 'laboratorio' | 'about' | 'services' | 'contact';
   showServicesNav?: boolean;
   isHome?: boolean;
 }
 
 const { activeNav, showServicesNav = false, isHome = false } = Astro.props;
 
-type NavKey = 'experience' | 'work' | 'about' | 'services' | 'contact';
+type NavKey = 'experience' | 'work' | 'laboratorio' | 'about' | 'services' | 'contact';
 type NavItem = { key: NavKey; label: string; href: string };
 
 const homeSectionHref = (anchor: string) => (isHome ? `#${anchor}` : `/#${anchor}`);
@@ -31,6 +31,7 @@ const homeSectionHref = (anchor: string) => (isHome ? `#${anchor}` : `/#${anchor
 const navItems: NavItem[] = [
   { key: 'experience', label: 'Experiencia', href: homeSectionHref('experience') },
   { key: 'work', label: 'Trabajo', href: homeSectionHref('work') },
+  { key: 'laboratorio', label: 'Laboratorio', href: '/laboratorio' },
   { key: 'about', label: 'Sobre mí', href: homeSectionHref('about') },
   ...(showServicesNav
     ? [{ key: 'services' as const, label: 'Servicios', href: '#services' }]
@@ -60,7 +61,10 @@ const navItems: NavItem[] = [
 
     <div class="site-header__actions">
       <ThemeToggle />
-      <a href="#contact" class="site-header__cta">Empezar una conversación</a>
+      <a href="#contact" class="site-header__cta" aria-label="Empezar una conversación">
+        <span class="site-header__cta-full">Empezar una conversación</span>
+        <span class="site-header__cta-short" aria-hidden="true">Hablar</span>
+      </a>
     </div>
   </div>
 </header>
@@ -154,5 +158,51 @@ const navItems: NavItem[] = [
 
   .site-header__cta:active {
     transform: translateY(1px);
+  }
+
+  .site-header__cta-short {
+    display: none;
+  }
+
+  @media (max-width: 720px) {
+    .site-header__inner {
+      row-gap: 4px;
+      column-gap: 16px;
+    }
+
+    .site-header__nav {
+      order: 3;
+      width: 100%;
+      flex-wrap: nowrap;
+      gap: 20px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .site-header__nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .site-header__link {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+
+    .site-header__actions {
+      margin-left: auto;
+      gap: 10px;
+    }
+
+    .site-header__cta {
+      padding-inline: 18px;
+    }
+
+    .site-header__cta-full {
+      display: none;
+    }
+
+    .site-header__cta-short {
+      display: inline;
+    }
   }
 </style>
