@@ -65,6 +65,12 @@ La implementación sigue [`docs/laboratorio-rollout.md`](../laboratorio-rollout.
 
 La cobertura instrumentada corresponde a los módulos TypeScript importados por Vitest. Los componentes Astro se validan mediante build, typecheck y recorridos E2E. No hay regresión visual pixel a pixel; la revisión visual fue manual y reproducible en dos viewports. La salud de URLs externas es una medición puntual y debe repetirse si cambia un dominio.
 
+## Evidencia de despliegue
+
+- Preview Cloudflare Pages: `d17361c0-1d1a-4875-bb33-7ea88ecc6bfc`; portada, laboratorio, servicios y sitemap verificados.
+- Producción Cloudflare Pages: `3b2f1349-0080-4b3f-b379-c31307fcb719`; `https://alexcuesta.dev/laboratorio/` respondió `200` y publicó 29 proyectos, 12 destacados y cuatro pilares sin errores de consola.
+- Rollback identificado: despliegue de producción anterior `90bee38a-15a0-4e22-b7c3-fb2fee98a8c8`.
+
 ## Evidencia de merge
 
 - RED: `8aad9ab` — `test: define laboratorio integration behavior`
