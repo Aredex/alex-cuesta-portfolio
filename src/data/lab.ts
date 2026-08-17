@@ -187,9 +187,7 @@ export const labProjects: readonly LabProject[] = [
     'reliable-backend',
     false,
     ['Cloudflare Workers', 'D1', 'Webhooks'],
-    'Opera a escala de demostración con payloads sintéticos; no es una pasarela de webhooks gestionada.',
-    'degraded',
-    'La demo está degradada: su flujo servidor falla desde producción por CORS.'
+    'Opera a escala de demostración con payloads sintéticos; no es una pasarela de webhooks gestionada.'
   ),
   project(
     'idempotency-key-visualizer',
