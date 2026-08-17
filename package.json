@@ -12,7 +12,8 @@
     "astro": "astro",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "smoke:production": "node scripts/smokePortfolioProduction.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
