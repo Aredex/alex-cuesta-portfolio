@@ -14,20 +14,33 @@ const { project, compact = false } = Astro.props;
   id={project.slug}
   data-lab-project
   data-flagship={project.flagship ? 'true' : 'false'}
+  data-status={project.status}
 >
   <div class="lab-card__topline">
     <p class="lab-card__slug font-mono">{project.slug}</p>
-    {project.flagship && <span class="lab-card__badge font-mono">DESTACADO</span>}
+    {project.status === 'degraded' ? (
+      <span class="lab-card__badge lab-card__badge--degraded font-mono" aria-label="Estado: degradado">
+        DEGRADADO
+      </span>
+    ) : (
+      project.flagship && <span class="lab-card__badge font-mono">DESTACADO</span>
+    )}
   </div>
   <h3 class="lab-card__title">{project.title}</h3>
   <p class="lab-card__problem">{project.problem}</p>
   <p class="lab-card__stack font-mono">{project.stack.join(' · ')}</p>
+  {project.statusNote && (
+    <div class="lab-card__limitation" data-lab-status>
+      <span class="font-mono">ESTADO</span>
+      <p>{project.statusNote}</p>
+    </div>
+  )}
   <div class="lab-card__limitation" data-lab-limitation>
     <span class="font-mono">LÍMITE</span>
     <p>{project.limitation}</p>
   </div>
   <div class="lab-card__actions">
-    <a href={project.demoUrl} target="_blank" rel="noreferrer">Abrir demo</a>
+    {project.status === 'active' && <a href={project.demoUrl} target="_blank" rel="noreferrer">Abrir demo</a>}
     <a href={project.repoUrl} target="_blank" rel="noreferrer">Ver código</a>
   </div>
 </article>
@@ -74,6 +87,11 @@ const { project, compact = false } = Astro.props;
     color: var(--accent);
     font-size: 9px;
     letter-spacing: 0.08em;
+  }
+
+  .lab-card__badge--degraded {
+    border-color: var(--line);
+    color: var(--muted);
   }
 
   .lab-card__title {

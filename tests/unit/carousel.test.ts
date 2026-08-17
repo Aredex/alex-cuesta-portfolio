@@ -120,8 +120,8 @@ describe('initCapabilitiesCarousel', () => {
       clientWidth: 1000,
       classList: { add: vi.fn() },
     };
-    const previous = eventTarget();
-    const next = eventTarget();
+    const previous = { ...eventTarget(), disabled: true };
+    const next = { ...eventTarget(), disabled: true };
     const counter = { textContent: '' };
     const rootEvents = eventTarget();
     const nodes = new Map<string, unknown>([
@@ -133,6 +133,7 @@ describe('initCapabilitiesCarousel', () => {
     ]);
     const root = {
       ...rootEvents,
+      dataset: {},
       querySelector: (selector: string) => nodes.get(selector) ?? null,
     } as unknown as HTMLElement;
 
@@ -149,6 +150,9 @@ describe('initCapabilitiesCarousel', () => {
 
     initCapabilitiesCarousel(root);
 
+    expect(root.dataset.carouselReady).toBe('true');
+    expect(previous.disabled).toBe(false);
+    expect(next.disabled).toBe(false);
     expect(viewport.classList.add).toHaveBeenCalledWith('is-active');
     expect(counter.textContent).toBe('CAPACIDAD 1–2 DE 4');
     expect(slides.every((slide) => slide.style.flex.startsWith('0 0 '))).toBe(true);

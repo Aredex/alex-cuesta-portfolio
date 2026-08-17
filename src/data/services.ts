@@ -39,7 +39,7 @@ export const engagements: Engagement[] = [
     ],
     outOfScope:
       'Reescribir la integración, negociar con el proveedor externo, y cambios en sistemas fuera del límite revisado.',
-    evidence: ['api-contract-diff', 'rest-failure-matrix', 'webhook-reliability-playground'],
+    evidence: ['api-contract-diff', 'rest-failure-matrix'],
     evidenceHref: '/laboratorio#product-api',
   },
   {

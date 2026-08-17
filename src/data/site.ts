@@ -1,3 +1,5 @@
+import { LAB_PROJECT_COUNT } from './lab';
+
 export const site = {
   name: 'Alex Cuesta',
   legalName: 'Pedro Alexander Cuesta Rivas',
@@ -21,7 +23,7 @@ export const servicesMeta = {
 export const laboratoryMeta = {
   title: 'Laboratorio de software fiable | Alex Cuesta',
   description:
-    '29 proyectos públicos y ejecutables sobre contratos API, recuperación backend, herramientas internas e IA verificable. Cada uno incluye demo, código y límites explícitos.',
+    `${LAB_PROJECT_COUNT} proyectos públicos y ejecutables sobre contratos API, recuperación backend, herramientas internas e IA verificable. Cada uno incluye demo, código y límites explícitos.`,
 };
 
 export const briefLineCaseStudyMeta = {

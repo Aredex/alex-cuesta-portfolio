@@ -13,10 +13,32 @@ async function getTranslateX(page: import('@playwright/test').Page) {
   });
 }
 
+async function waitForCarouselReady(page: import('@playwright/test').Page) {
+  await expect(page.locator('[data-capabilities-root]')).toHaveAttribute(
+    'data-carousel-ready',
+    'true'
+  );
+}
+
 test.describe('Capabilities carousel', () => {
+  test('initializes mobile controls before accepting navigation', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    await waitForCarouselReady(page);
+    await expect(page.locator(counter)).toHaveText('CAPACIDAD 1–1 DE 4');
+
+    const nextButton = page.locator(next);
+    await nextButton.evaluate((element) => element.scrollIntoView({ block: 'center' }));
+    await nextButton.click();
+    await expect(page.locator(counter)).toHaveText('CAPACIDAD 2–2 DE 4');
+    await expect.poll(() => getTranslateX(page)).toBeLessThan(0);
+  });
+
   test('shows 3 slides per view on desktop and pages forward', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
+    await waitForCarouselReady(page);
     await page.locator('[data-capabilities-viewport]').scrollIntoViewIfNeeded();
 
     await expect(page.locator(counter)).toHaveText('CAPACIDAD 1–3 DE 4');
@@ -25,13 +47,13 @@ test.describe('Capabilities carousel', () => {
 
     await page.locator(next).click();
     await expect(page.locator(counter)).toHaveText('CAPACIDAD 2–4 DE 4');
-    const afterNext = await getTranslateX(page);
-    expect(afterNext).toBeLessThan(0);
+    await expect.poll(() => getTranslateX(page)).toBeLessThan(0);
   });
 
   test('wraps circularly at both ends', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
+    await waitForCarouselReady(page);
     await page.locator('[data-capabilities-viewport]').scrollIntoViewIfNeeded();
 
     // maxIndex = 4 - 3 = 1 at this width. Prev from index 0 should wrap to 1.
@@ -46,6 +68,7 @@ test.describe('Capabilities carousel', () => {
   test('recalculates slides-per-view on resize (3 -> 2 -> 1)', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
+    await waitForCarouselReady(page);
     await page.locator('[data-capabilities-viewport]').scrollIntoViewIfNeeded();
     await expect(page.locator(counter)).toHaveText('CAPACIDAD 1–3 DE 4');
 
@@ -60,6 +83,7 @@ test.describe('Capabilities carousel', () => {
   test('arrow keys move the carousel while it has focus', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
+    await waitForCarouselReady(page);
     await page.locator(next).focus();
     await page.keyboard.press('ArrowRight');
     await expect(page.locator(counter)).toHaveText('CAPACIDAD 2–4 DE 4');

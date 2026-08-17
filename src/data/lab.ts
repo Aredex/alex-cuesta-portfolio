@@ -4,6 +4,41 @@ export type LabPillarId =
   | 'internal-tools'
   | 'ai-automation';
 
+export const LAB_PROJECT_SLUGS = [
+  'api-contract-diff',
+  'rest-failure-matrix',
+  'mcp-contract-linter',
+  'mcp-app-ui-kit',
+  'event-schema-registry-mini',
+  'feature-flag-rollout-lab',
+  'architecture-decision-explorer',
+  'webhook-reliability-playground',
+  'idempotency-key-visualizer',
+  'queue-retry-simulator',
+  'jwt-misconfiguration-lab',
+  'oauth-oidc-flow-explorer',
+  'rbac-policy-playground',
+  'api-security-header-auditor',
+  'offline-sync-conflict-lab',
+  'csv-import-reliability-lab',
+  'incident-timeline-builder',
+  'accessible-admin-table',
+  'audit-log-explorer',
+  'data-anonymizer',
+  'postgresql-index-coach',
+  'migration-risk-reviewer',
+  'slo-error-budget-calculator',
+  'cloud-cost-architecture-simulator',
+  'ai-function-calling-sandbox',
+  'prompt-regression-runner',
+  'support-triage-simulator',
+  'local-rag-evaluator',
+  'serverless-image-pipeline',
+] as const;
+
+export type LabProjectSlug = (typeof LAB_PROJECT_SLUGS)[number];
+export type LabProjectStatus = 'active' | 'degraded' | 'planned';
+
 export interface LabPillar {
   id: LabPillarId;
   index: string;
@@ -13,7 +48,7 @@ export interface LabPillar {
 }
 
 export interface LabProject {
-  slug: string;
+  slug: LabProjectSlug;
   title: string;
   problem: string;
   pillar: LabPillarId;
@@ -22,9 +57,9 @@ export interface LabProject {
   demoUrl: string;
   repoUrl: string;
   limitation: string;
+  status: LabProjectStatus;
+  statusNote?: string;
 }
-
-export const LAB_PROJECT_COUNT = 29;
 
 export const labPillars: readonly LabPillar[] = [
   {
@@ -58,13 +93,15 @@ export const labPillars: readonly LabPillar[] = [
 ] as const;
 
 const project = (
-  slug: string,
+  slug: LabProjectSlug,
   title: string,
   problem: string,
   pillar: LabPillarId,
   flagship: boolean,
   stack: readonly string[],
-  limitation: string
+  limitation: string,
+  status: LabProjectStatus = 'active',
+  statusNote?: string
 ): LabProject => ({
   slug,
   title,
@@ -75,6 +112,8 @@ const project = (
   demoUrl: `https://${slug}.alexcuesta.dev`,
   repoUrl: `https://github.com/Aredex/${slug}`,
   limitation,
+  status,
+  statusNote,
 });
 
 export const labProjects: readonly LabProject[] = [
@@ -146,9 +185,11 @@ export const labProjects: readonly LabProject[] = [
     'Webhook Reliability Playground',
     'Reproduce entregas duplicadas, fuera de orden y fallidas para practicar una recuperación segura.',
     'reliable-backend',
-    true,
+    false,
     ['Cloudflare Workers', 'D1', 'Webhooks'],
-    'Opera a escala de demostración con payloads sintéticos; no es una pasarela de webhooks gestionada.'
+    'Opera a escala de demostración con payloads sintéticos; no es una pasarela de webhooks gestionada.',
+    'degraded',
+    'La demo está degradada: su flujo servidor falla desde producción por CORS.'
   ),
   project(
     'idempotency-key-visualizer',
@@ -173,7 +214,7 @@ export const labProjects: readonly LabProject[] = [
     'JWT Misconfiguration Lab',
     'Expone claims, tiempos y errores comunes sin enviar el token fuera del navegador.',
     'reliable-backend',
-    false,
+    true,
     ['JWT', 'Security', 'Web Crypto'],
     'Es una herramienta educativa de inspección y no valida la confianza operativa de un emisor.'
   ),
@@ -341,21 +382,42 @@ export const labProjects: readonly LabProject[] = [
   ),
 ] as const;
 
+export const LAB_PROJECT_COUNT = labProjects.length;
+
 export function validateLabProjects(projects: readonly LabProject[]): string[] {
   const errors: string[] = [];
-  const seen = new Set<string>();
+  const seenSlugs = new Set<string>();
+  const seenDemoUrls = new Set<string>();
+  const seenRepoUrls = new Set<string>();
+  const validPillars = new Set<string>(labPillars.map((pillar) => pillar.id));
+  const validSlug = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
   for (const item of projects) {
-    if (seen.has(item.slug)) errors.push(`slug duplicado: ${item.slug}`);
-    seen.add(item.slug);
+    if (!validSlug.test(item.slug)) errors.push(`slug inválido: ${item.slug}`);
+    if (seenSlugs.has(item.slug)) errors.push(`slug duplicado: ${item.slug}`);
+    seenSlugs.add(item.slug);
+
+    if (!item.title.trim()) errors.push(`título vacío: ${item.slug}`);
+    if (!item.problem.trim()) errors.push(`problema vacío: ${item.slug}`);
+    if (!validPillars.has(item.pillar)) errors.push(`pilar inválido: ${item.slug}`);
+
+    if (item.stack.length === 0) {
+      errors.push(`stack vacío: ${item.slug}`);
+    } else if (item.stack.some((entry) => !entry.trim())) {
+      errors.push(`entrada de stack vacía: ${item.slug}`);
+    }
 
     if (item.demoUrl !== `https://${item.slug}.alexcuesta.dev`) {
       errors.push(`demo no canónica: ${item.slug}`);
     }
+    if (seenDemoUrls.has(item.demoUrl)) errors.push(`demo duplicada: ${item.demoUrl}`);
+    seenDemoUrls.add(item.demoUrl);
 
     if (item.repoUrl !== `https://github.com/Aredex/${item.slug}`) {
       errors.push(`repositorio no canónico: ${item.slug}`);
     }
+    if (seenRepoUrls.has(item.repoUrl)) errors.push(`repositorio duplicado: ${item.repoUrl}`);
+    seenRepoUrls.add(item.repoUrl);
 
     if (!item.limitation.trim()) errors.push(`limitación vacía: ${item.slug}`);
   }
@@ -364,12 +426,12 @@ export function validateLabProjects(projects: readonly LabProject[]): string[] {
 }
 
 const catalogErrors = validateLabProjects(labProjects);
-if (labProjects.length !== LAB_PROJECT_COUNT || catalogErrors.length > 0) {
+const catalogSlugs = new Set(labProjects.map((item) => item.slug));
+const missingSlugs = LAB_PROJECT_SLUGS.filter((slug) => !catalogSlugs.has(slug));
+if (missingSlugs.length > 0 || catalogErrors.length > 0) {
   throw new Error(
     `Catálogo del laboratorio inválido: ${[
-      labProjects.length !== LAB_PROJECT_COUNT
-        ? `se esperaban ${LAB_PROJECT_COUNT} proyectos y hay ${labProjects.length}`
-        : '',
+      missingSlugs.length > 0 ? `faltan proyectos: ${missingSlugs.join(', ')}` : '',
       ...catalogErrors,
     ]
       .filter(Boolean)

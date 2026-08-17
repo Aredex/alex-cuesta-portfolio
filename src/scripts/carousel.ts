@@ -93,10 +93,6 @@ export function initCapabilitiesCarousel(root: HTMLElement): void {
     return;
   }
 
-  // JS is running: switch from the native horizontal-scroll/scroll-snap
-  // fallback to transform-based paging.
-  viewport.classList.add('is-active');
-
   let index = 0;
   let dimensions: CarouselDimensions = { perView: slides.length, slideWidth: 0, maxIndex: 0 };
 
@@ -143,4 +139,11 @@ export function initCapabilitiesCarousel(root: HTMLElement): void {
   });
 
   layout();
+
+  // Switch from the native horizontal-scroll fallback only after layout and
+  // listeners are ready, then expose the same readiness boundary to tests.
+  viewport.classList.add('is-active');
+  prevButton.disabled = false;
+  nextButton.disabled = false;
+  root.dataset.carouselReady = 'true';
 }
