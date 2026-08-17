@@ -111,15 +111,15 @@ describe('laboratory catalog', () => {
     );
   });
 
-  it('marks the broken Webhook demo as degraded without promoting it', () => {
+  it('marks the recovered Webhook demo as active without re-promoting it', () => {
     const webhook = labProjects.find((project) => project.slug === 'webhook-reliability-playground');
     const promotedEvidence = engagements.flatMap((engagement) => engagement.evidence);
 
     expect(webhook).toMatchObject({
-      status: 'degraded',
+      status: 'active',
       flagship: false,
     });
-    expect(webhook?.statusNote).toContain('CORS');
+    expect(webhook?.statusNote).toBeUndefined();
     expect(promotedEvidence).not.toContain('webhook-reliability-playground');
 
     for (const pillar of labPillars) {

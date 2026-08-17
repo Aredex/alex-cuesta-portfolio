@@ -37,7 +37,7 @@ test.describe('Laboratorio público', () => {
     }
   });
 
-  test('presenta Webhook como degradado sin enlazar la demo rota', async ({ page }) => {
+  test('presenta Webhook activo y restaura su demo sin re-promocionarlo', async ({ page }) => {
     await page.goto('/laboratorio');
 
     const card = page.locator('#webhook-reliability-playground');
@@ -46,13 +46,18 @@ test.describe('Laboratorio público', () => {
       element.open = true;
     });
 
-    await expect(page.locator('.lab-metrics span', { hasText: 'código público' })).toHaveText(
-      'código público'
+    await expect(page.locator('.lab-metrics span', { hasText: 'demo y código públicos' })).toHaveText(
+      'demo y código públicos'
     );
-    await expect(card).toHaveAttribute('data-status', 'degraded');
-    await expect(card.getByText('DEGRADADO', { exact: true })).toBeVisible();
-    await expect(card.getByText(/su flujo servidor falla desde producción por CORS/)).toBeVisible();
-    await expect(card.getByRole('link', { name: 'Abrir demo' })).toHaveCount(0);
+    await expect(card).toHaveAttribute('data-status', 'active');
+    await expect(card).toHaveAttribute('data-flagship', 'false');
+    await expect(card.getByText('DEGRADADO', { exact: true })).toHaveCount(0);
+    await expect(card.locator('[data-lab-status]')).toHaveCount(0);
+    await expect(card.getByText(/CORS/)).toHaveCount(0);
+    await expect(card.getByRole('link', { name: 'Abrir demo' })).toHaveAttribute(
+      'href',
+      'https://webhook-reliability-playground.alexcuesta.dev'
+    );
     await expect(card.getByRole('link', { name: 'Ver código' })).toBeVisible();
   });
 
